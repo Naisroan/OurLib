@@ -1,0 +1,56 @@
+<?php 
+
+    # index.php
+
+    require_once("tests/auto.php");
+
+?>
+
+<!DOCTYPE html>
+<html lang="es-mx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bisonteca ©</title>
+    <?php require_once('templates/styles_site.php'); ?>
+</head>
+
+<body>
+
+    <?php
+    $cars = array(
+        new Automovil("BMW", "https://acroadtrip.blob.core.windows.net/catalogo-imagenes/m/RT_V_bf9ac7cfe74d4087b2e4678fe0b37a19.jpg"),
+        new Automovil("Toyota", "https://fotos.perfil.com/2019/12/08/suv-compacto-toyota-814680.jpg"),
+        new Automovil("Volvo", "https://assets.volvocars.com/mx/~/media/shared-assets/images/galleries/concept-cars/coupe/gallery-exterior/gallery_signature_face.jpg")
+    );
+    ?>
+
+    <div class="wrapper">
+        <?php
+
+        foreach ($cars as &$car) {
+
+        ?>
+
+            <div class="card" style="width: 18rem;">
+                <img src="<?php echo $car->UrlImagen ?>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title"><?php echo $car->Marca ?></h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+
+        <?php
+
+        }
+
+        ?>
+    </div>
+
+    <?php require_once('templates/scripts_site.php'); ?>
+</body>
+
+</html>
