@@ -150,6 +150,53 @@
                             <h3>
                                 $ 259.99 MXN
                             </h3>
+                            <small class="text-muted">
+                                PRECIO TOTAL
+                            </small>
+                        </div>
+                        <div class="col-12">
+                            <hr class="text-bisonteca">
+                        </div>
+                        <div class="col-12">
+                            <label for="" class="label-form">Número de tarjeta</label>
+                            <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" class="form-control">
+                        </div>
+                        <div class="col-12 col-lg-7">
+                            <label for="" class="label-form">Vencimiento</label>
+                            <div class="input-group mb-3">
+                                <select class="form-select" id="txtTarjVencimiento">
+                                    <option value=''>Mes</option>
+                                    <option value='01'>Enero</option>
+                                    <option value='02'>Febrero</option>
+                                    <option value='03'>Marzo</option>
+                                    <option value='04'>Abril</option>
+                                    <option value='05'>Mayo</option>
+                                    <option value='06'>Junio</option>
+                                    <option value='07'>Julio</option>
+                                    <option value='08'>Agosto</option>
+                                    <option value='09'>Septiembre</option>
+                                    <option value='10'>Octubre</option>
+                                    <option value='11'>Noviembre</option>
+                                    <option value='12'>Diciembre</option>
+                                </select> 
+                                <select name="expireYY" class="form-select" id="txtTarjAnio" aria-describedby="basic-addon1">
+                                    <option value=''>Año</option>
+                                    <option value='21'>2021</option>
+                                    <option value='22'>2022</option>
+                                    <option value='23'>2023</option>
+                                    <option value='24'>2024</option>
+                                    <option value='25'>2025</option>
+                                    <option value='26'>2026</option>
+                                    <option value='27'>2027</option>
+                                    <option value='28'>2028</option>
+                                    <option value='29'>2029</option>
+                                    <option value='30'>2030</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <label for="" class="label-form">CVV</label>
+                            <input type="text" class="form-control">
                         </div>
                         <div class="col-12">
                             <a href="#!" id="btnComprar" class="btn btn-primary btn-lg w-100">
