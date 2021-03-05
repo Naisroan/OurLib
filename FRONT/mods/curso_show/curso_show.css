@@ -1,0 +1,17 @@
+.descripcion-larga {
+    text-align: justify;
+}
+
+.precio {
+    padding: 2rem 2.5rem;
+}
+
+.precio.sticky {
+    position: sticky;
+    top: 10px;
+    z-index: 11;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 -2px 7px 0 rgb(22 22 22 / 1%), 0 2px 10px 0 rgb(80 80 80 / 10%);
+    transition-duration: 0.2s;
+}

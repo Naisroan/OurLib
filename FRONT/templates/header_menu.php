@@ -14,13 +14,13 @@
             </div>
             <div id="nav_items" class="d-flex flex-fill justify-content-between align-items-center">
                 <ul class="list-unstyled m-0">
-                    <li>
+                    <!-- <li>
                         <a href="/mods/search/search.php">
                             Mis Cursos
                         </a>
-                    </li>
+                    </li> -->
                     <li>
-                        <a href="/mods/search/search.php">
+                        <a href="/mods/curso_detail/curso_detail.php">
                             Crear curso
                         </a>
                     </li>

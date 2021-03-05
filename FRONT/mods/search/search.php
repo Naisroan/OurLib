@@ -73,7 +73,7 @@
                                         </small>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                         <i class="fas fa-info me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>
@@ -94,7 +94,7 @@
                                         </small>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                         <i class="fas fa-info me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>
@@ -115,7 +115,7 @@
                                         </small>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                         <i class="fas fa-info me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>
@@ -136,7 +136,7 @@
                                         </small>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                         <i class="fas fa-info me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>

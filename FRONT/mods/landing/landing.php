@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -65,7 +65,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -86,7 +86,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -107,7 +107,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -116,7 +116,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -128,7 +128,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -145,7 +145,7 @@
             <div class="row">
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -157,7 +157,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -166,7 +166,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -178,7 +178,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -199,7 +199,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
@@ -208,7 +208,7 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Card title
@@ -220,7 +220,7 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_detail/curso_detail.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
                                 <span class="fw-normal fs-5">Ver más</span>
                             </a>
