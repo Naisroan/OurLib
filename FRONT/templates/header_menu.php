@@ -48,6 +48,12 @@
                         <a href="/mods/login/login.php">Iniciar Sesión</a>
                     </li> -->
                     <li>
+                        <a href="/mods/account/account.php" class="link-cuenta">
+                            <img src="/res/examples/user.png" class="me-2" alt="">
+                            <strong>Usuario</strong>
+                        </a>
+                    </li>
+                    <li>
                         <a href="/mods/login/login.php" class="btn btn-bisonteca btn-sm">
                             Iniciar Sesión
                         </a>
