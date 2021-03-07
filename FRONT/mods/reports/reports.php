@@ -81,6 +81,9 @@
                         </table>
                     </div>
                 </div>
+                <div class="col-12">
+                    <img src="/res/examples/Certificado01_Ejemplo.jpg" alt="" class="w-100">
+                </div>
             </div>
         </div>
 
