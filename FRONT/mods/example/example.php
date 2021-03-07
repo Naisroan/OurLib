@@ -18,6 +18,7 @@
     <title>Bisonteca © - <?php echo TITLE ?></title>
     <?php require_once('templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
 </head>
 
 <body>

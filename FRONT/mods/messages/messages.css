@@ -1,0 +1,70 @@
+html,
+body,
+.wrapper {
+    height: 100%;
+}
+
+.container {
+    height: calc(100% - 52px);
+}
+
+.container > .row {
+    height: 100%;
+}
+
+.messages {
+    height: 100%;
+}
+
+img.usuario {
+    margin-right: 0.6rem;
+    width: 30px;
+}
+
+.messages .content {
+    flex: 1 0 0;
+    overflow-y: auto;
+    /* margin: 2rem 0; */
+}
+
+.message {
+    margin-bottom: 1rem;
+}
+
+.message.yo {
+    flex-direction: row-reverse;
+    text-align: right;
+    margin-left: auto;
+}
+
+.message .body {
+    display: flex;
+    flex-direction: row;
+}
+
+.message.yo .body {
+    flex-direction: row-reverse;
+    text-align: right;
+}
+
+.message img {
+    margin-right: 1rem;
+}
+
+.message.yo img {
+    margin-left: 1rem;
+}
+
+.message .body .contenido {
+    padding: 1rem 1rem;
+    background-color: var(--bg-message);
+}
+
+.lista-usuarios li {
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.lista-usuarios li:hover {
+    background-color: var(--bg-message);
+}

@@ -18,6 +18,7 @@
     <title>Bisonteca © - <?php echo TITLE ?></title>
     <?php require_once('templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
 </head>
 
 <body>
@@ -32,8 +33,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-lg-6">
-                        <h1 class="display-1 text-white">
-                            BISONTECA
+                        <h1 class="text-white w-100">
+                            <img src="/res/logos/bisonteca_blanco_trans.png" alt="" class="w-100" srcset="">
                         </h1>
                         <hr class="text-white">
                         <p class="lead text-white">
@@ -65,9 +66,9 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_learning/curso_learning.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
-                                <span class="fw-normal fs-5">Ver más</span>
+                                <span class="fw-normal fs-5">Aprender</span>
                             </a>
                         </div>
                     </div>
@@ -86,9 +87,9 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_learning/curso_learning.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
-                                <span class="fw-normal fs-5">Ver más</span>
+                                <span class="fw-normal fs-5">Aprender</span>
                             </a>
                         </div>
                     </div>
@@ -107,9 +108,9 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_learning/curso_learning.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
-                                <span class="fw-normal fs-5">Ver más</span>
+                                <span class="fw-normal fs-5">Aprender</span>
                             </a>
                         </div>
                     </div>
@@ -128,9 +129,9 @@
                                 </small>
                             </h5>
                             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                            <a href="/mods/curso_learning/curso_learning.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
                                 <i class="fas fa-info me-2"></i>
-                                <span class="fw-normal fs-5">Ver más</span>
+                                <span class="fw-normal fs-5">Aprender</span>
                             </a>
                         </div>
                     </div>
@@ -237,7 +238,7 @@
         <section class="container my-5">
 
         </section>
-        <footer class="mt-5 bg-bisonteca">
+        <footer class="mt-5 bg-dark">
             <div class="container py-5">
                 <div class="row">
                     <div class="col-12">

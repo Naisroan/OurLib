@@ -11,7 +11,13 @@ $(() => {
         }
     });
 
-    $("#btnComprar").on("click", () => {
-        toastr_success("Curso adquirido, ve a la sección de mis cursos para comenzar a aprender");
+    $("#btnPagar").on("click", () => {
+
+        if (confirm("¿Seguro que desea realizar el pago?")) {
+            toastr_success("Curso adquirido, ve a inicio para ver tus cursos para comenzar a aprender");
+        }
+
+        window.location = "/mods/curso_learning/curso_learning.php?id=0";
+
     });
 });

@@ -18,6 +18,7 @@
     <title>Bisonteca © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
+    <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
 </head>
 
 <body>
@@ -48,6 +49,9 @@
                                     </button>
                                     <button class="nav-link text-center text-lg-start" id="v-pills-image-tab" data-bs-toggle="pill" data-bs-target="#v-pills-image" type="button" role="tab" aria-controls="v-pills-image" aria-selected="false">
                                         Imagen
+                                    </buttona>
+                                    <button class="nav-link text-center text-lg-start" id="v-pills-cat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cat" type="button" role="tab" aria-controls="v-pills-cat" aria-selected="false">
+                                        Categorías
                                     </buttona>
                                     <button class="nav-link text-center text-lg-start" id="v-pills-levels-tab" data-bs-toggle="pill" data-bs-target="#v-pills-levels" type="button" role="tab" aria-controls="v-pills-levels" aria-selected="false">
                                         Niveles
@@ -80,18 +84,6 @@
                                             <span class="input-group-text" id="lblPrecio">$</span>
                                             <input id="txtPrecio" type="text" class="form-control" placeholder="Precio del curso" aria-label="Precio" aria-describedby="lblPrecio">
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-lg-12">
-                                        <label for="" class="label-form">Categoría</label>
-                                        <select name="slCategoria" id="slCategoria" class="form-select">
-                                            <option value="0">No esta en la lista</option>
-                                            <option value="1">Programación</option>
-                                            <option value="2">Arte</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 col-lg-12">
-                                        <label for="" class="label-form">Título de la categoría</label>
-                                        <input id="txtCategoria" name="txtCategoria" type="text" class="form-control" placeholder="Ingrese el nombre de la nueva categoría">
                                     </div>
                                     <div class="col-12 col-lg-12">
                                         <label for="" class="label-form">Descripción</label>
@@ -127,6 +119,53 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="tab-pane fade" id="v-pills-cat" role="tabpanel" aria-labelledby="v-pills-cat-tab">
+                            <form action="" method="post" class="w-100 mb-4">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <small class="text-bisonteca">Categorías del curso</small>
+                                        <hr class="my-0">
+                                    </div>
+                                    <div class="col-12 col-lg-12">
+                                        <label for="" class="label-form">Seleccione...</label>
+                                        <div class="input-group">
+                                            <input id="txtCategoria" name="txtCategoria" type="text" list="cats" class="form-control" placeholder="Nombre de la categoría">
+                                            <datalist id="cats">
+                                                <option value="Programación"></option>
+                                                <option value="Arte"></option>
+                                            </datalist>
+                                            <a href="#!" class="btn btn-bisonteca">
+                                                <i class="fas fa-plus me-2"></i>Agregar
+                                            </a>
+                                        </div>
+                                        <!--<div class="input-group mb-3">
+                                            <select name="slCategoria" id="slCategoria" class="form-select">
+                                                <option value="0">No esta en la lista</option>
+                                                <option value="1">Programación</option>
+                                                <option value="2">Arte</option>
+                                            </select>
+                                        </div>
+                                        <input id="txtCategoria" name="txtCategoria" type="text" class="form-control" placeholder="Nombre de la nueva categoría"> -->
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="w-100 mb-4">
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Programación
+                                        <a href="#!" class="btn btn-secondary btn-action delete">
+                                            <i class="fas fa-trash fa-fw"></i>
+                                        </a>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Arte
+                                        <a href="#!" class="btn btn-secondary btn-action delete">
+                                            <i class="fas fa-trash fa-fw"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="tab-pane fade" id="v-pills-levels" role="tabpanel" aria-labelledby="v-pills-levels-tab">
                             <!-- Modal -->
                             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -149,11 +188,18 @@
                                                         <label for="" class="label-form">Título del Nivel</label>
                                                         <input id="txtTituloNivel" name="txtTitulo" type="text" class="form-control" placeholder="Ingrese el título del nivel">
                                                     </div>
-                                                    <div class="col-12 col-lg-12">
+                                                    <!-- <div class="col-12 col-lg-12">
                                                         <input class="form-check-input" type="checkbox" value="" id="chkNivelGratis">
                                                         <label class="form-check-label" for="chkNivelGratis">
                                                             Nivel gratuito
                                                         </label>
+                                                    </div> -->
+                                                    <div class="col-12 col-lg-12">
+                                                        <label for="" class="label-form">Precio</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="lblPrecioNivel">$</span>
+                                                            <input id="txtPrecioNivel" type="text" class="form-control" placeholder="Precio del nivel" aria-label="Precio" aria-describedby="lblPrecioNivel">
+                                                        </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <a href="#!" class="btn btn-bisonteca">
@@ -231,7 +277,9 @@
                                             <div class="card nivel w-100">
                                                 <div class="card-body">
                                                     <h5 class="card-title">TITULO_NIVEL</h5>
-                                                    <p class="card-text">Es gratuito</p>
+                                                    <p class="card-text">
+                                                        Costo <strong>$ 0.0 MXN</strong>
+                                                    </p>
                                                     <div class="text-end">
                                                         <a href="#" class="btn btn-secondary btn-action edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                                             <i class="fas fa-edit fa-fw"></i>
