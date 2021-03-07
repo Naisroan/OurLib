@@ -1,0 +1,62 @@
+Ian:
+
+0.- Estamos utilizando bootstrap v5! https://getbootstrap.com/docs/5.0/getting-started/introduction/
+
+1.- En el archivo /site.js se guardan muchas funciones utiles, como:
+
+        - constantes para toda la aplicacion
+
+        - configuraciones
+
+        - load global
+    
+        - funciones para mostrar mensajes bonitos (usando SweetAlert2 https://sweetalert2.github.io/):
+
+            message_info
+            message_error
+            message_success
+            message_warning
+            message_question
+
+        - funciones para mensajes bonitos pero de tipo toasts:
+
+            toastr_info
+            toastr_error
+            toastr_success
+            toastr_warning
+
+    si se requiere agregar alguna funcion de js, y se cree que se pueda utilizar para otras cosas, es
+    recomendable agregar la funcion en el archivo site.js
+
+2.- En la carpeta templates, se encuentran archivos de .php, para poder incluirlos en cualquier otro
+    archivo php (regularmente estos, se van a agregar a todo archivo .php de la aplicacion):
+
+        a) functions.php -> pensado para poner funciones globales
+        b) scripts_site.php -> aqui se colocan todos los scripts de js globales
+        c) styles_site.php -> aqui se colocan todos los estilos globales
+        d) en header_menu.php -> es el menu de toda la aplicacion
+
+3.- Al crear una pantalla nueva, hay que crear una carpeta nueva en la carpeta /mods, el nombre de dicha carpeta
+    sera igual al nombre de la pantalla, por ejemplo:
+
+        /mods/login
+
+    y en la carpeta creada, se colocaran los archivos necesarios:
+
+        /mods/login/login.php
+        /mods/login/login.css
+        /mods/login/login.js
+
+    esto para tener un poco mas de control en la estructura de los archivos.
+
+    Hay una plantilla base para realizar esto en: /mods/example
+
+------------------------------------------------------------------------------------------
+
+Edgar:
+
+------------------------------------------------------------------------------------------
+
+Karen:
+
+------------------------------------------------------------------------------------------

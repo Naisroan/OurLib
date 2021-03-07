@@ -1,0 +1,130 @@
+:root {
+    --bisonteca: #9863D5;
+    --bisonteca-hover: #5c318d;
+    --bg-menu: black;
+    --bg-button: #9863D5;
+    --bg-button-hover: #5e3e83;
+    --text-menu: white;
+    --text-menu-hover: #9863D5;
+    --text-button: white;
+    --text-button-hover: white;
+    --text-logo: white;
+    --text-logo-hover: #9863D5;
+    --text-valoration: #797979;
+    --text-valoration-hover: #9863D5;
+    --bg-message: #9863d514;
+}
+
+/*
+    REGLAS GENERALES
+*/
+
+html,
+body,
+input,
+select,
+button,
+textarea {
+    font-family: 'Titillium Web', sans-serif !important;
+}
+
+.bg-bisonteca {
+    background-color: var(--bisonteca) !important;
+}
+
+.text-bisonteca {
+    color: var(--bisonteca) !important;
+}
+
+/*
+    REGLAS DE MODIFICACIONES A BOOTSTRAP
+*/
+
+.btn {
+    border-radius: 3px !important;
+}
+
+/*
+    REGLAS DE ESTRUCTURA DEL MENU
+*/
+
+#header_menu {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.bg-menu {
+    background-color: var(--bg-menu);
+}
+
+.text-menu {
+    color: var(--text-menu);
+}
+
+.btn-bisonteca {
+    background-color: var(--bg-button);
+    color: var(--text-button);
+}
+
+.btn-bisonteca:hover {
+    background-color: var(--bg-button-hover);
+    color: var(--text-button-hover);
+}
+
+#nav_items ul {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+}
+
+#nav_logo .link-logo {
+    color: var(--text-logo);
+    text-decoration: none;
+    font-weight: bold;
+    transition-duration: 0.2s;
+}
+
+#nav_logo .link-logo:hover {
+    color: var(--text-logo-hover);
+}
+
+#nav_logo .link-logo img {
+    display: block;
+    width: 105px;
+    margin-bottom: 1px;
+}
+
+#nav_logo .link-logo img:hover {
+    -webkit-mask: linear-gradient(transparent, black);
+}
+
+#nav_items ul li {
+}
+
+#nav_items ul li a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition-duration: 0.1s;
+    padding: 0 1rem;
+}
+
+#nav_items ul li button {
+    margin: 0 1rem;
+}
+
+#nav_items ul:last-child li button:last-child {
+    margin-right: 0;
+}
+
+#nav_items ul li a:hover {
+    color: var(--text-menu-hover);
+}
+
+#nav_items ul li button {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+}

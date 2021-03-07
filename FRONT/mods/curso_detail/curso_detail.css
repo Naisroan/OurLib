@@ -1,0 +1,26 @@
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: var(--bisonteca) !important;
+}
+
+.btn-action {
+    border-radius: 50% !important;
+    height: 44px;
+    width: 44px;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    margin-left: auto;
+}
+
+.btn-action.edit:hover {
+    background-color: var(--bisonteca) !important;
+    border-color: var(--bisonteca) !important;
+}
+
+.btn-action.delete:hover {
+    background-color: var(--bs-red) !important;
+    border-color: var(--bs-red) !important;
+}

@@ -1,0 +1,52 @@
+.descripcion-larga {
+    text-align: justify;
+}
+
+.precio {
+    padding: 2rem 2.5rem;
+}
+
+.precio.sticky {
+    position: sticky;
+    top: 10px;
+    z-index: 11;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 -2px 7px 0 rgb(22 22 22 / 1%), 0 2px 10px 0 rgb(80 80 80 / 10%);
+    transition-duration: 0.2s;
+}
+
+.votacion .fa-thumbs-up,
+.votacion .fa-thumbs-down {
+    color: var(--text-valoration);
+    transition-duration: 0.3s;
+    cursor: pointer;
+}
+
+.votacion .fa-thumbs-up:hover,
+.votacion .fa-thumbs-down:hover {
+    color: var(--text-valoration-hover);
+}
+
+.votacion .fa-thumbs-up.active,
+.votacion .fa-thumbs-down.active{
+    color: var(--text-valoration-hover);
+}
+
+.fa-thumbs-up.active,
+.fa-thumbs-down.active{
+    color: var(--text-valoration-hover);
+}
+
+.comentario .votacion i.fas {
+    cursor: initial;
+}
+
+.comentario .votacion i.fas:hover {
+    color: var(--text-valoration);
+}
+
+.niveles li {
+    padding-left: 0;
+    padding-right: 0;
+}
