@@ -128,3 +128,7 @@ textarea {
     font-weight: 600;
     text-decoration: none;
 }
+
+.link-cuenta img {
+    width: 33px;
+}
