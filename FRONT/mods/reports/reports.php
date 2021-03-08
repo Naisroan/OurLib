@@ -42,7 +42,7 @@
                             <option value="0">Filtro...</option>
                         </select>
                         <input type="text" class="form-control" placeholder="Ingrese el filtro de búsqueda"> -->
-                        <button class="btn btn-bisonteca">
+                        <button class="btn btn-bisonteca"  onclick="validarFiltro();">
                             <i class="fas fa-search me-2"></i>
                             Filtrar
                         </button>

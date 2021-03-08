@@ -101,10 +101,10 @@
                             <hr>
                             <div class="row g-3">
                                 <div class="col-12 d-flex align-items-center">
-                                    <input class="form-control" placeholder="Ingresa tu mensaje">
+                                    <input class="form-control" id="txtmessage" placeholder="Ingresa tu mensaje">
                                 </div>
                                 <div class="col-12 text-end votacion">
-                                    <button class="btn btn-bisonteca">
+                                    <button class="btn btn-bisonteca"  onclick="validar_mensajes();">
                                         Enviar
                                     </button>
                                 </div>

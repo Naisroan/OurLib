@@ -39,10 +39,10 @@
                             </div>
                             <div class="col-12 col-lg-12">
                                 <label for="formFile" class="form-label">Seleccione la imagen</label>
-                                <input class="form-control" type="file" id="formFile">
+                                <input id="profile_image" class="form-control" type="file" id="formFile">
                             </div>
                             <div class="col-12">
-                                <a href="#!" class="btn btn-bisonteca">
+                                <a href="#!" class="btn btn-bisonteca" onclick="imagen_perfil();">
                                     <i class="fas fa-save me-2"></i>Guardar
                                 </a>
                             </div>
@@ -71,7 +71,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="col-12">
-                                    <a href="#!" class="btn btn-bisonteca">
+                                    <a href="#!" class="btn btn-bisonteca" onclick="guardar_cambios();">
                                         <i class="fas fa-save me-2"></i>Guardar
                                     </a>
                                 </div>

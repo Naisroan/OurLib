@@ -90,7 +90,7 @@
                                         <textarea name="txtDescripcion" id="txtDescripcion" cols="1" rows="5" class="form-control" placeholder="Ingrese la descripción del curso"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <a href="#!" class="btn btn-bisonteca">
+                                        <a href="#!" class="btn btn-bisonteca" onclick="registrar_curso();">
                                             <i class="fas fa-save me-2"></i>Guardar
                                         </a>
                                     </div>
@@ -112,7 +112,7 @@
                                         <input class="form-control" type="file" id="formFile">
                                     </div>
                                     <div class="col-12">
-                                        <a href="#!" class="btn btn-bisonteca">
+                                        <a href="#!" class="btn btn-bisonteca" onclick="cargar_imagen();">
                                             <i class="fas fa-save me-2"></i>Guardar
                                         </a>
                                     </div>
@@ -134,7 +134,7 @@
                                                 <option value="Programación"></option>
                                                 <option value="Arte"></option>
                                             </datalist>
-                                            <a href="#!" class="btn btn-bisonteca">
+                                            <a href="#!" class="btn btn-bisonteca" onclick="registrar_categoria();">
                                                 <i class="fas fa-plus me-2"></i>Agregar
                                             </a>
                                         </div>
@@ -202,7 +202,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <a href="#!" class="btn btn-bisonteca">
+                                                        <a href="#!" class="btn btn-bisonteca" onclick="registrar_nivel();">
                                                             <i class="fas fa-save fa-fw me-2"></i>Guardar
                                                         </a>
                                                     </div>
@@ -218,7 +218,7 @@
                                                         <label for="formFileLevel" class="form-label">Seleccione el archivo</label>
                                                         <div class="input-group">
                                                             <input class="form-control" type="file" id="formFileLevel">
-                                                            <a href="#!" class="btn btn-bisonteca">
+                                                            <a href="#!" class="btn btn-bisonteca"  onclick="registrar_archivo();">
                                                                 <i class="fas fa-upload fa-fw me-2"></i>Subir
                                                             </a>
                                                         </div>

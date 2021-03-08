@@ -67,3 +67,17 @@ const toastr_clear = toastr.clear();
 const isKk = (val) => val === null || val === undefined;
 
 const isEmptyOrNull = (val) => val === null || val === "";
+
+const isEmail = (val) => {
+    
+    let mailformat =/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/;
+    return val.match(mailformat);
+
+};
+
+const NumberOnly = (val) => {
+    
+    var pattern = /^\d+$/;
+     return pattern.test(val); 
+    
+};

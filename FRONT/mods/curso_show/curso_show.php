@@ -184,12 +184,12 @@
                             <div class="row g-3">
                                 <div class="col-12 d-flex align-items-center">
                                     <img src="http://picsum.photos/60/60/" height="60" width="60" class="rounded-circle me-3" />
-                                    <textarea class="form-control" rows="2" cols="1" placeholder="Ingresa tu comentario"></textarea>
+                                    <textarea id="Commentary" name="Commentary" class="form-control" rows="2" cols="1" placeholder="Ingresa tu comentario"></textarea>
                                 </div>
                                 <div class="col-12 text-end votacion">
                                     <i class="fas fa-thumbs-up me-2"></i>
                                     <i class="fas fa-thumbs-down me-2"></i>
-                                    <button class="btn btn-bisonteca">
+                                    <button class="btn btn-bisonteca" onclick="validarComentario();">
                                         Comentar
                                     </button>
                                 </div>
@@ -284,10 +284,10 @@
                                 </div>
                                 <div class="col-12 col-lg-5">
                                     <label for="" class="label-form">CVV</label>
-                                    <input type="text" class="form-control">
+                                    <input id="txtCvv" type="text" class="form-control">
                                 </div>
                                 <div class="col-12">
-                                    <a id="btnPagar" href="#!" class="btn btn-bisonteca w-100">
+                                    <a id="btnPagar" href="#!" class="btn btn-bisonteca w-100" onclick="validarCompra();">
                                         <i class="fas fa-shopping-bag me-2"></i>
                                         Checkout!
                                     </a>
