@@ -42,11 +42,11 @@
                 <div class="row g-3">
                     <div class="col-12">
                         <label for="" class="label-form">Usuario</label>
-                        <input type="text" class="form-control form-control-lg">
+                        <input id="txtUsuario" name="txtUsuario"  type="text" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Tipo de usuario</label>
-                        <select name="" id="" class="form-select form-select-lg">
+                        <select name="txtTipo" id="txtTipo" class="form-select form-select-lg">
                             <option value="0">Seleccione...</option>
                             <option value="1">Creador</option>
                             <option value="2">Alumno</option>
@@ -54,23 +54,23 @@
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Correo electronico</label>
-                        <input type="text" class="form-control form-control-lg">
+                        <input name="txtCorreo" id="txtCorreo" type="text" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Confirmar correo</label>
-                        <input type="text" class="form-control form-control-lg">
+                        <input name="txtConfirmCorreo" id="txtConfirmCorreo" type="text" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Contraseña</label>
-                        <input type="password" class="form-control form-control-lg">
+                        <input name="txtPassword" id="txtPassword" type="password" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Confirmar contraseña</label>
-                        <input type="password" class="form-control form-control-lg">
+                        <input name="txtConfirmPassword" id="txtConfirmPassword" type="password" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
-                        <a href="/mods/login/login.php" class="btn btn-lg btn-bisonteca w-100 mt-4">
-                            <i class="fas fa-fw fa-sign-in-alt mr-3"></i>
+                        <a href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4" onclick="registrar();">
+                            <i class="fas fa-fw fa-sign-in-alt mr-3"></i> 
                             Registrarse
                         </a>
                     </div>

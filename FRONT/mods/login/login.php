@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Contraseña</label>
-                        <input type="password" class="form-control form-control-lg">
+                        <input  id="txtPassword" name="txtPassword"  type="password" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <div class="row g-3">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <a href="/index.php" class="btn btn-lg btn-bisonteca w-100 mt-4 submit">
+                        <a href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4 submit" onclick="validarCampos();">
                             <i class="fas fa-fw fa-sign-in-alt mr-3"></i>
                             Entrar
                         </a>

@@ -1,3 +1,23 @@
+const validarCampos = () => {
+
+
+    let usuario = $("input#txtUsuario").val();
+    let password = $("input#txtPassword").val();
+    
+
+    if (isEmptyOrNull(usuario)|| isEmptyOrNull(password)) {
+
+        message_warning("Necesita llenar todos los espacios");
+        return;
+    }
+
+
+    window.location = "/index.php";
+
+};
+
+
+
 const recuperarContrasena = () => {
 
     let usuario = $("input#txtUsuario").val();
