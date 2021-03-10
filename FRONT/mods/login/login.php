@@ -30,7 +30,10 @@
 
         <!-- content -->
         <h1 class="display-4 mt-4 text-center bisonteca">
-            <a href="/index.php">BISONTECA</a>
+            <!-- <a href="/index.php">BISONTECA</a> -->
+            <a href="/index.php">
+                <img src="/res/logos/bisonteca_blanco_trans.png" alt="" srcset="" width="320px" style="filter: invert(1);">
+            </a>
         </h1>
 
         <div class="box">

@@ -50,7 +50,7 @@
                     <li>
                         <a href="/mods/account/account.php" class="link-cuenta">
                             <img src="/res/examples/user.png" class="me-2" alt="">
-                            <strong>Usuario</strong>
+                            <strong>isolis</strong>
                         </a>
                     </li>
                     <li>

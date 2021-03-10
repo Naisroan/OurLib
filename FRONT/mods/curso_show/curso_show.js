@@ -1,3 +1,18 @@
+$(() => {
+
+    $(window).scroll(() => {
+
+        let wrapperPrecio = $(".precio");
+
+        if(window.scrollY > 0) {
+            wrapperPrecio.addClass("sticky");
+        } else {
+            wrapperPrecio.removeClass("sticky");
+        }
+    });
+    
+});
+
 // Validate empty inputs for commentary section
 
 const validarComentario = () => {

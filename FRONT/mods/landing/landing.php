@@ -136,10 +136,112 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 text-center mt-5">
+                    <a href="/mods/search/search.php" class="btn btn-secondary btn-lg">
+                        Ver mis cursos
+                    </a>
+                </div>
             </div>
         </section>
         <section class="container my-5">
             <h2>Cursos disponibles mas recientes</h2>
+            <p class="text-muted">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <div class="row">
+                <div class="card-wrapper col-6 col-lg-4 col-xl-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Card title
+                                <small>
+                                    <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
+                                </small>
+                                <small class="d-block text-muted">
+                                    Autor
+                                </small>
+                            </h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                <i class="fas fa-info me-2"></i>
+                                <span class="fw-normal fs-5">Ver más</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper col-6 col-lg-4 col-xl-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Card title
+                                <small>
+                                    <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
+                                </small>
+                                <small class="d-block text-muted">
+                                    Autor
+                                </small>
+                            </h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                <i class="fas fa-info me-2"></i>
+                                <span class="fw-normal fs-5">Ver más</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper col-6 col-lg-4 col-xl-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Card title
+                                <small>
+                                    <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
+                                </small>
+                                <small class="d-block text-muted">
+                                    Autor
+                                </small>
+                            </h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                <i class="fas fa-info me-2"></i>
+                                <span class="fw-normal fs-5">Ver más</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-wrapper col-6 col-lg-4 col-xl-3">
+                    <div class="card">
+                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Card title
+                                <small>
+                                    <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
+                                </small>
+                                <small class="d-block text-muted">
+                                    Autor
+                                </small>
+                            </h5>
+                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                <i class="fas fa-info me-2"></i>
+                                <span class="fw-normal fs-5">Ver más</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 text-center mt-5">
+                    <a href="/mods/search/search.php" class="btn btn-secondary btn-lg">
+                        Ver mas cursos
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="container my-5">
+            <h2>Cursos disponibles mas vistos</h2>
             <p class="text-muted">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>

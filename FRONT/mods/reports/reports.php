@@ -54,28 +54,29 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                    <th scope="col">Persona</th>
+                                    <th scope="col">Curso</th>
+                                    <th scope="col">Progreso</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                    <td>Ian Alexandro Solis Cardona</td>
+                                    <td>Programación Avanzada</td>
+                                    <td>30%</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                    <td>Karen Ailleen Alonso Mendoza</td>
+                                    <td>Master en AutoDesk Maya</td>
+                                    <td>45%</td>
                                 </tr>
                                 <tr>
                                     <th scope="row">3</th>
-                                    <td colspan="2">Larry the Bird</td>
-                                    <td>@twitter</td>
+                                    <td>Juan Perez de la Rosa Cruz</td>
+                                    <td>Alto Volumen de Administración de Datos</td>
+                                    <td>100%</td>
                                 </tr>
                             </tbody>
                         </table>

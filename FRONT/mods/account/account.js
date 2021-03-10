@@ -32,6 +32,43 @@ const guardar_cambios = () => {
         return;
     }
 
-    message_success("Se ha guardado los cambios!");
+    if (new_password != confirm_password) {
+        
+        message_warning("Las contraseñas no coinciden");
+        return;
+    }
+
+    toastr_success("Se ha guardado los cambios!");
+
+};
+
+const guardar_cambios_nombre = () => {
+
+
+    let nombre = $("input#txtNombre").val();
+    let appaterno = $("input#txtApPaterno").val();
+    let apmaterno = $("input#txtApMaterno").val();
+    
+    if (isEmptyOrNull(nombre)) {
+
+        message_warning("Necesita llenar todos los espacios");
+        return;
+    }
+    
+
+    if (isEmptyOrNull(appaterno)) {
+
+        message_warning("Necesita llenar todos los espacios");
+        return;
+    }
+    
+
+    if (isEmptyOrNull(apmaterno)) {
+
+        message_warning("Necesita llenar todos los espacios");
+        return;
+    }
+
+    toastr_success("Se ha guardado los cambios!");
 
 };

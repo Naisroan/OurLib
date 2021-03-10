@@ -89,7 +89,8 @@
                 </div>
                 <div class="col-12 col-lg-4 col-xl-3">
                     <div class="mb-3">
-                        <strong class="">Niveles del curso</strong>
+                        <span class="me-2">Niveles del curso</span>
+                        <span class="badge bg-primary">90% de progreso</span>
                     </div>
                     <div class="list-group list-group-flush" id="list-tab" role="tablist">
                         <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="1">

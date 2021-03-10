@@ -19,12 +19,31 @@ const registrar = () => {
 
         message_warning("Formato del correo no es válido");
         return;
-
     }
 
-    message_success("Te registraste!");
-    window.location = "/mods/login/login.php";
+    if (correo != confirm_correo) {
+        
+        message_warning("Los correos no coinciden");
+        return;
+    }
 
+    if (correo != confirm_correo) {
+        
+        message_warning("Los correos no coinciden");
+        return;
+    }
+
+    if (password != confirm_password) {
+        
+        message_warning("Las contraseñas no coinciden");
+        return;
+    }
+
+    toastr_success("Te registraste!");
+
+    setTimeout(() =>{
+        window.location = "/mods/login/login.php";
+    }, 2000);
 };
 
 

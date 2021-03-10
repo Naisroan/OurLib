@@ -80,6 +80,33 @@
                                 <hr>
                             </div>
                         </form>
+                        <form action="" class="row g-3 mb-3">
+                            <div class="col-12">
+                                <label for="" class="label-form">
+                                    Nombre(s)
+                                </label>
+                                <input id="txtNombre" type="text" class="form-control" placeholder="Nombre(s)">
+                            </div>
+                            <div class="col-12">
+                                <label for="" class="label-form">
+                                    Apellido Paterno
+                                </label>
+                                <input id="txtApPaterno" type="text" class="form-control" placeholder="Apellido Paterno">
+                            </div>
+                            <div class="col-12">
+                                <label for="" class="label-form">
+                                    Apellido Materno
+                                </label>
+                                <input id="txtApMaterno" type="text" class="form-control" placeholder="Apellido Materno">
+                            </div>
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <a href="#!" class="btn btn-bisonteca" onclick="guardar_cambios_nombre();">
+                                        <i class="fas fa-save me-2"></i>Guardar
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
