@@ -151,10 +151,10 @@
             <div class="row">
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <img src="https://kinsta.com/wp-content/uploads/2018/04/what-is-github-1-1.png" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Card title
+                                Curso de Introducción a GitHub
                                 <small>
                                     <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
                                 </small>
@@ -172,10 +172,10 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <img src="https://edteam-media.s3.amazonaws.com/courses/original/61e5a210-8dab-412e-a6dc-802c070cc18c.jpg" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Card title
+                                Aprende JavaScript
                                 <small>
                                     <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
                                 </small>
@@ -193,10 +193,10 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <img src="https://niixer.com/wp-content/uploads/2020/11/csharp.jpg" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Card title
+                                C# Avanzado
                                 <small>
                                     <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
                                 </small>
@@ -214,10 +214,10 @@
                 </div>
                 <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                     <div class="card">
-                        <img src="https://picsum.photos/280/150" class="card-img-top" alt="">
+                        <img src="https://miro.medium.com/max/1200/0*yluBx-0hOMU3djHf.png" class="card-img-top" alt="">
                         <div class="card-body">
                             <h5 class="card-title">
-                                Card title
+                                Big Data con Cassandra
                                 <small>
                                     <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
                                 </small>

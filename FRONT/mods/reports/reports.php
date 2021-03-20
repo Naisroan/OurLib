@@ -68,7 +68,7 @@
                                 </tr>
                                 <tr>
                                     <th scope="row">2</th>
-                                    <td>Karen Ailleen Alonso Mendoza</td>
+                                    <td>Edgar Eliud</td>
                                     <td>Master en AutoDesk Maya</td>
                                     <td>45%</td>
                                 </tr>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <img src="/res/examples/Certificado01_Ejemplo.jpg" alt="" class="w-100">
+                    <img src="/res/examples/Certificado02_Ejemplo.jpg" alt="" class="w-100">
                 </div>
             </div>
         </div>

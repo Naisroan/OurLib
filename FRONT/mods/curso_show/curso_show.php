@@ -38,11 +38,11 @@
                 <div class="col-12 col-lg-7 col-xl-8">
                     <div class="row g-3">
                         <div class="col-12 titulo">
-                            <h1 class="">Lorem ipsum</h1>
+                            <h1 class="">Curso de Introducción a GitHub</h1>
                             <h2 class="fs-4 text-bisonteca">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia, assumenda minima.</h2>
                         </div>
                         <div class="col-12">
-                            <img src="https://picsum.photos/800/300" class="w-100" alt="">
+                            <img src="https://kinsta.com/wp-content/uploads/2018/04/what-is-github-1-1.png" class="w-100" alt="">
                         </div>
                         <div class="col-12">
                             <span class="badge bg-secondary fw-normal">
