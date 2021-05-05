@@ -1,10 +1,11 @@
 .banner {
-    /* background-image: url(https://cdn.domestika.org/c_fill,dpr_auto,f_auto,h_624,q_auto,w_2000/v1611591695/home-hero-covers/es/000/000/070/70-original.png?1611591695); */
-    background-image: url(https://content.halocdn.com/media/Default/games/halo-3/Page/halo-3-hero-large-1920x675-904655b90ede4093925594e522de7a9f.jpg);
+    background-image: url(https://cdn.domestika.org/c_fill,dpr_auto,f_auto,h_624,q_auto,w_2000/v1611591695/home-hero-covers/es/000/000/070/70-original.png?1611591695);
+    /* background-image: url(https://content.halocdn.com/media/Default/games/halo-3/Page/halo-3-hero-large-1920x675-904655b90ede4093925594e522de7a9f.jpg); */
+    background-attachment: fixed;
 }
 
 .banner .container {
-    padding: 12rem 0;
+    padding: 9rem 0;
 }
 
 .card,
