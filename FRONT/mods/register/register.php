@@ -42,14 +42,14 @@
                     <h2 class="text-bisonteca">Registrarse</h2>
                     <p class="lead mb-0">¡Ingresa tus datos!</p>
                 </div>
-                <div class="row g-3">
+                <form class="row g-3">
                     <div class="col-12">
                         <label for="" class="label-form">Usuario</label>
                         <input id="txtUsuario" name="txtUsuario"  type="text" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Tipo de usuario</label>
-                        <select name="txtTipo" id="txtTipo" class="form-select form-select-lg">
+                        <select name="txtTipo" id="slTipo" class="form-select form-select-lg">
                             <option value="0">Seleccione...</option>
                             <option value="1">Creador</option>
                             <option value="2">Alumno</option>
@@ -65,16 +65,32 @@
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Contraseña</label>
-                        <input name="txtPassword" id="txtPassword" type="password" class="form-control form-control-lg">
+                        <input name="txtPassword" id="txtPassword" type="password" class="form-control form-control-lg"
+                            data-bs-container="body" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-trigger="hover focus"
+                            data-bs-html="true"
+                            title='
+                                <div class="text-start">
+                                    <strong>Debe tener al menos:</strong>
+                                    <ul class="m-0 ps-4 text-start">
+                                        <li>8 caracteres</li>
+                                        <li>Una mayúscula</li>
+                                        <li>Una minúscula</li>
+                                        <li>Un carácter especial</li>
+                                        <li>Un número</li>
+                                    </ul>
+                                </div>
+                            '
+                            data-bs-content="Debe tener mínimo 8 caracteres, una mayúscula, minúscula, y un carácter especial">
                     </div>
                     <div class="col-12">
                         <label for="" class="label-form">Confirmar contraseña</label>
                         <input name="txtConfirmPassword" id="txtConfirmPassword" type="password" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
-                        <a href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4" onclick="registrar();">
-                            <i class="fas fa-fw fa-sign-in-alt mr-3"></i> 
-                            Registrarse
+                        <a id="btnRegistrar" href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4" onclick="registrar();">
+                            <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
+                            <i class="fas fa-fw fa-sign-in-alt me-2"></i>
+                            <span class="text">Registrarse</span>
                         </a>
                     </div>
                     <div class="col-12">
@@ -86,7 +102,7 @@
                             <a href="/mods/login/login.php" class="text-bisonteca">Haz click aqui para iniciar sesión</a>
                         </strong>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

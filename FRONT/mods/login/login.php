@@ -6,6 +6,19 @@
     define('FOLDER_NAME', 'login');
     define('URL_CSS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".css");
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
+
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+
+    $usuarioLogeado = null;
+
+    if (isset($_SESSION["auth_user"])) {
+        
+        $usuarioLogeado = $_SESSION["auth_user"];
+        header("Location: /index.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -67,9 +80,10 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <a href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4 submit" onclick="validarCampos();">
+                        <a id="btnLogin" href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4 submit" onclick="login();">
+                            <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
                             <i class="fas fa-fw fa-sign-in-alt mr-3"></i>
-                            Entrar
+                            <span class="text">Entrar</span>
                         </a>
                     </div>
                     <div class="col-12">

@@ -1,3 +1,5 @@
+/*
+
 :root {
     --bisonteca: #9863D5;
     --bisonteca-hover: #5c318d;
@@ -6,6 +8,25 @@
     --bg-button-hover: #5e3e83;
     --text-menu: white;
     --text-menu-hover: #9863D5;
+    --text-button: white;
+    --text-button-hover: white;
+    --text-logo: white;
+    --text-logo-hover: #9863D5;
+    --text-valoration: #797979;
+    --text-valoration-hover: #9863D5;
+    --bg-message: #9863d514;
+}
+
+*/
+
+:root {
+    --bisonteca: #9863D5;
+    --bisonteca-hover: #5c318d;
+    --bg-menu: #9863D5;
+    --bg-button: #9863D5;
+    --bg-button-hover: #5e3e83;
+    --text-menu: rgb(221, 221, 221);
+    --text-menu-hover: white;
     --text-button: white;
     --text-button-hover: white;
     --text-logo: white;
@@ -92,19 +113,20 @@ textarea {
 
 #nav_logo .link-logo img {
     display: block;
+    /* filter: drop-shadow(2px 2px 2px black); */
     width: 105px;
     margin-bottom: 1px;
 }
 
 #nav_logo .link-logo img:hover {
-    -webkit-mask: linear-gradient(transparent, black);
+    /* -webkit-mask: linear-gradient(transparent, black); */
 }
 
 #nav_items ul li {
 }
 
 #nav_items ul li a {
-    color: white;
+    color: var(--text-menu);
     font-weight: 600;
     text-decoration: none;
     transition-duration: 0.1s;
@@ -129,6 +151,15 @@ textarea {
     text-decoration: none;
 }
 
-.link-cuenta img {
+.link-cuenta div.imagen-usuario {
+    background-position: center center;
+    background-size: cover;
+    height: 33px;
+    min-height: 33px;
+    min-width: 33px;
     width: 33px;
+}
+
+.link-cuenta strong {
+    line-height: 3;
 }

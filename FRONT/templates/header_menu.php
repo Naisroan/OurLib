@@ -2,6 +2,16 @@
 
     # header_menu.php
 
+    if(!isset($_SESSION)) {
+        session_start(); 
+    }
+
+    $usuarioLogeado = null;
+
+    if (isset($_SESSION["auth_user"])) {
+        
+        $usuarioLogeado = $_SESSION["auth_user"];
+    }
 ?>
 
 <header id="header_menu">
@@ -10,8 +20,8 @@
             <div id="nav_logo" class="me-4 py-3">
                 <span class="">
                     <a href="/index.php" class="link-logo">
-                        <img src="/res/logos/bisonteca_blanco_trans.png" alt="" class="">
-                        <!-- BISONTECA -->
+                        <!-- <img src="/res/logos/bisonteca_blanco_trans.png" alt="" class=""> -->
+                        BISONTECA
                     </a>
                 </span>
             </div>
@@ -22,12 +32,12 @@
                             Mis Cursos
                         </a>
                     </li> -->
-                    <li>
+                    <li class="<?php echo $usuarioLogeado != null && $usuarioLogeado->id_rol == 1 ? "" : "visually-hidden" ?>">
                         <a href="/mods/curso_detail/curso_detail.php">
                             Crear curso
                         </a>
                     </li>
-                    <li>
+                    <li class="<?php echo $usuarioLogeado != null ? "" : "visually-hidden" ?>">
                         <a href="/mods/reports/reports.php">
                             Reportes
                         </a>
@@ -47,15 +57,33 @@
                     <!-- <li>
                         <a href="/mods/login/login.php">Iniciar Sesión</a>
                     </li> -->
-                    <li>
-                        <a href="/mods/account/account.php" class="link-cuenta">
-                            <img src="/res/examples/user.png" class="me-2" alt="">
-                            <strong>isolis</strong>
+                    <li class="<?php echo $usuarioLogeado != null ? "" : "visually-hidden" ?>">
+                        <a href="/mods/account/account.php" class="link-cuenta d-flex align-items-center">
+                            <div
+                                class="imagen-usuario rounded-circle me-2"
+                                style='background-image: url(<?php
+                                        echo isset($usuarioLogeado) && $usuarioLogeado->imagen != null
+                                            ? "data:" . $usuarioLogeado->tipo_imagen . ";base64," . $usuarioLogeado->imagen
+                                            : "/res/examples/user.png"
+                                    ?>);'>
+                            </div>
+                            <strong>
+                                <?php
+                                    if ($usuarioLogeado != null) {
+                                        echo $usuarioLogeado->nick;
+                                    } else{
+                                        echo "";
+                                    }
+                                ?>
+                            </strong>
                         </a>
                     </li>
                     <li>
-                        <a href="/mods/login/login.php" class="btn btn-bisonteca btn-sm">
+                        <a href="/mods/login/login.php" class="nav-link <?php echo $usuarioLogeado == null ? "" : "visually-hidden" ?>">
                             Iniciar Sesión
+                        </a>
+                        <a href="#!" onclick="logout();" class="nav-link <?php echo $usuarioLogeado != null ? "" : "visually-hidden" ?>">
+                            Cerrar Sesión
                         </a>
                     </li>
                 </ul>
