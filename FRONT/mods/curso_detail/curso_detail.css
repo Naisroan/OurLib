@@ -24,3 +24,10 @@
     background-color: var(--bs-red) !important;
     border-color: var(--bs-red) !important;
 }
+
+div.image {
+    background-position: center center;
+    background-size: cover;
+    min-height: 360px;
+    width: 100%;
+}

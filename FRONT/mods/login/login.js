@@ -28,7 +28,7 @@ const login = () => {
 
             toastr_success("Sesión iniciada, cargando...");
     
-            switchButtonSpinner(btnLogin);
+            // switchButtonSpinner(btnLogin);
     
             setTimeout(() =>{
                 window.location = "/index.php";

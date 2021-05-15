@@ -1,113 +1,97 @@
 <?php
 
-    require_once ('../code/StoredProcedure.php');
-    require_once ('../model/Usuario.php');
+    // middleware
+    require_once ('../code/Middleware.php');
 
-    define("AUTH_NAME", "auth_user");
-
-    $action = null;
-    $data = null;
-
-    if (isset($_POST["action"])) {
-
-        $action = isset($_POST['action']) ? $_POST['action'] : null;
-        $data = isset($_POST['nodo']) ? $_POST['nodo'] : null;
-
-    } else if (isset($_FILES['action'])) {
-
-        $action = isset($_FILES['action']) ? $_FILES['action'] : null;
-        $data = isset($_FILES['nodo']) ? $_FILES['nodo'] : null;
-
-    } else {
-
-        header('HTTP/1.0 500 Internal Server Error');
-        die("Funcionalidad no controlada");
-        exit();
-    }
-
+    // verificacion de accion
     switch ($action) {
+
+        default: {
+            header('HTTP/1.0 500 Internal Server Error');
+            die("Funcionalidad no controlada");
+            exit();
+            break;
+        }
 
         case 'create': {
 
             echo create(json_decode($data));
-            exit();
+            break;
         }
 
         case 'getAll': {
 
             echo getAll();
-            exit();
+            break;
         }
 
         case 'getById': {
 
             echo getById($data);
-            exit();
+            break;
         }
 
         case 'getByNick': {
 
             echo getByNick($data);
-            exit();
+            break;
         }
 
         case 'getByEmail': {
 
             echo getByEmail($data);
-            exit();
+            break;
         }
 
         case 'validate': {
 
             echo validate(json_decode($data));
-            exit();
+            break;
         }
 
         case 'login': {
 
             login(json_decode($data));
-            exit();
+            break;
         }
 
         case 'logout': {
 
             logout();
-            exit();
+            break;
         }
 
         case 'getLoggedUser': {
             echo getLoggedUser();
-            exit();
+            break;
         };
 
         case 'updateImage': {
 
             echo updateImage();
-            exit();
+            break;
         }
 
         case 'refreshLoggedUser': {
 
             echo refreshLoggedUser();
-            exit();
+            break;
         };
 
         case 'updateNombre': {
 
             echo updateNombre(json_decode($data));
-            exit();
+            break;
         }
 
         case 'updatePassword': {
 
             echo updatePassword(json_decode($data));
-            exit();
+            break;
         }
-
-        header('HTTP/1.0 500 Internal Server Error');
-        die("Funcionalidad no controlada");
-        exit();
     }
+
+    exit();
 
     function getAll() {
 
@@ -261,15 +245,6 @@
         }
 
         return true;
-    }
-
-    function getLoggedUser() {
-
-        if (!isset($_SESSION)) {
-            session_start();
-        }
-
-        return json_encode(isset($_SESSION[AUTH_NAME]) ? $_SESSION[AUTH_NAME] : "");
     }
 
     function refreshLoggedUser() {

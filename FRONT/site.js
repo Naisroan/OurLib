@@ -25,6 +25,38 @@ const AJAX_URL_USER_CONTROLLER_REFRESH_LOGGED_USER = "refreshLoggedUser";
 const AJAX_URL_USER_CONTROLLER_UPDATE_NOMBRE = "updateNombre";
 const AJAX_URL_USER_CONTROLLER_UPDATE_PASSWORD = "updatePassword";
 
+// CursoController
+
+const AJAX_URL_CURSO_CONTROLLER = "/controllers/CursoController.php";
+const AJAX_URL_CURSO_CONTROLLER_CREATE = "create";
+const AJAX_URL_CURSO_CONTROLLER_UPDATE = "update";
+const AJAX_URL_CURSO_CONTROLLER_GET_BYID = "get";
+const AJAX_URL_CURSO_CONTROLLER_EXISTS = "exists";
+const AJAX_URL_CURSO_CONTROLLER_UPDATE_IMAGE = "updateImage";
+
+const AJAX_URL_NIVELCURSO_CONTROLLER_CREATE = "createNivelCurso";
+const AJAX_URL_NIVELCURSO_CONTROLLER_GET_BYID = "getNivelCurso";
+const AJAX_URL_NIVELCURSO_CONTROLLER_EXISTS = "existsNivelCurso";
+const AJAX_URL_NIVELCURSO_CONTROLLER_UPDATE = "updateNivelCurso";
+const AJAX_URL_NIVELCURSO_CONTROLLER_GETALL_BYCURSO = "getAllNivelByCurso";
+const AJAX_URL_NIVELCURSO_CONTROLLER_DELETE = "deleteNivelCurso";
+
+// CategoriaController
+
+const AJAX_URL_CATEG_CONTROLLER = "/controllers/CategoriaController.php";
+
+const AJAX_URL_CATEG_CONTROLLER_CREATE = "create";
+const AJAX_URL_CATEG_CONTROLLER_UPDATE = "update";
+const AJAX_URL_CATEG_CONTROLLER_GETALL = "getAll";
+const AJAX_URL_CATEG_CONTROLLER_GET_BYID = "get";
+const AJAX_URL_CATEG_CONTROLLER_GET_BYNOMBRE = "getByNombre";
+const AJAX_URL_CATEG_CONTROLLER_EXISTS = "exists";
+
+const AJAX_URL_CURSOCATEG_CONTROLLER_CREATE = "createCursoCategoria";
+const AJAX_URL_CURSOCATEG_CONTROLLER_EXISTS = "existsCursoCategoria";
+const AJAX_URL_CURSOCATEG_CONTROLLER_GETALL_BYCURSO = "getAllCursoCategoriaByCurso";
+const AJAX_URL_CURSOCATEG_CONTROLLER_DELETE = "deleteCursoCategoria";
+
 // constantes REGEX
 
 const REGEX_PASSWORD = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}])([A-Za-z\\d!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}]|[^ ]){8,50}$';
