@@ -4,8 +4,8 @@
 
     class MySQLConnection
     {
-        public const DB_HOST_NAME = "20.97.27.29";
-        public const DB_USER_NAME = "sa";
+        public const DB_HOST_NAME = "localhost"; // 20.97.27.29
+        public const DB_USER_NAME = "root"; // sa
         public const DB_PASSWORD = "a1234567890A";
         public const DB_NAME = "bisonteca";
         public const DB_PORT = 3306;

@@ -64,7 +64,7 @@
         
         ?>
 
-<section class="container my-5">
+        <section class="container my-5">
             <h2>Mis cursos subidos</h2>
             <p class="text-muted">
                 Visualiza y edita tus cursos
@@ -104,6 +104,12 @@
         }
 
         ?>
+
+        <?php
+
+        if (isset($usuarioLogeado)) {
+        
+        ?>
         
         <section class="container my-5">
             <h2>Cursos Adquiridos</h2>
@@ -139,6 +145,10 @@
                 </div> -->
             </div>
         </section>
+
+        <?php
+        }
+        ?>
         
         <section class="container my-5">
             <h2>Cursos mas recientes</h2>

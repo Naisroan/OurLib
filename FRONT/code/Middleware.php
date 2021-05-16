@@ -11,6 +11,7 @@
     require_once ('../model/NivelCurso.php');
     require_once ('../model/ArchivoNivel.php');
     require_once ('../model/Comentario.php');
+    require_once ('../model/Mensaje.php');
 
     // constantes
     define("AUTH_NAME", "auth_user");
@@ -44,7 +45,11 @@
             session_start();
         }
 
-        return json_encode(isset($_SESSION[AUTH_NAME]) ? $_SESSION[AUTH_NAME] : "");
+        if (isset($_SESSION[AUTH_NAME])) {
+            return json_encode($_SESSION[AUTH_NAME]);
+        } else {
+            return "";
+        }
     }
 
     function createDirectoryForFile($id_curso, $id_nivel_curso) {

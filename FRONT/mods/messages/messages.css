@@ -47,11 +47,13 @@ img.usuario {
     text-align: right;
 }
 
-.message img {
+.message img,
+.message .image-usuario {
     margin-right: 1rem;
 }
 
-.message.yo img {
+.message.yo img,
+.message .image-usuario {
     margin-left: 1rem;
 }
 
@@ -67,4 +69,11 @@ img.usuario {
 
 .lista-usuarios li:hover {
     background-color: var(--bg-message);
+}
+
+.messages .image-usuario {
+    background-position: center center;
+    background-size: cover;
+    width: 40px !important;
+    height: 40px !important;
 }

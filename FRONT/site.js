@@ -85,6 +85,12 @@ const AJAX_URL_COMENTARIO_CONTROLLER_CREATE = "create";
 const AJAX_URL_COMENTARIO_CONTROLLER_EXISTS = "exists";
 const AJAX_URL_COMENTARIO_CONTROLLER_GETALL_BYCURSO = "getAllByCurso";
 
+// MensajeController
+const AJAX_URL_MENSAJE_CONTROLLER = "/controllers/MensajeController.php";
+
+const AJAX_URL_MENSAJE_CONTROLLER_CREATE = "create";
+const AJAX_URL_MENSAJE_CONTROLLER_GETALL_BYDEST = "getAllByUsuarioDestinatario"; // obtiene los mensaje en base al usuario remitente (usuario logeado) y destinatario
+
 // constantes REGEX
 
 const REGEX_PASSWORD = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}])([A-Za-z\\d!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}]|[^ ]){8,50}$';
