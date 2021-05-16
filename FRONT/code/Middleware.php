@@ -9,9 +9,12 @@
     require_once ('../model/Categoria.php');
     require_once ('../model/CursoCategoria.php');
     require_once ('../model/NivelCurso.php');
+    require_once ('../model/ArchivoNivel.php');
+    require_once ('../model/Comentario.php');
 
     // constantes
     define("AUTH_NAME", "auth_user");
+    define("PATH_BLOBS", dirname(__FILE__, 2) . '\blobs');
 
     // variables globales
     $action = null;
@@ -42,5 +45,16 @@
         }
 
         return json_encode(isset($_SESSION[AUTH_NAME]) ? $_SESSION[AUTH_NAME] : "");
+    }
+
+    function createDirectoryForFile($id_curso, $id_nivel_curso) {
+
+        $path = PATH_BLOBS . '\\curso_' . $id_curso . '\\nivel_' . $id_nivel_curso;
+
+        if (!is_dir($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        return $path;
     }
 ?>

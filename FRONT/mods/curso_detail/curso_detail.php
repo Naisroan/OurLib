@@ -6,6 +6,20 @@
     define('FOLDER_NAME', 'curso_detail');
     define('URL_CSS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".css");
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
+
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
+
+    // si el usuario no esta logeado se redirecciona al login
+    if (!isset($_SESSION["auth_user"]))
+    {
+        header("Location: /mods/login/login.php");
+        exit();
+    }
+
+    $usuarioLogeado = $_SESSION["auth_user"];
 ?>
 
 <!DOCTYPE html>
@@ -223,7 +237,7 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <form id="frmGuadarArchivo" method="post" class="w-100 mb-4" enctype="multipart/form-data">
+                                            <form id="frmGuardarArchivo" method="post" class="w-100 mb-4" enctype="multipart/form-data">
                                                 <div class="row g-3">
                                                     <div class="col-12">
                                                         <label for="" class="label-form text-bisonteca">Contenido</label>
@@ -244,7 +258,7 @@
                                             </form>
                                             <div class="w-100 mb-4">
                                                 <ul id="ulNivelArchivos" class="list-group">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <a href="#!">
                                                             test_document.docx
                                                         </a>
@@ -267,7 +281,7 @@
                                                         <a href="#!" class="btn btn-secondary btn-action delete">
                                                             <i class="fas fa-trash fa-fw"></i>
                                                         </a>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>

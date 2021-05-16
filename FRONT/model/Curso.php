@@ -24,6 +24,14 @@
 
         public string $tipo_imagen;
 
+        public string $nick_usuario;
+
+        public string $votos_positivos;
+
+        public string $votos_negativos;
+
+        public string $cantidad_ventas;
+
         public static function parseArrayToList($array) {
 
             $list = array();
@@ -50,6 +58,10 @@
             $nodo->fecha_alta =!is_null($row[8]) ? (string)$row[8] : "";
             $nodo->fecha_mod = !is_null($row[9]) ? (string)$row[9] : "";
             $nodo->tipo_imagen = !is_null($row[10]) ? (string)$row[10] : "";
+            $nodo->nick_usuario = !is_null($row[11]) ? (string)$row[11] : "";
+            $nodo->votos_positivos = !is_null($row[12]) ? (int)$row[12] : 0;
+            $nodo->votos_negativos = !is_null($row[13]) ? (int)$row[13] : 0;
+            $nodo->cantidad_ventas = !is_null($row[14]) ? (int)$row[14] : 0;
 
             return $nodo;
         }

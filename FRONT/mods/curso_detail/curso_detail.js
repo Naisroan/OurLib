@@ -779,10 +779,10 @@ const onBtnDeleteNivelCursoClick = (id_nivel_curso) => {
 
 const onBtnEditNivelCursoClick = (id_nivel_curso) => {
 
-    editNivelCurso(id_nivel_curso);
+    editNivelCurso(id_nivel_curso, false);
 };
 
-const editNivelCurso = (id_nivel_curso) => {
+const editNivelCurso = (id_nivel_curso, fetchNiveles = true) => {
 
     // obtenemos el curso por su id
     getNivelCursoById(id_nivel_curso).done((result) => {
@@ -802,7 +802,13 @@ const editNivelCurso = (id_nivel_curso) => {
         $("input#txtIdNivelCurso").val(nodo.id_nivel_curso);
         $("input#txtTituloNivel").val(nodo.titulo);
         $("input#txtPrecioNivel").val(nodo.precio);
-        fillNivelCurso(nodo.id_curso);
+
+        // se obtienen archivos del nivel
+        fillArchivoNivel(id_nivel_curso);
+
+        if (fetchNiveles) {
+            fillNivelCurso(nodo.id_curso);
+        }
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);
@@ -962,26 +968,76 @@ const deleteNivelCurso = (id_nivel_curso) => {
     });
 };
 
+// --------------------------------------------------
+// NIVEL - ARCHIVO
+// --------------------------------------------------
+
 const onFrmGuardarArchivoSubmit = () => {
 
-    switchButtonSpinner(validaCamposArchivo);
+    switchButtonSpinner(btnGuardarArchivo);
 
-    let nodo = validaCamposNivel();
+    let nodo = validaCamposArchivo();
 
     if (nodo == null) {
-        switchButtonSpinner(validaCamposArchivo);
+        switchButtonSpinner(btnGuardarArchivo);
         return;
     }
+
+    crearArchivoNivel(nodo).done((result) => {
+
+        if (result === undefined || result === "" || !result) {
+            toastr_warning("Ha ocurrido algo mientras se subia el archivo");
+            switchButtonSpinner(btnGuardarArchivo);
+            return;
+        }
+
+        fuGuardarArchivo.val("");
+        fillArchivoNivel($("input#txtIdNivelCurso").val());
+        
+        toastr_success("Se ha agregado el recurso multimedia");
+        switchButtonSpinner(btnGuardarArchivo);
+    })
+    .fail((jqXHR) => {
+        toastr_error(jqXHR.responseText);
+        switchButtonSpinner(btnGuardarArchivo);
+        return;
+    });
+};
+
+const onBtnDeleteArchivoNivelClick = (id_multimedia_nivel) => {
+
+    deleteArchivoNivel(id_multimedia_nivel).done((result) => {
+
+        if (isEmptyOrNull(result)) {
+            return;
+        }
+
+        fillArchivoNivel($("input#txtIdNivelCurso").val());
+
+        toastr_success("Recurso retirado");
+    })
+    .fail((jqXHR) => {
+        toastr_error(jqXHR.responseText);
+        switchButtonSpinner(btnGuardarCategoria);
+        return;
+    });
 };
 
 const validaCamposArchivo = () => {
 
     let id_curso = $("input#txtId").val();
-    let archivo = $("input#fuGuardarArchivo").val();
+    let id_nivel_curso = $("input#txtIdNivelCurso").val();
+    let archivo = fuGuardarArchivo.val();
 
     if (isEmptyOrNull(id_curso) || parseInt(id_curso) <= 0) {
 
         message_warning("Seleccione o cree un curso para agregar un nivel");
+        return;
+    }
+
+    if (isEmptyOrNull(id_nivel_curso) || parseInt(id_nivel_curso) <= 0) {
+
+        message_warning("Seleccione o cree un nivel del curso para agregar un archivo");
         return;
     }
 
@@ -993,9 +1049,108 @@ const validaCamposArchivo = () => {
     
     let data = new FormData();
     
-    data.append('action', "");
+    data.append('action', AJAX_URL_ARCHIVONIVEL_CONTROLLER_CREATE);
     data.append('nodo', fuGuardarArchivo[0].files[0]);
-    data.append('id_curso', id_curso);
+    data.append('data', JSON.stringify({
+        id_curso: id_curso,
+        id_nivel_curso: id_nivel_curso
+    }));
 
     return data;
+};
+
+const fillArchivoNivel = (id_nivel_curso) => {
+
+    let container = $("#ulNivelArchivos");
+    container.html("");
+
+    // categorias por curso
+    getAllArchivoNivelByNivel(id_nivel_curso).done((result) => {
+
+        // console.log(result);
+        if (isEmptyOrNull(result)) {
+
+            container.html("");
+            return;
+        }
+
+        let rows = JSON.parse(result);
+    
+        rows.forEach((value, idx) => {
+        
+            let element = `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a href="/multimedia.php?id=${value.id_multimedia_nivel}" target="_blank">
+                        ${value.nombre}
+                    </a>
+                    <a href="#!" class="btn btn-secondary btn-action delete" onclick="onBtnDeleteArchivoNivelClick(${value.id_multimedia_nivel});">
+                        <i class="fas fa-trash fa-fw"></i>
+                    </a>
+                </li>
+            `;
+    
+            container.append(element);
+        });
+    })
+    .fail((jqXHR) => {
+        toastr_error(jqXHR.responseText);
+        return;
+    });
+};
+
+const crearArchivoNivel = (formData) => {
+
+    return $.ajax({
+        url: AJAX_URL_CURSO_CONTROLLER,
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: formData,
+        type: 'post'
+    });
+};
+
+const existsArchivoNivel = (nodo) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_CURSO_CONTROLLER,
+        data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_EXISTS, nodo: JSON.stringify(nodo) },
+        type: 'post'
+    });
+};
+
+const getArchivoNivelByNombre = (nombre) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_CURSO_CONTROLLER,
+        data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_GET_BYNOMBRE, nodo: nombre },
+        type: 'post'
+    });
+};
+
+const getArchivoNivelById = (id_multimedia_nivel) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_CURSO_CONTROLLER,
+        data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_GET_BYID, nodo: id_multimedia_nivel },
+        type: 'post'
+    });
+};
+
+const getAllArchivoNivelByNivel = (id_nivel_curso) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_CURSO_CONTROLLER,
+        data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_GETALL_BYNIVEL, nodo: id_nivel_curso },
+        type: 'post'
+    });
+};
+
+const deleteArchivoNivel = (id_multimedia_nivel) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_CURSO_CONTROLLER,
+        data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_DELETE, nodo: id_multimedia_nivel },
+        type: 'post'
+    });
 };

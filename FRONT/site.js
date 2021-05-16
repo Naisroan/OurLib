@@ -13,6 +13,7 @@ const AJAX_URL = "/code/AjaxRequests.php";
 // UsuarioController
 
 const AJAX_URL_USER_CONTROLLER = "/controllers/UsuarioController.php";
+
 const AJAX_URL_USER_CONTROLLER_CREATE = "create";
 const AJAX_URL_USER_CONTROLLER_GET_BYNICK = "getByNick";
 const AJAX_URL_USER_CONTROLLER_GET_BYEMAIL = "getByEmail";
@@ -33,6 +34,11 @@ const AJAX_URL_CURSO_CONTROLLER_UPDATE = "update";
 const AJAX_URL_CURSO_CONTROLLER_GET_BYID = "get";
 const AJAX_URL_CURSO_CONTROLLER_EXISTS = "exists";
 const AJAX_URL_CURSO_CONTROLLER_UPDATE_IMAGE = "updateImage";
+const AJAX_URL_CURSO_CONTROLLER_GETALL_BYUSUARIOLOGEADO = "getAllByUsuarioLogeado"; // obtiene los cursos que ha creado el usuario logeado
+const AJAX_URL_CURSO_CONTROLLER_GETALL_ADQUIRIDOBYUSUARIO = "getAllByAdquiridoByUsuario"; // obtiene los cursos adquiridos por el usuario logeado
+const AJAX_URL_CURSO_CONTROLLER_GETALL_MASVENDIDOS = "getAllMasVendidos";
+const AJAX_URL_CURSO_CONTROLLER_GETALL_POPULARES = "getAllPopulares";
+const AJAX_URL_CURSO_CONTROLLER_GETALL_RECIENTES = "getAllRecientes";
 
 const AJAX_URL_NIVELCURSO_CONTROLLER_CREATE = "createNivelCurso";
 const AJAX_URL_NIVELCURSO_CONTROLLER_GET_BYID = "getNivelCurso";
@@ -40,6 +46,13 @@ const AJAX_URL_NIVELCURSO_CONTROLLER_EXISTS = "existsNivelCurso";
 const AJAX_URL_NIVELCURSO_CONTROLLER_UPDATE = "updateNivelCurso";
 const AJAX_URL_NIVELCURSO_CONTROLLER_GETALL_BYCURSO = "getAllNivelByCurso";
 const AJAX_URL_NIVELCURSO_CONTROLLER_DELETE = "deleteNivelCurso";
+
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_CREATE = "createArchivoNivel";
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_GET_BYID = "getArchivoNivel";
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_GET_BYNOMBRE = "getArchivoNivelByNombre";
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_EXISTS = "existsArchivoNivel";
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_GETALL_BYNIVEL = "getAllArchivoNivelByNivel";
+const AJAX_URL_ARCHIVONIVEL_CONTROLLER_DELETE = "deleteArchivoNivel";
 
 // CategoriaController
 
@@ -56,6 +69,21 @@ const AJAX_URL_CURSOCATEG_CONTROLLER_CREATE = "createCursoCategoria";
 const AJAX_URL_CURSOCATEG_CONTROLLER_EXISTS = "existsCursoCategoria";
 const AJAX_URL_CURSOCATEG_CONTROLLER_GETALL_BYCURSO = "getAllCursoCategoriaByCurso";
 const AJAX_URL_CURSOCATEG_CONTROLLER_DELETE = "deleteCursoCategoria";
+
+// VentaController
+const AJAX_URL_VENTA_CONTROLLER = "/controllers/VentaController.php";
+
+const AJAX_URL_VENTA_CONTROLLER_CREATE = "create";
+const AJAX_URL_VENTA_CONTROLLER_UPDATE = "update";
+const AJAX_URL_VENTA_CONTROLLER_GET_BYID = "get";
+const AJAX_URL_VENTA_CONTROLLER_EXISTS = "exists";
+
+// ComentarioController
+const AJAX_URL_COMENTARIO_CONTROLLER = "/controllers/ComentarioController.php";
+
+const AJAX_URL_COMENTARIO_CONTROLLER_CREATE = "create";
+const AJAX_URL_COMENTARIO_CONTROLLER_EXISTS = "exists";
+const AJAX_URL_COMENTARIO_CONTROLLER_GETALL_BYCURSO = "getAllByCurso";
 
 // constantes REGEX
 

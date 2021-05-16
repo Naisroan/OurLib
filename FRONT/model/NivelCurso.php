@@ -23,7 +23,7 @@
             $list = array();
     
             foreach ($array as $row) {
-                array_push($list, Curso::parse($row));
+                array_push($list, NivelCurso::parse($row));
             }
 
             return $list;

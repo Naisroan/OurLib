@@ -8,8 +8,19 @@
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
 
     # code
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
 
-    $url
+    // si el usuario no esta logeado se redirecciona al login
+    if (!isset($_SESSION["auth_user"]))
+    {
+        header("Location: /mods/login/login.php");
+        exit();
+    }
+
+    $usuarioLogeado = $_SESSION["auth_user"];
 ?>
 
 <!DOCTYPE html>
@@ -32,36 +43,35 @@
         <!-- menu -->
         <?php require_once('../../templates/header_menu.php') ?>
 
+        <!-- id -->
+        <input id="txtId" type="text" value="0" class="d-none invisible">
+        <input id="txtIdNivelCurso" type="text" value="0" class="d-none invisible">
+
         <!-- content -->
         <div class="container my-5">
             <div class="row">
                 <div class="col-12 col-lg-7 col-xl-8">
                     <div class="row g-3">
                         <div class="col-12 titulo">
-                            <h1 class="">Curso de Introducción a GitHub</h1>
-                            <h2 class="fs-4 text-bisonteca">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia, assumenda minima.</h2>
+                            <h1 id="title" class=""></h1>
+                            <h2 id="subtitle" class="fs-4 text-bisonteca"></h2>
                         </div>
                         <div class="col-12">
-                            <img src="https://kinsta.com/wp-content/uploads/2018/04/what-is-github-1-1.png" class="w-100" alt="">
+                            <div id="image" class="curso-image">
+                            </div>
                         </div>
                         <div class="col-12">
                             <span class="badge bg-secondary fw-normal">
                                 <strong class="mr-2">Autor</strong>
-                                <span id="lblAutor">Lorem ipsum</span>
+                                <span id="lblAutor">
+                                </span>
                             </span>
                         </div>
                         <div class="col-12">
                             <hr>
                         </div>
                         <div class="col-12">
-                            <p class="descripcion-larga lead">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel harum quasi explicabo ad tempora sint omnis odit quidem, ea dicta et expedita quo rerum reprehenderit amet suscipit eaque est doloribus?
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse deleniti eaque repellat eum porro, laudantium adipisci iste at perferendis corrupti doloribus earum est possimus saepe minima. Omnis cum voluptatum libero.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit amet minima quia, repellat officia adipisci quas debitis ipsum, nulla delectus maiores, velit ex sint aliquam? Odit optio neque voluptatem molestiae.
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel architecto nam quaerat deserunt dolor praesentium accusantium quisquam quis temporibus sit necessitatibus non error, eveniet assumenda aliquam itaque dignissimos dolorum minima?
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis maiores impedit, sed veniam laboriosam beatae iusto architecto exercitationem, et ex voluptatum? Atque, cupiditate? Dolor provident, doloribus consequuntur perferendis deserunt sit.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae nihil velit nulla magnam quidem impedit facilis porro, esse doloribus temporibus nobis earum optio aspernatur possimus omnis maxime asperiores sapiente tenetur.
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ex quasi, fugiat sunt nobis sapiente aspernatur dolorem hic, nostrum deleniti veritatis. Impedit, ratione. Quis dignissimos ad aut obcaecati sapiente voluptas.
+                            <p id="description" class="descripcion-larga lead">
                             </p>
                         </div>
                         <div class="col-12">
@@ -71,8 +81,8 @@
                             </small>
                         </div>
                         <div class="col-12">
-                            <ul class="list-group list-group-flush niveles">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <ul id="niveles" class="list-group list-group-flush niveles">
+                                <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="input-group input-group-sm justify-content-end">
                                         <input type="text" class="form-control" readonly value="Titulo nivel #1">
                                         <span class="input-group-text">$</span>
@@ -81,27 +91,7 @@
                                             Compra individual
                                         </a>
                                     </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="input-group input-group-sm justify-content-end">
-                                        <input type="text" class="form-control" readonly value="Titulo nivel #2">
-                                        <span class="input-group-text">$</span>
-                                        <span class="input-group-text">0.00 MXN</span>
-                                        <a href="#!" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            Compra individual
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="input-group input-group-sm justify-content-end">
-                                        <input type="text" class="form-control" readonly value="Titulo nivel #3">
-                                        <span class="input-group-text">$</span>
-                                        <span class="input-group-text">15.00 MXN</span>
-                                        <a href="#!" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                            Compra individual
-                                        </a>
-                                    </div>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                         <div class="col-12">
@@ -110,15 +100,15 @@
                         <div class="col-12 valoracion text-center d-flex align-items-center justify-content-center flex-row w-100">
                             <div class="me-5 fs-1">
                                 <i class="fas fa-thumbs-up mr-2"></i>
-                                <span class="">323</span>
+                                <span id="votos_positivos" class="">0</span>
                             </div>
                             <div class="fs-1">
                                 <i class="fas fa-thumbs-down mr-2"></i>
-                                <span class="">15</span>
+                                <span id="votos_negativos" class="">0</span>
                             </div>
                         </div>
-                        <div class="col-12 comentarios">
-                            <div class="comentario mb-3 p-2">
+                        <div id="comentarios" class="col-12 comentarios">
+                            <!-- <div class="comentario mb-3 p-2">
                                 <div class="d-flex">
                                     <img src="http://picsum.photos/60/60/" height="40" width="40" class="rounded-circle me-3" />
                                     <div class="contenido w-100">
@@ -132,67 +122,31 @@
                                         <p class="mb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                                     </div>
                                 </div>
-                                <!-- <div class="footer ml-5 pl-2 mb-2">
-                                    <i class="fas fa-thumbs-up mr-3"></i>
-                                    <i class="fas fa-thumbs-down mr-3"></i>
-                                    <a href="#!">Responder a Michi49</a>
-                                </div> -->
-                            </div>
-                            <div class="comentario mb-3 p-2">
-                                <div class="d-flex">
-                                    <img src="http://picsum.photos/60/60/" height="40" width="40" class="rounded-circle me-3" />
-                                    <div class="contenido w-100">
-                                        <div class="usuario d-flex justify-content-start align-items-center">
-                                            <h6 class="mb-0 me-2">Michi49</h6>
-                                            <small class="votacion">
-                                                <i class="fas fa-thumbs-up me-2"></i>
-                                                <i class="fas fa-thumbs-down me-2"></i>
-                                            </small>
-                                        </div>
-                                        <p class="mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius adipisci incidunt perspiciatis soluta aperiam quia voluptates doloremque deleniti facere itaque distinctio pariatur saepe necessitatibus nam, eveniet veritatis provident nisi illum?</p>
-                                    </div>
-                                </div>
-                                <!-- <div class="footer ml-5 pl-2 mb-2">
-                                    <i class="fas fa-thumbs-up mr-3"></i>
-                                    <i class="fas fa-thumbs-down mr-3"></i>
-                                    <a href="#!">Responder a Michi49</a>
-                                </div> -->
-                            </div>
-                            <div class="comentario mb-3 p-2">
-                                <div class="d-flex">
-                                    <img src="http://picsum.photos/60/60/" height="40" width="40" class="rounded-circle me-3" />
-                                    <div class="contenido w-100">
-                                        <div class="usuario d-flex justify-content-start align-items-center">
-                                            <h6 class="mb-0 me-2">Michi49</h6>
-                                            <small class="votacion">
-                                                <i class="fas fa-thumbs-up me-2"></i>
-                                                <i class="fas fa-thumbs-down me-2"></i>
-                                            </small>
-                                            <!-- <i class="fas fa-trash"></i> -->
-                                        </div>
-                                        <p class="mb-2">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam laboriosam, expedita dolorum repellat nemo nostrum minima explicabo dolorem! Fugit asperiores quia in deleniti laborum labore nisi aperiam perspiciatis adipisci doloribus.</p>
-                                    </div>
-                                </div>
-                                <!-- <div class="footer ml-5 pl-2 mb-2">
-                                    <i class="fas fa-thumbs-up mr-3"></i>
-                                    <i class="fas fa-thumbs-down mr-3"></i>
-                                    <a href="#!">Responder a Michi49</a>
-                                </div> -->
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-12 nuevo-comentario">
                             <div class="row g-3">
                                 <div class="col-12 d-flex align-items-center">
-                                    <img src="http://picsum.photos/60/60/" height="60" width="60" class="rounded-circle me-3" />
+                                    <!-- <img src="http://picsum.photos/60/60/" height="60" width="60" class="rounded-circle me-3" /> -->
+                                    <div
+                                        class="imagen-usuario rounded-circle me-3"
+                                        style='background-image: url(<?php
+                                                echo isset($usuarioLogeado) && $usuarioLogeado->imagen != null
+                                                    ? "data:" . $usuarioLogeado->tipo_imagen . ";base64," . $usuarioLogeado->imagen
+                                                    : "/res/examples/user.png"
+                                            ?>);'>
+                                    </div>
                                     <textarea id="Commentary" name="Commentary" class="form-control" rows="2" cols="1" placeholder="Ingresa tu comentario"></textarea>
                                 </div>
-                                <div class="col-12 text-end votacion">
-                                    <i class="fas fa-thumbs-up me-2"></i>
-                                    <i class="fas fa-thumbs-down me-2"></i>
-                                    <button class="btn btn-bisonteca" onclick="validarComentario();">
-                                        Comentar
+                                <form id="frmComentar" method="post" class="col-12 text-end votacion">
+                                    <i id="thumbUp" class="fas fa-thumbs-up me-2" onclick="onThumbClickValoracion(this);"></i>
+                                    <i id="thumbDown" class="fas fa-thumbs-down me-2" onclick="onThumbClickValoracion(this);"></i>
+                                    <button id="btnComentar" class="btn btn-bisonteca" type="submit">
+                                        <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
+                                        <i class="fas fa-fw fa-paper-plane me-2"></i>
+                                        <span class="text">Comentar</span>
                                     </button>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -200,8 +154,8 @@
                 <div class="col-12 col-lg-5 col-xl-4">
                     <div class="row g-3 precio">
                         <div class="col-12">
-                            <h3>
-                                $ 259.99 MXN
+                            <h3 id="price">
+                                $ 0.0 MXN
                             </h3>
                             <small class="text-muted">
                                 PRECIO TOTAL
@@ -232,7 +186,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="" method="post" class="w-100 mb-4">
+                        <form id="frmPagar" method="post" class="w-100 mb-4">
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label for="" class="label-form text-bisonteca">Datos de pago</label>
@@ -287,9 +241,10 @@
                                     <input id="txtCvv" type="text" class="form-control">
                                 </div>
                                 <div class="col-12">
-                                    <a id="btnPagar" href="#!" class="btn btn-bisonteca w-100" onclick="validarCompra();">
-                                        <i class="fas fa-shopping-bag me-2"></i>
-                                        Checkout!
+                                    <a href="#!" id="btnPagar" class="btn btn-bisonteca w-100" onclick="onBtnPagarClick();">
+                                        <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
+                                        <i class="fas fa-fw fa-shopping-bag me-2"></i>
+                                        <span class="text">Checkout!</span>
                                     </a>
                                 </div>
                             </div>

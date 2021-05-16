@@ -19,7 +19,7 @@
             $list = array();
     
             foreach ($array as $row) {
-                array_push($list, Curso::parse($row));
+                array_push($list, CursoCategoria::parse($row));
             }
 
             return $list;
