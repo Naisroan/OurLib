@@ -66,7 +66,7 @@ CREATE TABLE curso
     titulo				VARCHAR(100) NOT NULL,
     subtitulo			VARCHAR(250) NOT NULL,
     descripcion			VARCHAR(1000) NULL,
-    precio				DECIMAL NOT NULL,
+    precio				DECIMAL(18, 2) NOT NULL,
     activo				BIT NOT NULL DEFAULT 1,
     imagen				MEDIUMBLOB NULL,
     fecha_alta			DATETIME NOT NULL DEFAULT NOW(),
@@ -122,7 +122,7 @@ CREATE TABLE nivel_curso
 	id_nivel_curso		INT AUTO_INCREMENT PRIMARY KEY,
     id_curso			INT NOT NULL,
     orden				INT NOT NULL,
-    precio				DECIMAL,
+    precio				DECIMAL(18,2),
     titulo				VARCHAR(100) NOT NULL,
     descripcion			VARCHAR(1000) NOT NULL,
     fecha_alta			DATETIME NOT NULL DEFAULT NOW(),
@@ -138,7 +138,7 @@ CREATE TABLE multimedia_nivel
     ruta				VARCHAR(500) NOT NULL,
     nombre				VARCHAR(100) NOT NULL,
     extension			VARCHAR(25) NOT NULL,
-    tipo				VARCHAR(50) NOT NULL,
+    tipo				VARCHAR(250) NOT NULL,
     fecha_alta			DATETIME NOT NULL DEFAULT NOW(),
     fecha_mod			DATETIME NOT NULL DEFAULT NOW(),
     
@@ -149,7 +149,9 @@ CREATE TABLE venta
 (
 	id_venta			INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario			INT NOT NULL,
-    id_curso			INT NOT NULL, -- se puede comprar un nivel
+    id_curso			INT NULL,
+    id_nivel_curso		INT NULL,
+    monto_pago			DECIMAL(18, 2),
     forma_pago			INT NOT NULL,
     fecha_finalizacion 	DATETIME NULL,
     fecha_alta			DATETIME NOT NULL DEFAULT NOW(),
@@ -170,6 +172,402 @@ CREATE TABLE historial_usuario
     CONSTRAINT 				FK_historial_usuario_nivel_curso FOREIGN KEY (id_nivel_curso) REFERENCES nivel_curso(id_nivel_curso),
     CONSTRAINT 				FK_historial_usuario_usuario	FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
+
+-- --------------------------------------------------
+-- FUNCIONES
+-- --------------------------------------------------
+
+DROP FUNCTION IF EXISTS fn_existe_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_existe_curso
+(
+	id_usuario 	INT,
+    titulo		VARCHAR(100)
+)
+RETURNS BOOL
+DETERMINISTIC
+BEGIN
+
+	DECLARE Existe BIT DEFAULT 0;
+    SET Existe = 	(SELECT EXISTS(
+						SELECT 	id_curso
+						FROM	curso c
+						WHERE	c.titulo = titulo
+                        AND		c.id_usuario = id_usuario
+					));
+    
+	RETURN (Existe);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_existe_nivel_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_existe_nivel_curso
+(
+	id_curso 	INT,
+    titulo		VARCHAR(100)
+)
+RETURNS BOOL
+DETERMINISTIC
+BEGIN
+
+	DECLARE Existe BIT DEFAULT 0;
+    SET Existe = 	(SELECT EXISTS(
+						SELECT 	id_nivel_curso
+						FROM	nivel_curso nc
+						WHERE	nc.titulo = titulo
+                        AND		nc.id_curso = id_curso
+					));
+    
+	RETURN (Existe);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_existe_archivo_nivel;
+
+DELIMITER //
+
+CREATE FUNCTION fn_existe_archivo_nivel
+(
+	id_nivel_curso 	INT,
+    nombre			VARCHAR(100)
+)
+RETURNS BOOL
+DETERMINISTIC
+BEGIN
+
+	DECLARE Existe BIT DEFAULT 0;
+    SET Existe = 	(SELECT EXISTS(
+						SELECT 	id_multimedia_nivel
+						FROM	multimedia_nivel mn
+						WHERE	mn.nombre = nombre
+                        AND		mn.id_nivel_curso = id_nivel_curso
+					));
+    
+	RETURN (Existe);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_precio_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_precio_curso -- SELECT fn_precio_curso(2, 1)
+(
+	tipo		INT,
+	id		 	INT
+)
+RETURNS DECIMAL(18, 2)
+DETERMINISTIC
+BEGIN
+
+	DECLARE Precio DECIMAL(18, 2) DEFAULT 0;
+    
+    -- si es 1 es el precio de un curso
+    IF tipo = 1 THEN
+		SET Precio = (IFNULL((SELECT c.precio FROM curso c WHERE c.id_curso = id), 0));
+    ELSE
+    -- si es cualquier otro es el precio de un nivel de curso
+		SET Precio = (IFNULL((SELECT nc.precio FROM nivel_curso nc WHERE nc.id_nivel_curso = id ), 0));
+    END IF;
+    
+    
+	RETURN (Precio);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_votos_positivos_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_votos_positivos_curso -- SELECT fn_votos_positivos_curso(1)
+(
+	id_curso 	INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+	DECLARE Cantidad INT DEFAULT 0;
+    SET Cantidad = 	(
+						SELECT IFNULL((
+							SELECT 	COUNT(c.id_comentario)
+							FROM	comentario c
+							WHERE	c.id_curso = id_curso
+                            AND		c.valoracion = 1
+						)
+						, 0)
+					);
+    
+	RETURN (Cantidad);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_votos_negativos_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_votos_negativos_curso -- SELECT fn_votos_negativos_curso(2)
+(
+	id_curso 	INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+	DECLARE Cantidad INT DEFAULT 0;
+    SET Cantidad = 	(
+						SELECT IFNULL((
+							SELECT 	COUNT(c.id_comentario)
+							FROM	comentario c
+							WHERE	c.id_curso = id_curso
+                            AND		c.valoracion = 0
+						)
+						, 0)
+					);
+    
+	RETURN (Cantidad);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_cantidad_ventas_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_cantidad_ventas_curso -- SELECT fn_cantidad_ventas_curso(1)
+(
+	id_curso 	INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+	DECLARE Cantidad INT DEFAULT 0;
+    SET Cantidad = 	(
+						SELECT IFNULL((
+							SELECT 	COUNT(v.id_venta)
+							FROM	venta v
+							WHERE	v.id_curso = id_curso
+                            AND		(v.id_nivel_curso IS NULL OR v.id_nivel_curso <= 0)
+						)
+						, 0)
+					);
+    
+	RETURN (Cantidad);
+
+END //
+
+DELIMITER ;
+
+-- --------------------------------------------------
+-- VISTAS
+-- --------------------------------------------------
+
+DROP VIEW IF EXISTS v_cursos;
+
+DELIMITER //
+
+CREATE VIEW v_cursos -- SELECT * FROM v_cursos
+AS
+
+	SELECT		c.id_curso,
+				c.id_usuario,
+				c.titulo,
+				c.subtitulo,
+				c.descripcion,
+				c.precio,
+				c.activo,
+				c.imagen,
+				c.fecha_alta,
+				c.fecha_mod,
+				c.tipo_imagen,
+                u.nick AS nick_usuario,
+                fn_votos_positivos_curso(c.id_curso) AS votos_positivos,
+                fn_votos_negativos_curso(c.id_curso) AS votos_negativos,
+                fn_cantidad_ventas_curso(c.id_curso) AS cantidad_ventas
+            
+    FROM		curso c
+                        
+	INNER JOIN	usuario u
+				ON c.id_usuario = u.id_usuario;
+
+//
+
+DELIMITER ;
+
+DROP VIEW IF EXISTS v_curso_categoria;
+
+DELIMITER //
+
+CREATE VIEW v_curso_categoria -- SELECT * FROM v_curso_categoria
+AS
+	SELECT		cc.id_curso_categoria,
+				cc.id_curso,
+				cc.id_categoria,
+				cc.fecha_alta,
+				cc.fecha_mod,
+				c.nombre AS categoria
+                
+	FROM		curso_categoria cc
+                        
+	INNER JOIN	categoria c
+				ON cc.id_categoria = c.id_categoria;
+
+//
+
+DELIMITER ;
+
+DROP VIEW IF EXISTS v_historial_usuario;
+
+DELIMITER //
+
+CREATE VIEW v_historial_usuario -- SELECT * FROM v_historial_usuario
+AS
+	SELECT		h.id_historial_usuario,
+				h.id_usuario,
+                c.id_curso,
+                h.id_nivel_curso,
+                u.nick AS nick_usuario,
+                RTRIM(CONCAT(u.nombre, ' ', u.ap_paterno, ' ', u.ap_materno)) AS nombre_usuario,
+                -- u.imagen AS imagen_usuario,
+                -- u.tipo_imagen AS tipo_imagen_usuario,
+                c.titulo AS curso,
+                nc.titulo AS nivel_curso,
+                -- c.imagen AS imagen_curso,
+                -- c.tipo_imagen AS tipo_imagen_curso,
+                h.fecha_alta,
+                h.fecha_mod
+                
+	FROM		historial_usuario h
+                        
+	INNER JOIN	usuario u
+				ON h.id_usuario = u.id_usuario
+                        
+	INNER JOIN	nivel_curso nc
+				ON h.id_nivel_curso = nc.id_nivel_curso
+                        
+	INNER JOIN	curso c
+				ON nc.id_curso = c.id_curso;
+
+//
+
+DELIMITER ;
+
+DROP VIEW IF EXISTS v_venta;
+
+DELIMITER //
+
+CREATE VIEW v_venta -- SELECT * FROM v_venta
+AS
+	SELECT		v.id_venta,
+				v.id_usuario,
+                v.id_curso,
+                v.id_nivel_curso,
+                v.forma_pago,
+                v.fecha_finalizacion,
+                u.nick AS nick_usuario,
+                RTRIM(CONCAT(u.nombre, ' ', u.ap_paterno, ' ', u.ap_materno)) AS nombre_usuario,
+                -- u.imagen AS imagen_usuario,
+                -- u.tipo_imagen AS tipo_imagen_usuario,
+                c.titulo AS curso,
+                nc.titulo AS nivel_curso,
+                -- c.imagen AS imagen_curso,
+                -- c.tipo_imagen AS tipo_imagen_curso,
+                v.fecha_alta,
+                v.fecha_mod
+                
+	FROM		venta v
+                        
+	INNER JOIN	usuario u
+				ON v.id_usuario = u.id_usuario
+                        
+	LEFT JOIN	nivel_curso nc
+				ON v.id_nivel_curso = nc.id_nivel_curso
+                        
+	LEFT JOIN	curso c
+				ON nc.id_curso = c.id_curso;
+
+//
+
+DELIMITER ;
+
+DROP VIEW IF EXISTS v_mensaje;
+
+DELIMITER //
+
+CREATE VIEW v_mensaje -- SELECT * FROM v_mensaje
+AS
+	SELECT		m.id_mensaje,
+    
+				m.id_usuario_rem,
+				m.id_usuario_dest,
+                
+                u_rem.nick AS nick_usuario_rem,
+                u_rem.imagen AS imagen_usuario_rem,
+                u_rem.tipo_imagen AS tipo_imagen_usuario_rem,
+                
+                u_dest.nick AS nick_usuario_dest,
+                u_dest.imagen AS imagen_usuario_dest,
+                u_dest.tipo_imagen AS tipo_imagen_usuario_dest,
+                
+				m.mensaje,
+				m.fecha_alta,
+				m.fecha_mod
+                
+	FROM		mensaje m
+                        
+	INNER JOIN	usuario u_rem
+				ON m.id_usuario_rem = u_rem.id_usuario
+                        
+	INNER JOIN	usuario u_dest
+				ON m.id_usuario_dest = u_dest.id_usuario;
+
+//
+
+DELIMITER ;
+
+DROP VIEW IF EXISTS v_comentario;
+
+DELIMITER //
+
+CREATE VIEW v_comentario -- SELECT * FROM v_comentario
+AS
+	SELECT		c.id_comentario,
+				c.id_usuario,
+                c.id_curso,
+                c.comentario,
+                c.valoracion,
+                u.nick AS nick_usuario,
+                RTRIM(CONCAT(u.nombre, ' ', u.ap_paterno, ' ', u.ap_materno)) AS nombre_usuario,
+                u.imagen AS imagen_usuario,
+                u.tipo_imagen AS tipo_imagen_usuario,
+                c.fecha_alta,
+                c.fecha_mod
+                
+	FROM		comentario c
+                        
+	INNER JOIN	usuario u
+				ON c.id_usuario = u.id_usuario;
+
+//
+
+DELIMITER ;
 
 -- --------------------------------------------------
 -- CREACION DE SPs
@@ -716,6 +1114,7 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_comentario_create;
 DROP PROCEDURE IF EXISTS sp_comentario_selectall;
+DROP PROCEDURE IF EXISTS sp_comentario_selectallByCurso;
 DROP PROCEDURE IF EXISTS sp_comentario_select;
 DROP PROCEDURE IF EXISTS sp_comentario_update;
 DROP PROCEDURE IF EXISTS sp_comentario_delete;
@@ -755,13 +1154,47 @@ BEGIN
 
 	SELECT		
 						id_comentario,
-						id_curso,
 						id_usuario,
+						id_curso,
+						comentario,
                         valoracion,
+                        nick_usuario,
+                        nombre_usuario,
+                        imagen_usuario,
+                        tipo_imagen_usuario,
 						fecha_alta,
 						fecha_mod
 	FROM		
-						comentario;
+						v_comentario;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_comentario_selectallByCurso -- CALL sp_comentario_selectallByCurso(2);
+(
+	IN p_id_curso INT
+)
+BEGIN
+
+	SELECT		
+						id_comentario,
+						id_usuario,
+						id_curso,
+						comentario,
+                        valoracion,
+                        nick_usuario,
+                        nombre_usuario,
+                        imagen_usuario,
+                        tipo_imagen_usuario,
+						fecha_alta,
+						fecha_mod
+	FROM		
+						v_comentario
+                        
+	WHERE				id_curso = p_id_curso;
 		
 END //
 
@@ -777,13 +1210,18 @@ BEGIN
 
 	SELECT		
 						id_comentario,
-						id_curso,
 						id_usuario,
+						id_curso,
+						comentario,
                         valoracion,
+                        nick_usuario,
+                        nombre_usuario,
+                        imagen_usuario,
+                        tipo_imagen_usuario,
 						fecha_alta,
 						fecha_mod
 	FROM		
-						comentario
+						v_comentario
 	WHERE
 						id_comentario = p_id_comentario;
 		
@@ -864,6 +1302,11 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_curso_create;
 DROP PROCEDURE IF EXISTS sp_curso_selectall;
+DROP PROCEDURE IF EXISTS sp_curso_selectallByIdUsuario;
+DROP PROCEDURE IF EXISTS sp_curso_selectallAdquiridoByUsuario;
+DROP PROCEDURE IF EXISTS sp_curso_selectallMasVendidos;
+DROP PROCEDURE IF EXISTS sp_curso_selectallPopulares;
+DROP PROCEDURE IF EXISTS sp_curso_selectallRecientes;
 DROP PROCEDURE IF EXISTS sp_curso_select;
 DROP PROCEDURE IF EXISTS sp_curso_selectByTitulo;
 DROP PROCEDURE IF EXISTS sp_curso_update;
@@ -879,7 +1322,7 @@ CREATE PROCEDURE sp_curso_create -- CALL sp_curso_create
 	IN p_titulo			VARCHAR(100),
 	IN p_subtitulo		VARCHAR(250),
 	IN p_descripcion 	VARCHAR(1000),
-	IN p_precio 		DECIMAL
+	IN p_precio 		DECIMAL(18, 2)
 )
 BEGIN
 		
@@ -893,6 +1336,43 @@ BEGIN
 						);
     
     SELECT IFNULL(MAX(id_curso), 0) AS id FROM curso;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallAdquiridoByUsuario -- CALL sp_curso_selectallAdquiridoByUsuario(2)
+(
+	IN p_id_usuario	INT
+)
+BEGIN
+
+	SELECT		
+						c.id_curso,
+						c.id_usuario,
+                        c.titulo,
+                        c.subtitulo,
+                        c.descripcion,
+                        c.precio,
+                        c.activo,
+                        c.imagen,
+						c.fecha_alta,
+						c.fecha_mod,
+                        c.tipo_imagen,
+                        c.nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
+	FROM		
+						v_cursos c
+                        
+	INNER JOIN			venta v
+						ON v.id_curso = c.id_curso
+                        
+	WHERE				v.id_usuario = p_id_usuario;
+                        
 		
 END //
 
@@ -916,9 +1396,145 @@ BEGIN
                         imagen,
 						fecha_alta,
 						fecha_mod,
-                        tipo_imagen
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
 	FROM		
-						curso;
+						v_cursos;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallRecientes -- CALL sp_curso_selectallRecientes
+(
+)
+BEGIN
+
+	SELECT		
+						id_curso,
+						id_usuario,
+                        titulo,
+                        subtitulo,
+                        descripcion,
+                        precio,
+                        activo,
+                        imagen,
+						fecha_alta,
+						fecha_mod,
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
+	FROM		
+						v_cursos
+                        
+	ORDER BY			fecha_alta DESC;
+		
+END //
+
+DELIMITER ;
+
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallByIdUsuario -- CALL sp_curso_selectallByIdUsuario(1)
+(
+	IN p_id_usuario		INT
+)
+BEGIN
+
+	SELECT		
+						id_curso,
+						id_usuario,
+                        titulo,
+                        subtitulo,
+                        descripcion,
+                        precio,
+                        activo,
+                        imagen,
+						fecha_alta,
+						fecha_mod,
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
+	FROM		
+						v_cursos
+					
+	WHERE
+						id_usuario = p_id_usuario;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallMasVendidos -- CALL sp_curso_selectallMasVendidos
+(
+)
+BEGIN
+
+	SELECT		
+						id_curso,
+						id_usuario,
+                        titulo,
+                        subtitulo,
+                        descripcion,
+                        precio,
+                        activo,
+                        imagen,
+						fecha_alta,
+						fecha_mod,
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
+	FROM		
+						v_cursos
+                        
+	ORDER BY
+						cantidad_ventas DESC;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallPopulares -- CALL sp_curso_selectallPopulares
+(
+)
+BEGIN
+
+	SELECT		
+						id_curso,
+						id_usuario,
+                        titulo,
+                        subtitulo,
+                        descripcion,
+                        precio,
+                        activo,
+                        imagen,
+						fecha_alta,
+						fecha_mod,
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
+	FROM		
+						v_cursos
+                        
+	ORDER BY			votos_positivos DESC;
 		
 END //
 
@@ -943,9 +1559,13 @@ BEGIN
                         imagen,
 						fecha_alta,
 						fecha_mod,
-                        tipo_imagen
+                        tipo_imagen,
+                        nick_usuario,
+                        votos_positivos,
+                        votos_negativos,
+                        cantidad_ventas
 	FROM		
-						curso
+						v_cursos
 	WHERE
 						id_curso = p_id_curso;
 		
@@ -955,27 +1575,14 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_curso_existe -- CALL sp_curso_existe (1, 'Introducción a C# 3')
+CREATE PROCEDURE sp_curso_existe -- CALL sp_curso_existe (1, 'Introducción a C# 32')
 (
 	IN p_id_usuario		INT,
 	IN p_titulo			VARCHAR(100)
 )
 BEGIN
-
-	DECLARE Existe BIT DEFAULT 0;
-    SET Existe = 	(
-						SELECT EXISTS
-                        (
-							SELECT
-									id_curso
-							FROM		
-									curso
-							WHERE
-									titulo = p_titulo
-                        )
-					);
     
-	SELECT Existe AS Resultado;
+	SELECT fn_existe_curso(p_id_usuario, p_titulo) AS Resultado;
 		
 END //
 
@@ -989,7 +1596,7 @@ CREATE PROCEDURE sp_curso_update -- CALL sp_curso_update
 	IN p_titulo			VARCHAR(100),
 	IN p_subtitulo		VARCHAR(250),
 	IN p_descripcion 	VARCHAR(1000),
-	IN p_precio 		DECIMAL
+	IN p_precio 		DECIMAL(18, 2)
 )
 BEGIN
 
@@ -1094,12 +1701,9 @@ BEGIN
                         cc.id_categoria,
 						cc.fecha_alta,
 						cc.fecha_mod,
-                        c.nombre AS categoria
+						cc.categoria
 	FROM		
-						curso_categoria cc
-                        
-	INNER JOIN			categoria c
-						ON cc.id_categoria = c.id_categoria;
+						v_curso_categoria cc;
 		
 END //
 
@@ -1119,15 +1723,12 @@ BEGIN
                         cc.id_categoria,
 						cc.fecha_alta,
 						cc.fecha_mod,
-                        c.nombre AS categoria
+                        cc.categoria
 	FROM		
-						curso_categoria cc
-                        
-	INNER JOIN			categoria c
-						ON cc.id_categoria = c.id_categoria
+						v_curso_categoria cc
                         
 	WHERE				
-						id_curso = p_id_curso;
+						cc.id_curso = p_id_curso;
 		
 END //
 
@@ -1527,7 +2128,7 @@ CREATE PROCEDURE sp_multimedia_nivel_create -- CALL sp_multimedia_nivel_create
     IN p_ruta				VARCHAR(500),
     IN p_nombre				VARCHAR(100),
     IN p_extension			VARCHAR(25),
-    IN p_tipo				VARCHAR(50)
+    IN p_tipo				VARCHAR(250)
 )
 BEGIN
 		
@@ -1548,8 +2149,9 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_multimedia_nivel_selectall -- CALL sp_multimedia_nivel_selectall
+CREATE PROCEDURE sp_multimedia_nivel_selectall -- CALL sp_multimedia_nivel_selectall (6)
 (
+	IN p_id_nivel_curso INT
 )
 BEGIN
 
@@ -1563,7 +2165,10 @@ BEGIN
 						fecha_alta,
 						fecha_mod
 	FROM		
-						multimedia_nivel;
+						multimedia_nivel
+                        
+	WHERE				
+						id_nivel_curso = p_id_nivel_curso;
 		
 END //
 
@@ -1571,9 +2176,9 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_multimedia_nivel_select -- CALL sp_multimedia_nivel_select
+CREATE PROCEDURE sp_multimedia_nivel_select -- CALL sp_multimedia_nivel_select (1);
 (
-	IN id_multimedia_nivel	INT
+	IN p_id_multimedia_nivel	INT
 )
 BEGIN
 
@@ -1597,34 +2202,14 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_multimedia_nivel_existe -- CALL sp_multimedia_nivel_existe
+CREATE PROCEDURE sp_multimedia_nivel_existe -- CALL sp_multimedia_nivel_existe(7, 'PlanXboxXSeries.xlsx')
 (
 	IN p_id_nivel_curso	INT,
-    IN p_ruta			VARCHAR(500),	
-    IN p_nombre			VARCHAR(100),
-    IN p_extension		VARCHAR(25),
-    IN p_tipo			VARCHAR(50)
+    IN p_nombre			VARCHAR(100)
 )
 BEGIN
 
-	DECLARE Existe BIT DEFAULT 0;
-    SET Existe = 	(
-						SELECT EXISTS
-                        (
-							SELECT
-									id_multimedia_nivel
-							FROM		
-									multimedia_nivel
-							WHERE
-									id_nivel_curso = p_id_nivel_curso
-                                    AND ruta = p_ruta 
-                                    AND nombre = p_nombre
-                                    AND extension = p_extension
-                                    AND tipo = p_tipo
-                        )
-					);
-    
-	SELECT Existe AS Resultado;
+	SELECT fn_existe_archivo_nivel(p_id_nivel_curso, p_nombre) AS Resultado;
 		
 END //
 
@@ -1669,6 +2254,8 @@ BEGIN
 						multimedia_nivel
 	WHERE
 						id_multimedia_nivel = p_id_multimedia_nivel;
+                        
+	SELECT 				p_id_multimedia_nivel;
 		
 END //
 
@@ -1689,7 +2276,7 @@ CREATE PROCEDURE sp_nivel_curso_create -- CALL sp_nivel_curso_create
 (
 	IN p_id_curso		INT,
     IN p_orden			INT,
-    IN p_precio			DECIMAL,
+    IN p_precio			DECIMAL(18,2),
     IN p_titulo			VARCHAR(100),
     IN p_descripcion	VARCHAR(1000)
 )
@@ -1764,28 +2351,14 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_nivel_curso_existe -- CALL sp_nivel_curso_existe (8, 'Introducción')
+CREATE PROCEDURE sp_nivel_curso_existe -- CALL sp_nivel_curso_existe (8, 'Introducción al lenguaje')
 (
 	IN p_id_curso	INT,
     IN p_titulo		VARCHAR(100)	
 )
 BEGIN
 
-	DECLARE Existe BIT DEFAULT 0;
-    SET Existe = 	(
-						SELECT EXISTS
-                        (
-							SELECT
-									id_nivel_curso
-							FROM		
-									nivel_curso
-							WHERE
-									id_curso = p_id_curso
-                                    AND titulo = p_titulo
-                        )
-					);
-    
-	SELECT Existe AS Resultado;
+	SELECT fn_existe_nivel_curso(p_id_curso, p_titulo) AS Resultado;
 		
 END //
 
@@ -1797,7 +2370,7 @@ CREATE PROCEDURE sp_nivel_curso_update -- CALL sp_nivel_curso_update
 (
 	IN p_id_nivel_curso	INT,
     IN p_orden			INT,
-    IN p_precio			DECIMAL,
+    IN p_precio			DECIMAL(18,2),
     IN p_titulo			VARCHAR(100),
     IN p_descripcion	VARCHAR(1000)
 )
@@ -1853,17 +2426,34 @@ DELIMITER //
 CREATE PROCEDURE sp_venta_create -- CALL sp_venta_create
 (
 	IN p_id_curso		INT,
+	IN p_id_nivel_curso	INT,
     IN p_id_usuario		INT,
     IN p_forma_pago		INT
 )
 BEGIN
+
+	IF p_id_nivel_curso <= 0 THEN
 		
-		INSERT INTO 	venta(id_curso, id_usuario, forma_pago)
+		INSERT INTO 	venta(id_curso, id_nivel_curso, id_usuario, forma_pago, monto_pago)
         VALUES			(
 							p_id_curso,
+                            p_id_nivel_curso,
                             p_id_usuario,
-                            p_forma_pago
+                            p_forma_pago,
+                            fn_precio_curso(1, p_id_curso)
 						);
+    ELSE
+		
+		INSERT INTO 	venta(id_curso, id_nivel_curso, id_usuario, forma_pago, monto_pago)
+        VALUES			(
+							p_id_curso,
+                            p_id_nivel_curso,
+                            p_id_usuario,
+                            p_forma_pago,
+                            fn_precio_curso(2, p_id_nivel_curso)
+						);
+                        
+    END IF;
     
     SELECT IFNULL(MAX(id_venta), 0) AS id FROM venta;
 		
@@ -1920,11 +2510,11 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_venta_existe -- CALL sp_venta_existe
+CREATE PROCEDURE sp_venta_existe -- CALL sp_venta_existe (2, 2, 0)
 (
 	IN p_id_usuario		INT,
     IN p_id_curso		INT,
-    IN p_forma_pago		INT
+    IN p_id_nivel_curso	INT
 )
 BEGIN
 
@@ -1938,8 +2528,7 @@ BEGIN
 									venta
 							WHERE
 									id_usuario = p_id_usuario
-									AND id_curso = p_id_curso
-                                    AND forma_pago = p_forma_pago
+									AND ((id_curso > 0 AND id_curso = p_id_curso) OR (id_nivel_curso > 0 AND id_nivel_curso = p_id_nivel_curso))
                         )
 					);
     
@@ -1982,6 +2571,7 @@ BEGIN
 END //
 
 DELIMITER ;
+
 
 -- --------------------------------------------------
 -- INSERTS INICIALES
