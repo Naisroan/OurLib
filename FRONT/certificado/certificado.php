@@ -90,8 +90,8 @@
 
     <input id="txtId" type="text" value="<?php echo $id_curso ?>" style="display:none;">
 
-    <img id="autor-image" src="http://localhost:3000/certificado/public/Certificado01.jpg" style="line-height: 0;display: block;" />
-    <img id="image" src="http://localhost:3000/certificado/public/user.png">
+    <img id="autor-image" src="/certificado/public/Certificado01.jpg" style="line-height: 0;display: block;" />
+    <img id="image" src="/certificado/public/user.png">
     <span id="nombre" class="text">
         <?php echo $usuarioLogeado->nombre != "" ? $usuarioLogeado->nombre . ' ' . $usuarioLogeado->ap_paterno . ' ' . $usuarioLogeado->ap_materno : "Actualiza tu nombre en tu cuenta" ?>
     </span>
