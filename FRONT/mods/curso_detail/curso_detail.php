@@ -221,11 +221,11 @@
                                                         <label for="" class="label-form">Título del Nivel</label>
                                                         <input id="txtTituloNivel" name="txtTitulo" type="text" class="form-control" placeholder="Ingrese el título del nivel">
                                                     </div>
-                                                    <div class="col-12 col-lg-12">
+                                                    <div class="col-12 col-lg-12 d-none">
                                                         <label for="" class="label-form">Precio</label>
                                                         <div class="input-group">
                                                             <span class="input-group-text" id="lblPrecioNivel">$</span>
-                                                            <input id="txtPrecioNivel" type="text" class="form-control" placeholder="Precio del nivel" aria-label="Precio" aria-describedby="lblPrecioNivel">
+                                                            <input id="txtPrecioNivel" type="text" value="0" class="form-control" placeholder="Precio del nivel" aria-label="Precio" aria-describedby="lblPrecioNivel">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
