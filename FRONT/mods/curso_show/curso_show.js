@@ -442,7 +442,7 @@ const fillComentarios = (id_curso) => {
         rows.forEach((value, idx) => {
 
             let imageSrc = value.tipo_imagen_usuario !== undefined && value.tipo_imagen_usuario !== null && value.tipo_imagen_usuario !== ""
-                ? `url(data:${value.tipo_imagen_usuario};base64,${nodo.imagen_usuario})` 
+                ? `url(data:${value.tipo_imagen_usuario};base64,${value.imagen_usuario})` 
                 : "url(/res/examples/user.png)";
         
             let element = `

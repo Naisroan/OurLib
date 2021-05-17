@@ -58,7 +58,7 @@ const fillUsuarioAutorCurso = (id_usuario) => {
         let nodo = JSON.parse(result);
 
         // datos basicos
-        $('#image').attr('src', !isKk(nodo.tipo_imagen) ? `data:${nodo.tipo_imagen};base64,${nodo.imagen}` : "/certificado/public/user.png");
+        $('#image').attr('src', nodo.tipo_imagen ? `data:${nodo.tipo_imagen};base64,${nodo.imagen}` : "/certificado/public/user.png");
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);
