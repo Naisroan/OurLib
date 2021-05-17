@@ -887,7 +887,7 @@ const fillNivelCurso = (id_curso) => {
                 <div class="card nivel w-100">
                     <div class="card-body">
                         <h5 class="card-title">${value.titulo}</h5>
-                        <p class="card-text">
+                        <p class="card-text d-none">
                             Costo <strong>$ ${value.precio} MXN</strong>
                         </p>
                         <div class="text-end">
