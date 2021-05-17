@@ -178,6 +178,7 @@ const fillCurso = (id_curso) => {
         $("#title").text(nodo.titulo);
         $("#subtitle").text(nodo.subtitulo);
         $("#lblAutor").text(nodo.nick_usuario);
+        $("#btnEnviarMensaje").attr("href", "/mods/messages/messages.php?id=" + nodo.id_usuario);
         $("#description").text(nodo.descripcion);
         $("#price").text("$ " + nodo.precio + " MXN");
         $("#votos_positivos").text(nodo.votos_positivos);
@@ -218,14 +219,19 @@ const fillNiveles = (id_curso) => {
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="input-group input-group-sm justify-content-end">
                     <input type="text" class="form-control" readonly value="${value.titulo}">
+                </div>
+            </li>
+            `;
+
+            /*
+            
                     <span class="input-group-text">$</span>
                     <span class="input-group-text">${value.precio} MXN</span>
                     <a onclick="onBtnCompraIndividual(${value.id_nivel_curso});" href="#!" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Compra individual
                     </a>
-                </div>
-            </li>
-            `;
+                    
+             */
     
             container.append(element);
         });

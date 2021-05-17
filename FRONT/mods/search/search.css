@@ -10,7 +10,8 @@ body {
 }
 
 .card,
-.card img {
+.card img,
+.card .curso-image {
     border-radius: 0;
 }
 
@@ -29,4 +30,16 @@ body {
 .card .card-body button {
     display: flex;
     align-items: center;
+}
+
+.card .curso-image {
+    /* background-color: whitesmoke; */
+    background-position: center center;
+    background-size: cover;
+    height: 150px;
+    /* min-width: 280px; */
+    margin: 0 auto;
+    max-width: 280px !important;
+    max-height: 150px;
+    width: 100%;
 }

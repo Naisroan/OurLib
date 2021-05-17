@@ -46,7 +46,7 @@
             $nodo->valoracion = !is_null($row[4]) ? (int)$row[4] : 0;
             $nodo->nick_usuario = !is_null($row[5]) ? (string)$row[5] : "";
             $nodo->nombre_usuario = !is_null($row[6]) ? (string)$row[6] : "";
-            $nodo->imagen_usuario = !is_null($row[7]) ? (string)$row[7] : "";
+            $nodo->imagen_usuario = !is_null($row[7]) ? base64_encode($row[7]) : "";
             $nodo->tipo_imagen_usuario = !is_null($row[8]) ? (string)$row[8] : "";
             $nodo->fecha_alta =!is_null($row[9]) ? (string)$row[9] : "";
             $nodo->fecha_mod = !is_null($row[10]) ? (string)$row[10] : "";

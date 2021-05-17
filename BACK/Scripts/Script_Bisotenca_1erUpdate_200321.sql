@@ -146,7 +146,7 @@ CREATE TABLE venta
 (
 	id_venta			INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario			INT NOT NULL,
-    id_curso			INT NOT NULL,
+    id_curso			INT NOT NULL, -- se puede comprar un nivel
     forma_pago			INT NOT NULL,
     fecha_finalizacion 	DATETIME NULL,
     fecha_alta			DATETIME NOT NULL DEFAULT NOW(),

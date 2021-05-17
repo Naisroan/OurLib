@@ -12,6 +12,8 @@
     require_once ('../model/ArchivoNivel.php');
     require_once ('../model/Comentario.php');
     require_once ('../model/Mensaje.php');
+    require_once ('../model/HistorialUsuario.php');
+    require_once ('../model/Venta.php');
 
     // constantes
     define("AUTH_NAME", "auth_user");

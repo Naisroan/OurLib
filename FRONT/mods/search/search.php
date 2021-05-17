@@ -31,27 +31,32 @@
         <!-- content -->
         <div class="container my-5">
             <div class="row">
-            <div class="filters col-12 col-lg-4 col-xl-3">
-                    <div class="row g-3">
-                        <div class="col-12 mb-3">
+                <div class="filters col-12 col-lg-4 col-xl-3">
+                    <form id="frmBuscar" method="post" class="row g-3">
+                        <div class="col-12">
                             <h5>Filtros</h5>
                         </div>
-                        <div class="col-12 mb-3">
+                        <div class="col-12">
                             <h5>                            
-                                Tema del curso
+                                Titulo del curso
                             </h5>
-                            <input type="text" class="form-control form-control-lg" placeholder="Tema del curso..." />
+                            <input id="txtTitulo" type="text" class="form-control form-control-lg" placeholder="Titulo del curso..." />
                         </div>
-                        <div class="col-12 mb-3">
+                        <div class="col-12">
                             <h5>                            
                                 Categoría
                             </h5>
-                            <select class="form-select form-select-lg">
-                                <option>Seleccione...</option>
-                                <option>Desarrollo</option>
+                            <select id="slCategoria" class="form-select form-select-lg">
                             </select>
                         </div>
-                    </div>
+                        <div class="col-12">
+                            <button id="btnBuscar" class="btn btn-bisonteca" type="submit">
+                                <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
+                                <i class="fas fa-fw fa-search me-2"></i>
+                                <span class="text">Buscar</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <div class="results col-12 col-lg-8 col-xl-9">
                     
@@ -59,8 +64,8 @@
                     <p class="text-muted">
                         De acuerdo a los filtros especificados.
                     </p>
-                    <div class="row">
-                        <div class="card-wrapper col-6 col-lg-4 col-xl-3">
+                    <div class="row" id="resultados">
+                        <!-- <div class="card-wrapper col-6 col-lg-4 col-xl-3">
                             <div class="card">
                                 <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
                                 <div class="card-body">
@@ -75,75 +80,12 @@
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                                     <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
-                                        <i class="fas fa-info me-2"></i>
+                                        <i class="fas fa-info fs-5 me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-wrapper col-6 col-lg-4 col-xl-3">
-                            <div class="card">
-                                <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Card title
-                                        <small>
-                                            <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
-                                        </small>
-                                        <small class="d-block text-muted">
-                                            Autor
-                                        </small>
-                                    </h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
-                                        <i class="fas fa-info me-2"></i>
-                                        <span class="fw-normal fs-5">Ver más</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-wrapper col-6 col-lg-4 col-xl-3">
-                            <div class="card">
-                                <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Card title
-                                        <small>
-                                            <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
-                                        </small>
-                                        <small class="d-block text-muted">
-                                            Autor
-                                        </small>
-                                    </h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
-                                        <i class="fas fa-info me-2"></i>
-                                        <span class="fw-normal fs-5">Ver más</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-wrapper col-6 col-lg-4 col-xl-3">
-                            <div class="card">
-                                <img src="http://lorempixel.com/280/150" class="card-img-top" alt="">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Card title
-                                        <small>
-                                            <span class="badge bg-secondary fw-normal">Lorem ipsum</span>
-                                        </small>
-                                        <small class="d-block text-muted">
-                                            Autor
-                                        </small>
-                                    </h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
-                                        <i class="fas fa-info me-2"></i>
-                                        <span class="fw-normal fs-5">Ver más</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

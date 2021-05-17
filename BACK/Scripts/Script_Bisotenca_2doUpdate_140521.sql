@@ -375,6 +375,158 @@ END //
 
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS fn_cant_niveles_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_cant_niveles_curso -- SELECT fn_cant_niveles_curso(2)
+(
+	id_curso 	INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+	DECLARE CantidadNiveles 			INT DEFAULT 0;
+    
+    -- OBTENEMOS LA CANTIDAD DE NIVELES POR CURSO
+    SET CantidadNiveles =
+    (
+    
+		SELECT IFNULL((
+		
+		SELECT		COUNT(id_nivel_curso)
+		FROM		nivel_curso nc
+		WHERE 		nc.id_curso = id_curso
+		
+		), 0)  AS cant_niveles_curso
+
+	);
+    
+	RETURN (CantidadNiveles);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_cant_niveles_completados_usuario;
+
+DELIMITER //
+
+CREATE FUNCTION fn_cant_niveles_completados_usuario -- SELECT fn_cant_niveles_completados_usuario(2, 1)
+(
+	id_curso 	INT,
+    id_usuario	INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+
+	DECLARE CantidadNivelesCompletados 	INT DEFAULT 0;
+    
+    -- OBTENEMOS LA CANTIDAD DE NIVELES COMPLETADOS POR CURSO Y USUARIO
+    SET CantidadNivelesCompletados =
+    (
+    
+		SELECT IFNULL((
+		
+		SELECT		COUNT(id_historial_usuario)
+		FROM		historial_usuario h
+		INNER JOIN	nivel_curso nc
+					ON h.id_nivel_curso = nc.id_nivel_curso
+		WHERE 		h.id_usuario = id_usuario
+					AND nc.id_curso = id_curso
+		
+		), 0)  AS cant_niveles_completados
+
+	);
+    
+	RETURN (CantidadNivelesCompletados);
+
+END //
+
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS fn_fecha_finalizacion_curso;
+
+DELIMITER //
+
+CREATE FUNCTION fn_fecha_finalizacion_curso -- SELECT fn_fecha_finalizacion_curso(2, 1)
+(
+	id_curso 	INT,
+    id_usuario	INT
+)
+RETURNS DATETIME
+DETERMINISTIC
+BEGIN
+
+	DECLARE CantidadNiveles 			INT DEFAULT 0;
+	DECLARE CantidadNivelesCompletados 	INT DEFAULT 0;
+
+	DECLARE FechaFinalizacion 			DATETIME DEFAULT NULL;
+    
+    -- OBTENEMOS LA CANTIDAD DE NIVELES POR CURSO
+    SET CantidadNiveles =
+    (
+    
+		SELECT IFNULL((
+		
+		SELECT		COUNT(id_nivel_curso)
+		FROM		nivel_curso nc
+		WHERE 		nc.id_curso = id_curso
+		
+		), 0)  AS cant_niveles_curso
+
+	);
+    
+    -- OBTENEMOS LA CANTIDAD DE NIVELES COMPLETADOS POR CURSO Y USUARIO
+    SET CantidadNivelesCompletados =
+    (
+    
+		SELECT IFNULL((
+		
+		SELECT		COUNT(id_historial_usuario)
+		FROM		historial_usuario h
+		INNER JOIN	nivel_curso nc
+					ON h.id_nivel_curso = nc.id_nivel_curso
+		WHERE 		h.id_usuario = id_usuario
+					AND nc.id_curso = id_curso
+		
+		), 0)  AS cant_niveles_completados
+
+	);
+        
+    -- SI LA CANTIDAD ES IGUAL ENTONCES TERMINO EL CURSO
+    IF CantidadNiveles = CantidadNivelesCompletados THEN
+    
+		-- OBTENEMOS LA FECHA DE FINALIZACION
+		SET FechaFinalizacion =
+		(
+		
+			SELECT IFNULL((
+			
+			SELECT		h.fecha_alta
+			FROM		historial_usuario h
+			INNER JOIN	nivel_curso nc
+						ON h.id_nivel_curso = nc.id_nivel_curso
+			WHERE 		h.id_usuario = id_usuario
+						AND nc.id_curso = id_curso
+			ORDER BY	h.fecha_alta DESC
+			LIMIT		1
+			
+			), NULL) AS fecha_finalizacion
+
+		);
+    
+    END IF;
+    
+	RETURN (FechaFinalizacion);
+
+END //
+
+DELIMITER ;
+
+
 -- --------------------------------------------------
 -- VISTAS
 -- --------------------------------------------------
@@ -480,7 +632,8 @@ AS
                 v.id_curso,
                 v.id_nivel_curso,
                 v.forma_pago,
-                v.fecha_finalizacion,
+                v.monto_pago,
+                fn_fecha_finalizacion_curso(v.id_curso, v.id_usuario) AS fecha_finalizacion,
                 u.nick AS nick_usuario,
                 RTRIM(CONCAT(u.nombre, ' ', u.ap_paterno, ' ', u.ap_materno)) AS nombre_usuario,
                 -- u.imagen AS imagen_usuario,
@@ -501,7 +654,7 @@ AS
 				ON v.id_nivel_curso = nc.id_nivel_curso
                         
 	LEFT JOIN	curso c
-				ON nc.id_curso = c.id_curso;
+				ON v.id_curso = c.id_curso;
 
 //
 
@@ -1307,6 +1460,7 @@ DROP PROCEDURE IF EXISTS sp_curso_selectallAdquiridoByUsuario;
 DROP PROCEDURE IF EXISTS sp_curso_selectallMasVendidos;
 DROP PROCEDURE IF EXISTS sp_curso_selectallPopulares;
 DROP PROCEDURE IF EXISTS sp_curso_selectallRecientes;
+DROP PROCEDURE IF EXISTS sp_curso_selectallFiltro;
 DROP PROCEDURE IF EXISTS sp_curso_select;
 DROP PROCEDURE IF EXISTS sp_curso_selectByTitulo;
 DROP PROCEDURE IF EXISTS sp_curso_update;
@@ -1535,6 +1689,44 @@ BEGIN
 						v_cursos
                         
 	ORDER BY			votos_positivos DESC;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_curso_selectallFiltro -- CALL sp_curso_selectallFiltro('', )
+(
+	IN p_titulo				VARCHAR(100),
+    IN p_id_categoria		INT
+)
+BEGIN
+
+	SELECT	DISTINCT	v.id_curso,
+						v.id_usuario,
+                        v.titulo,
+                        v.subtitulo,
+                        v.descripcion,
+                        v.precio,
+                        v.activo,
+                        v.imagen,
+						v.fecha_alta,
+						v.fecha_mod,
+                        v.tipo_imagen,
+                        v.nick_usuario,
+                        v.votos_positivos,
+                        v.votos_negativos,
+                        v.cantidad_ventas
+	FROM		
+						v_cursos v
+                        
+	LEFT JOIN			curso_categoria cc
+						ON v.id_curso = cc.id_curso
+                        
+	WHERE				
+						v.titulo LIKE CONCAT('%', p_titulo, '%')
+                        AND cc.id_categoria = p_id_categoria;
 		
 END //
 
@@ -1833,6 +2025,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_create;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_selectall;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_select;
+DROP PROCEDURE IF EXISTS sp_historial_usuario_reporte;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_update;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_delete;
 DROP PROCEDURE IF EXISTS sp_historial_usuario_existe;
@@ -1862,17 +2055,23 @@ DELIMITER //
 
 CREATE PROCEDURE sp_historial_usuario_selectall -- CALL sp_historial_usuario_selectall
 (
+	IN p_id_usuario		INT
 )
 BEGIN
 
 	SELECT		
-						id_historial_usuario,
-						id_usuario,
-                        id_nivel_curso,
-						fecha_alta,
-						fecha_mod
+						h.id_historial_usuario,
+						h.id_usuario,
+						h.id_curso,
+						h.id_nivel_curso,
+						h.nick_usuario,
+						h.nombre_usuario,
+						h.curso,
+						h.nivel_curso,
+						h.fecha_alta,
+						h.fecha_mod
 	FROM		
-						historial_usuario;
+						v_historial_usuario h;
 		
 END //
 
@@ -1887,15 +2086,48 @@ CREATE PROCEDURE sp_historial_usuario_select -- CALL sp_historial_usuario_select
 BEGIN
 
 	SELECT		
-						id_historial_usuario,
-						id_usuario,
-                        id_nivel_curso,
-						fecha_alta,
-						fecha_mod
+						h.id_historial_usuario,
+						h.id_usuario,
+						h.id_curso,
+						h.id_nivel_curso,
+						h.nick_usuario,
+						h.nombre_usuario,
+						h.curso,
+						h.nivel_curso,
+						h.fecha_alta,
+						h.fecha_mod
 	FROM		
-						historial_usuario
+						v_historial_usuario h
 	WHERE
-						id_historial_usuario = p_id_historial_usuario;
+						h.id_historial_usuario = p_id_historial_usuario;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_historial_usuario_reporte -- CALL sp_historial_usuario_reporte(1)
+(
+	IN p_id_usuario	INT
+)
+BEGIN
+
+	SELECT				h.id_usuario,
+						h.id_curso,
+						h.nick_usuario,
+						h.nombre_usuario,
+						h.curso,
+						fn_cant_niveles_completados_usuario(h.id_curso, h.id_usuario) AS cant_niveles_completados,
+                        fn_cant_niveles_curso(h.id_curso) AS cant_niveles_curso,
+                        (fn_cant_niveles_completados_usuario(h.id_curso, h.id_usuario) / fn_cant_niveles_curso(h.id_curso)) * 100 AS porcentaje_completado,
+                        fn_fecha_finalizacion_curso(h.id_curso, h.id_usuario) AS fecha_finalizacion
+	FROM		
+						v_historial_usuario h
+	WHERE
+						h.id_usuario = p_id_usuario
+	
+    GROUP BY			h.curso;
 		
 END //
 
@@ -1974,6 +2206,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS sp_mensaje_create;
 DROP PROCEDURE IF EXISTS sp_mensaje_selectall;
 DROP PROCEDURE IF EXISTS sp_mensaje_select;
+DROP PROCEDURE IF EXISTS sp_mensaje_select;
 DROP PROCEDURE IF EXISTS sp_mensaje_update;
 DROP PROCEDURE IF EXISTS sp_mensaje_delete;
 DROP PROCEDURE IF EXISTS sp_mensaje_existe;
@@ -1982,9 +2215,9 @@ DELIMITER //
 
 CREATE PROCEDURE sp_mensaje_create -- CALL sp_mensaje_create
 (
-	IN p_id_usuario_rem	INT,
-    IN p_id_usuario_dest INT,
-    IN p_mensaje		VARCHAR(1000)
+	IN p_id_usuario_rem		INT,
+    IN p_id_usuario_dest 	INT,
+    IN p_mensaje			VARCHAR(1000)
 )
 BEGIN
 		
@@ -2003,20 +2236,70 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_mensaje_selectall -- CALL sp_mensaje_selectall
+CREATE PROCEDURE sp_mensaje_selectall -- CALL sp_mensaje_selectall(4, 4)
 (
+	IN p_id_usuario_dest	INT,
+    IN p_id_usuario_rem		INT
 )
 BEGIN
 
-	SELECT		
-						id_mensaje,
-						id_usuario_rem,
-						id_usuario_dest,
-                        mensaje,
-						fecha_alta,
-						fecha_mod
-	FROM		
-						mensaje;
+	IF p_id_usuario_dest = p_id_usuario_rem THEN
+
+		SELECT		
+					m.id_mensaje,
+		
+					m.id_usuario_rem,
+					m.id_usuario_dest,
+					
+					m.nick_usuario_rem,
+					m.imagen_usuario_rem,
+					m.tipo_imagen_usuario_rem,
+					
+					m.nick_usuario_dest,
+					m.imagen_usuario_dest,
+					m.tipo_imagen_usuario_dest,
+					
+					m.mensaje,
+					m.fecha_alta,
+					m.fecha_mod
+		FROM		
+					v_mensaje m
+							
+		WHERE
+					id_usuario_rem IN (p_id_usuario_rem, p_id_usuario_dest)
+                    OR id_usuario_dest IN (p_id_usuario_dest, p_id_usuario_rem)
+			
+		ORDER BY	m.fecha_alta ASC;
+    
+    ELSE
+
+		SELECT		
+					m.id_mensaje,
+		
+					m.id_usuario_rem,
+					m.id_usuario_dest,
+					
+					m.nick_usuario_rem,
+					m.imagen_usuario_rem,
+					m.tipo_imagen_usuario_rem,
+					
+					m.nick_usuario_dest,
+					m.imagen_usuario_dest,
+					m.tipo_imagen_usuario_dest,
+					
+					m.mensaje,
+					m.fecha_alta,
+					m.fecha_mod
+		FROM		
+					v_mensaje m
+							
+		WHERE
+					(id_usuario_rem = p_id_usuario_rem OR id_usuario_rem = p_id_usuario_dest)
+					AND (id_usuario_dest = p_id_usuario_dest OR id_usuario_dest = p_id_usuario_rem)
+			
+		ORDER BY	m.fecha_alta ASC;
+    
+    END IF;
 		
 END //
 
@@ -2031,14 +2314,24 @@ CREATE PROCEDURE sp_mensaje_select -- CALL sp_mensaje_select
 BEGIN
 
 	SELECT		
-						id_mensaje,
-						id_usuario_rem,
-						id_usuario_dest,
-                        mensaje,
-						fecha_alta,
-						fecha_mod
+				m.id_mensaje,
+    
+				m.id_usuario_rem,
+				m.id_usuario_dest,
+				
+				m.nick_usuario_rem,
+				m.imagen_usuario_rem,
+				m.tipo_imagen_usuario_rem,
+				
+				m.nick_usuario_dest,
+				m.imagen_usuario_dest,
+				m.tipo_imagen_usuario_dest,
+				
+				m.mensaje,
+				m.fecha_alta,
+				m.fecha_mod
 	FROM		
-						mensaje
+				v_mensaje m
 	WHERE
 						id_mensaje = p_id_mensaje;
 		
@@ -2116,6 +2409,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_create;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_selectall;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_select;
+DROP PROCEDURE IF EXISTS sp_multimedia_nivel_selectFirstVideo;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_update;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_delete;
 DROP PROCEDURE IF EXISTS sp_multimedia_nivel_existe;
@@ -2195,6 +2489,36 @@ BEGIN
 						multimedia_nivel
 	WHERE				
 						id_multimedia_nivel = p_id_multimedia_nivel;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_multimedia_nivel_selectFirstVideo -- CALL sp_multimedia_nivel_selectFirstVideo (2);
+(
+	IN p_id_nivel_curso	INT
+)
+BEGIN
+
+	SELECT				id_multimedia_nivel,
+						id_nivel_curso,
+                        ruta,
+                        nombre,
+                        extension,
+                        tipo,
+						fecha_alta,
+						fecha_mod
+	FROM		
+						multimedia_nivel
+	WHERE				
+						id_nivel_curso = p_id_nivel_curso
+						AND tipo IN ('video/mp4', 'ogv', 'webm', 'flv')
+                        
+	ORDER BY			fecha_alta ASC
+    
+    LIMIT				1;
 		
 END //
 
@@ -2417,6 +2741,8 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS sp_venta_create;
 DROP PROCEDURE IF EXISTS sp_venta_selectall;
 DROP PROCEDURE IF EXISTS sp_venta_select;
+DROP PROCEDURE IF EXISTS sp_venta_reporte;
+DROP PROCEDURE IF EXISTS sp_venta_ganancia;
 DROP PROCEDURE IF EXISTS sp_venta_update;
 DROP PROCEDURE IF EXISTS sp_venta_delete;
 DROP PROCEDURE IF EXISTS sp_venta_existe;
@@ -2463,21 +2789,84 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_venta_selectall -- CALL sp_venta_selectall
+CREATE PROCEDURE sp_venta_selectall -- CALL sp_venta_selectall(3)
 (
+	IN p_id_usuario		INT
 )
 BEGIN
 
 	SELECT		
-						id_venta,
-						id_usuario,
-						id_curso,
-                        forma_pago,
-                        fecha_finalizacion,
-						fecha_alta,
-						fecha_mod
+						v.id_venta,
+						v.id_usuario,
+						v.id_curso,
+						v.id_nivel_curso,
+						v.forma_pago,
+						v.monto_pago,
+						v.fecha_finalizacion,
+						v.nick_usuario,
+						v.nombre_usuario,
+						v.curso,
+						v.nivel_curso,
+						v.fecha_alta,
+						v.fecha_mod
 	FROM		
-						venta;
+						v_venta v
+                        
+	LEFT JOIN			curso c
+						ON c.id_curso = v.id_curso
+                        
+	WHERE				c.id_usuario = p_id_usuario
+    
+    ORDER BY			V.fecha_alta DESC;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_venta_reporte -- CALL sp_venta_reporte(3)
+(
+	IN p_id_usuario		INT
+)
+BEGIN
+
+	SELECT				v.curso,
+                        COUNT(v.id_usuario) AS cantidad_alumnos,
+                        COUNT(v.id_curso) 	AS cantidad_ventas,
+                        SUM(v.monto_pago) 	AS total_curso
+	FROM		
+						v_venta v
+                        
+	LEFT JOIN			curso c
+						ON c.id_curso = v.id_curso
+                        
+	WHERE				c.id_usuario = p_id_usuario
+                        
+	GROUP BY			v.curso
+    
+    ORDER BY			v.fecha_alta DESC;
+		
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_venta_ganancia -- CALL sp_venta_ganancia(1)
+(
+	IN p_id_usuario		INT
+)
+BEGIN
+
+	SELECT				IFNULL(SUM(v.monto_pago), 0) AS ganancia
+	FROM		
+						v_venta v
+                        
+	LEFT JOIN			curso c
+						ON c.id_curso = v.id_curso
+                        
+	WHERE				c.id_usuario = p_id_usuario;
 		
 END //
 
@@ -2492,15 +2881,21 @@ CREATE PROCEDURE sp_venta_select -- CALL sp_venta_select
 BEGIN
 
 	SELECT		
-						id_venta,
-						id_usuario,
-						id_curso,
-                        forma_pago,
-                        fecha_finalizacion,
-						fecha_alta,
-						fecha_mod
+						v.id_venta,
+						v.id_usuario,
+						v.id_curso,
+						v.id_nivel_curso,
+						v.forma_pago,
+						v.monto_pago,
+						v.fecha_finalizacion,
+						v.nick_usuario,
+						v.nombre_usuario,
+						v.curso,
+						v.nivel_curso,
+						v.fecha_alta,
+						v.fecha_mod
 	FROM		
-						venta
+						v_venta v
 	WHERE				
 						id_venta = p_id_venta;
 		

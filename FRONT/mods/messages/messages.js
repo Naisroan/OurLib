@@ -21,7 +21,6 @@ $(() => {
         onFrmEnviarMensajeSubmit();
     });
 
-
     let id_usuario_dest = $("#txtId").val();
     let id_usuario_rem = $("#txtIdUsuarioLogeado").val();
 
@@ -29,6 +28,8 @@ $(() => {
 
         fillMensajes(id_usuario_dest, id_usuario_rem);
     }
+
+    fillUsuarios(id_usuario_rem);
 });
 
 // --------------------------------------------------
@@ -56,7 +57,10 @@ const onFrmEnviarMensajeSubmit = () => {
         $("input#txtmessage").val("");
         $("input#txtmessage").focus();
 
-        fillMensajes($("#txtId").val(), $("#txtIdUsuarioLogeado").val());
+        let id_usuario_logged = parseInt($("#txtIdUsuarioLogeado").val());
+
+        fillMensajes($("#txtId").val(), id_usuario_logged);
+        fillUsuarios(id_usuario_logged);
         
         toastr_success("Se ha enviado el mensaje");
         switchButtonSpinner(btnEnviarMensaje);
@@ -66,6 +70,19 @@ const onFrmEnviarMensajeSubmit = () => {
         switchButtonSpinner(btnEnviarMensaje);
         return;
     });
+};
+
+const onBtnActualizarMensajesClick = (button) => {
+
+    switchButtonSpinner($(button));
+
+    let id_usuario_logged = parseInt($("#txtIdUsuarioLogeado").val());
+
+    fillMensajes($("#txtId").val(), id_usuario_logged);
+    fillUsuarios(id_usuario_logged);
+
+    
+    switchButtonSpinner($(button));
 };
 
 // --------------------------------------------------
@@ -122,41 +139,11 @@ const fillMensajes = (id_usuario_dest, id_usuario_logged) => {
         let rows = JSON.parse(result);
     
         rows.forEach((value, idx) => {
-
-            // let isMessageSentByMe  = value.id_usuario_rem === parseInt(id_usuario_logged);
-
-            // if (!isMessageSentByMe && !isSetInfoDest) {
-
-            //     let imageSrc = "url(/res/examples/user.png)";
-            //     imageSrc = !isEmptyOrNull(value.tipo_imagen_usuario_dest) ? `url(data:${value.tipo_imagen_usuario_dest};base64,${value.imagen_usuario_dest})` : imageSrc;
-
-            //     $("#destinatario-image").attr('style',  'background-image: ' + imageSrc);
-            //     $("#destinatario").text(value.nick_usuario_dest);
-                
-            //     isSetInfoDest = true;
-            // }
     
             container.append(crearElementoMensaje(value, parseInt(id_usuario_logged)));
         });
-        
-        // filtramos los usuarios que no sea el logeado
-        let users = rows.filter(n => n.id_usuario_rem == parseInt(id_usuario_logged));
 
-        // mapeamos un arreglo en donde no se repita ningun usuario
-        users = users.map(item => item.nick_usuario_dest).filter((value, index, self) => self.indexOf(value) === index);
-
-        // creamos un arreglo objetos de usuario con su nick y id
-        users = users.map(nick => {
-            return {
-                id_usuario: rows.find(n => n.nick_usuario_rem == nick).id_usuario_rem,
-                nick: nick
-            };
-        });
-    
-        users.forEach((value, idx) => {
-
-            containerUsuarios.append(crearElementoUsuario(value));
-        });
+        container.scrollTop(999999);
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);
@@ -170,7 +157,7 @@ const fillUsuarios = (id_usuario_logged) => {
     container.html("");
 
     // niveles por curso
-    getAllNivelByDestinatario(id_usuario_dest).done((result) => {
+    getAllNivelByDestinatario(id_usuario_logged).done((result) => {
 
         // console.log(result);
         if (isEmptyOrNull(result)) {
@@ -180,8 +167,10 @@ const fillUsuarios = (id_usuario_logged) => {
         }
 
         let rows = JSON.parse(result);
+        let users = filtrarUsuariosDistintosArray(rows, id_usuario_logged);
     
-        rows.forEach((value, idx) => {
+        users.forEach((value, idx) => {
+
             container.append(crearElementoUsuario(value));
         });
     })
@@ -197,12 +186,18 @@ const crearElementoMensaje = (nodo, id_usuario_logged) => {
 
     if (id_usuario_logged == nodo.id_usuario_rem) {
 
-        imageSrc = !isEmptyOrNull(nodo.tipo_imagen_usuario_rem) ? `url(data:${nodo.tipo_imagen_usuario_rem};base64,${nodo.imagen_usuario_rem})` : imageSrc;
+        imageSrc = !isEmptyOrNull(nodo.tipo_imagen_usuario_rem) 
+            ? `url(data:${nodo.tipo_imagen_usuario_rem};base64,${nodo.imagen_usuario_rem})` 
+            : imageSrc;
 
     } else {
 
-        imageSrc = !isEmptyOrNull(nodo.tipo_imagen_usuario_dest) ? `url(data:${nodo.tipo_imagen_usuario_dest};base64,${nodo.imagen_usuario_dest})` : imageSrc;
+        imageSrc = !isEmptyOrNull(nodo.tipo_imagen_usuario_rem) 
+            ? `url(data:${nodo.tipo_imagen_usuario_rem};base64,${nodo.imagen_usuario_rem})` 
+            : imageSrc;
     }
+
+    // imageSrc = !isEmptyOrNull(nodo.tipo_imagen_usuario_dest) ? `url(data:${nodo.tipo_imagen_usuario_dest};base64,${nodo.imagen_usuario_dest})` : imageSrc;
 
     return `
     <div class="message d-flex ${id_usuario_logged == nodo.id_usuario_rem ? "yo" : ""}">
@@ -221,33 +216,6 @@ const crearElementoMensaje = (nodo, id_usuario_logged) => {
         </div>
     </div>
     `;
-
-    /*
-    if (id_usuario_logged == nodo.id_usuario_rem) {
-
-    } else {
-
-
-
-        return `
-        <div class="message d-flex">
-            <div class="body">
-                <div style="background-image: ${imageSrc};" class="rounded-circle image-usuario"></div>
-                <div class="contenido">
-                    <div class="usuario d-flex justify-content-start align-items-center">
-                        <strong>
-                            ${nick}
-                        </strong>
-                    </div>
-                    <p class="mb-0">
-                        ${mensaje}
-                    </p>
-                </div>
-            </div>
-        </div>
-        `;
-    }
-    */
 };
 
 const crearElementoUsuario = (nodo) => {
@@ -259,6 +227,38 @@ const crearElementoUsuario = (nodo) => {
         </strong>
     </li>
     `;
+};
+
+const filtrarUsuariosDistintosArray = (mensajes, id_usuario_logged) => {
+        
+    // filtramos los mensajes separandolos por enviados y recibidos donde el usuario logeado no se encuentre en cada uno
+    let mensajesRemArray = mensajes.filter(n => n.id_usuario_rem != parseInt(id_usuario_logged));
+    let mensajesDestArray = mensajes.filter(n => n.id_usuario_dest != parseInt(id_usuario_logged));
+
+    // mapeamos un arreglo en donde no se repita ningun usuario
+    let mensajesDisRemArray = mensajesRemArray.map(item => item.nick_usuario_rem).filter((value, index, self) => self.indexOf(value) === index);
+    let mensajesDisDestArray = mensajesDestArray.map(item => item.nick_usuario_dest).filter((value, index, self) => self.indexOf(value) === index);
+
+    // creamos un arreglo objetos de usuario con su nick y id
+    mensajesDisRemArray = mensajesDisRemArray.map(nick => {
+        return {
+            id_usuario: mensajesRemArray.find(n => n.nick_usuario_rem == nick).id_usuario_rem,
+            nick: nick
+        };
+    });
+    mensajesDisDestArray = mensajesDisDestArray.map(nick => {
+        return {
+            id_usuario: mensajesDestArray.find(n => n.nick_usuario_dest == nick).id_usuario_dest,
+            nick: nick
+        };
+    });
+
+    let users = mensajesDisRemArray.concat(mensajesDisDestArray);
+
+    let set = new Set(users.map(JSON.stringify));
+    let arrSinDuplicaciones = Array.from(set).map(JSON.parse);
+
+    return arrSinDuplicaciones;
 };
 
 // --------------------------------------------------

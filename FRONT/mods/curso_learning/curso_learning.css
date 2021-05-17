@@ -1,0 +1,15 @@
+.image-curso {
+    background-size: cover;
+    background-position: center center;
+    min-width: 40%;
+    max-width: 100%;
+    min-height: calc(100vh - 480px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-curso h3 {
+    color: white;
+    filter: drop-shadow(2px 4px 6px black);
+}

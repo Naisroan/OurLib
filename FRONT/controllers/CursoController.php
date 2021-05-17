@@ -45,6 +45,11 @@
             break;
         }
 
+        case "getAllFiltro": {
+            echo getAllFiltro(json_decode($data));
+            break;
+        }
+
         case "update": {
             echo update(json_decode($data));
             break;
@@ -110,6 +115,11 @@
         // nivel - archivo
         case "createArchivoNivel": {
             echo createArchivoNivel(json_decode($_POST["data"]));
+            break;
+        }
+
+        case "getByFirstVideo": {
+            echo getByFirstVideo($data);
             break;
         }
 
@@ -369,6 +379,33 @@
         return $json;
     }
 
+    function getAllFiltro($nodo) {
+
+        $sp = new SP("sp_curso_selectallFiltro");
+        $result = $sp->select($nodo->titulo, $nodo->id_categoria);
+
+        if(!$sp->isSuccess()) {
+            
+            header('HTTP/1.0 500 Internal Server Error');
+            die($sp->errorMessage);
+        }
+
+        if (count($result) <= 0) {
+            return null;
+        }
+
+        $list = array();
+
+        foreach ($result as &$key) {
+
+            $nodo = Curso::parse($key);
+            $list[] = $nodo;
+        }
+
+        $json = json_encode($list);
+
+        return $json;
+    }
     
     function exists($titulo) {
 
@@ -550,6 +587,27 @@
 
         $sp = new SP("sp_multimedia_nivel_select");
         $result = $sp->select($id_multimedia_nivel);
+
+        if(!$sp->isSuccess()) {
+            
+            header('HTTP/1.0 500 Internal Server Error');
+            die($sp->errorMessage);
+        }
+
+        if (count($result) <= 0) {
+            return null;
+        }
+
+        $nodo = ArchivoNivel::parse($result[0]);
+        $json = json_encode($nodo);
+
+        return $json;
+    }
+
+    function getByFirstVideo($id_nivel_curso) {
+
+        $sp = new SP("sp_multimedia_nivel_selectFirstVideo");
+        $result = $sp->select($id_nivel_curso);
 
         if(!$sp->isSuccess()) {
             

@@ -62,10 +62,15 @@
                         </div>
                         <div class="col-12">
                             <span class="badge bg-secondary fw-normal">
-                                <strong class="mr-2">Autor</strong>
-                                <span id="lblAutor">
-                                </span>
+                                <strong class="me-1">Creador por</strong>
+                                <strong><span id="lblAutor"></span></strong>
                             </span>
+                            <a id="btnEnviarMensaje" href="#!">
+                                <span class="badge bg-info fw-normal">
+                                    <i class="fas fa-fw fa-paper-plane me-1"></i>
+                                    <strong class="mr-2">Enviar mensaje</strong>
+                                </span>
+                            </a>
                         </div>
                         <div class="col-12">
                             <hr>
@@ -77,7 +82,8 @@
                         <div class="col-12">
                             <h3>Niveles</h3>
                             <small class="text-muted">
-                                Si solo te interesa un nivel del curso, puedes adquirirlo individualmente
+                                <!-- Si solo te interesa un nivel del curso, puedes adquirirlo individualmente -->
+                                Observa los niveles antes de comprar el curso
                             </small>
                         </div>
                         <div class="col-12">

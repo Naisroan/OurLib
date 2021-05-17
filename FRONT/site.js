@@ -15,6 +15,7 @@ const AJAX_URL = "/code/AjaxRequests.php";
 const AJAX_URL_USER_CONTROLLER = "/controllers/UsuarioController.php";
 
 const AJAX_URL_USER_CONTROLLER_CREATE = "create";
+const AJAX_URL_USER_CONTROLLER_GET_BYID = "getById";
 const AJAX_URL_USER_CONTROLLER_GET_BYNICK = "getByNick";
 const AJAX_URL_USER_CONTROLLER_GET_BYEMAIL = "getByEmail";
 const AJAX_URL_USER_CONTROLLER_LOGOUT = "logout";
@@ -32,6 +33,7 @@ const AJAX_URL_CURSO_CONTROLLER = "/controllers/CursoController.php";
 const AJAX_URL_CURSO_CONTROLLER_CREATE = "create";
 const AJAX_URL_CURSO_CONTROLLER_UPDATE = "update";
 const AJAX_URL_CURSO_CONTROLLER_GET_BYID = "get";
+const AJAX_URL_CURSO_CONTROLLER_GET_BYFIRSTVIDEO = "getByFirstVideo";
 const AJAX_URL_CURSO_CONTROLLER_EXISTS = "exists";
 const AJAX_URL_CURSO_CONTROLLER_UPDATE_IMAGE = "updateImage";
 const AJAX_URL_CURSO_CONTROLLER_GETALL_BYUSUARIOLOGEADO = "getAllByUsuarioLogeado"; // obtiene los cursos que ha creado el usuario logeado
@@ -39,6 +41,7 @@ const AJAX_URL_CURSO_CONTROLLER_GETALL_ADQUIRIDOBYUSUARIO = "getAllByAdquiridoBy
 const AJAX_URL_CURSO_CONTROLLER_GETALL_MASVENDIDOS = "getAllMasVendidos";
 const AJAX_URL_CURSO_CONTROLLER_GETALL_POPULARES = "getAllPopulares";
 const AJAX_URL_CURSO_CONTROLLER_GETALL_RECIENTES = "getAllRecientes";
+const AJAX_URL_CURSO_CONTROLLER_GETALL_FILTRO = "getAllFiltro";
 
 const AJAX_URL_NIVELCURSO_CONTROLLER_CREATE = "createNivelCurso";
 const AJAX_URL_NIVELCURSO_CONTROLLER_GET_BYID = "getNivelCurso";
@@ -77,6 +80,9 @@ const AJAX_URL_VENTA_CONTROLLER_CREATE = "create";
 const AJAX_URL_VENTA_CONTROLLER_UPDATE = "update";
 const AJAX_URL_VENTA_CONTROLLER_GET_BYID = "get";
 const AJAX_URL_VENTA_CONTROLLER_EXISTS = "exists";
+const AJAX_URL_VENTA_CONTROLLER_GETALL = "getAll";
+const AJAX_URL_VENTA_CONTROLLER_GETALLREPORTE = "getAllReporte";
+const AJAX_URL_VENTA_CONTROLLER_GETGANANCIA = "getGanancia";
 
 // ComentarioController
 const AJAX_URL_COMENTARIO_CONTROLLER = "/controllers/ComentarioController.php";
@@ -90,6 +96,12 @@ const AJAX_URL_MENSAJE_CONTROLLER = "/controllers/MensajeController.php";
 
 const AJAX_URL_MENSAJE_CONTROLLER_CREATE = "create";
 const AJAX_URL_MENSAJE_CONTROLLER_GETALL_BYDEST = "getAllByUsuarioDestinatario"; // obtiene los mensaje en base al usuario remitente (usuario logeado) y destinatario
+
+// HistorialUsuarioController
+const AJAX_URL_HISTORIALUSUARIO_CONTROLLER = "/controllers/HistorialUsuarioController.php";
+
+const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_CREATE = "create";
+const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_GETREPORTE = "getReporte";
 
 // constantes REGEX
 

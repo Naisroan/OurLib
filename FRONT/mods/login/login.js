@@ -100,3 +100,12 @@ const logearUsuario = (usuario) => {
         type: 'post'
     });
 };
+
+const getUsuarioById = (id_usuario) => {
+
+    return $.ajax({
+        url: AJAX_URL_USER_CONTROLLER,
+        data: { action: AJAX_URL_USER_CONTROLLER_GET_BYID, nodo: id_usuario },
+        type: 'post'
+    });
+};

@@ -49,9 +49,7 @@
                         </h1>
                         <hr class="text-white">
                         <p class="lead text-white">
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                            Ad, molestiae! Sunt nostrum nemo mollitia assumenda ipsum voluptates doloremque quidem amet provident porro! 
-                            Vitae iusto deserunt placeat laborum sit. Nisi, incidunt.
+                            Aprende, disfruta y crece con Bisonteca, los cursos de chavos, para chavos ♥
                         </p>
                     </div>
                 </div>

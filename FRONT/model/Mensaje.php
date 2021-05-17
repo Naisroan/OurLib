@@ -46,11 +46,11 @@
             $nodo->id_usuario_dest = !is_null($row[2]) ? (string)$row[2] : "";
 
             $nodo->nick_usuario_rem = !is_null($row[3]) ? (string)$row[3] : "";
-            $nodo->imagen_usuario_rem = !is_null($row[4]) ? (string)$row[4] : "";
+            $nodo->imagen_usuario_rem = !is_null($row[4]) ? base64_encode($row[4]) : "";
             $nodo->tipo_imagen_usuario_rem = !is_null($row[5]) ? (string)$row[5] : "";
 
             $nodo->nick_usuario_dest = !is_null($row[6]) ? (string)$row[6] : "";
-            $nodo->imagen_usuario_dest = !is_null($row[7]) ? (string)$row[7] : "";
+            $nodo->imagen_usuario_dest = !is_null($row[7]) ? base64_encode($row[7]) : "";
             $nodo->tipo_imagen_usuario_dest = !is_null($row[8]) ? (string)$row[8] : "";
             
             $nodo->mensaje = !is_null($row[9]) ? (string)$row[9] : "";

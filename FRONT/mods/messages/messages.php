@@ -141,6 +141,11 @@
                                     <input class="form-control" id="txtmessage" placeholder="Ingresa tu mensaje">
                                 </div>
                                 <div class="col-12 text-end votacion">
+                                    <a href="#!" class="btn btn-secondary" onclick="onBtnActualizarMensajesClick(this);">
+                                        <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
+                                        <i class="fas fa-fw fa-redo me-2"></i>
+                                        <span class="text">Actualizar</span>
+                                    </a>
                                     <button id="btnEnviarMensaje" class="btn btn-bisonteca" type="submit">
                                         <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                         <i class="fas fa-fw fa-paper-plane me-2"></i>

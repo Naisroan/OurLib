@@ -6,6 +6,29 @@
     define('FOLDER_NAME', 'curso_learning');
     define('URL_CSS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".css");
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
+
+    # code
+
+    if (!isset($_SESSION))
+    {
+        session_start();
+    }
+
+    // si el usuario no esta logeado se redirecciona al login
+    if (!isset($_SESSION["auth_user"]))
+    {
+        header("Location: /mods/login/login.php");
+        exit();
+    }
+
+    $usuarioLogeado = $_SESSION["auth_user"];
+    $id_curso = isset($_GET["id"]) ? $_GET["id"] : 0;
+    $id_nivel_curso = isset($_GET["id_nivel_curso"]) ? $_GET["id_nivel_curso"] : 0;
+
+    if ($id_curso <= 0) {
+        header("Location: /index.php");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -28,92 +51,77 @@
         <!-- menu -->
         <?php require_once('../../templates/header_menu.php') ?>
 
+        <!-- id -->
+        <input id="txtId" type="text" value="0" class="d-none invisible">
+        <input id="txtIdNivelCurso" type="text" value="0" class="d-none invisible">
+
         <!-- content -->
-        <div class="container-fluid">
+        <div class="container">
             <div class="row my-3">
-                <div class="col-12 col-lg-8 col-xl-9">
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="list-1" role="tabpanel" aria-labelledby="list-1-list">
-                            <div class="ratio ratio-16x9 mb-4">
-                                <video controls>
-                                    <source src="/res/examples/curso.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                            <div class="mb-4">
-                                <div class="mb-3">
-                                    <strong class="">Contenido del nivel</strong>
-                                </div>
-                                <div class="">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <a href="#!">
-                                                recursos.docx
-                                            </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#!">
-                                                contenido.pptx
-                                            </a>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <a href="#!">
-                                                repaso.mp4
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="tab-pane fade" id="list-2" role="tabpanel" aria-labelledby="list-2-list">
-                            <div class="ratio ratio-16x9">
-                                <video controls>
-                                    <source src="/res/examples/curso.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="list-3" role="tabpanel" aria-labelledby="list-3-list">
-                            <div class="ratio ratio-16x9">
-                                <video controls>
-                                    <source src="/res/examples/curso.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="list-4" role="tabpanel" aria-labelledby="list-4-list">
-                            <div class="ratio ratio-16x9">
-                                <video controls>
-                                    <source src="/res/examples/curso.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
                 <div class="col-12 col-lg-4 col-xl-3">
                     <div class="mb-3">
-                        <span class="me-2">Niveles del curso</span>
-                        <span class="badge bg-primary">90% de progreso</span>
+                        <span class="me-2">Seleccione un nivel...</span>
+                        <!-- <span class="badge bg-primary">90% de progreso</span> -->
                     </div>
-                    <div class="list-group list-group-flush" id="list-tab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-1-list" data-bs-toggle="list" href="#list-1" role="tab" aria-controls="1">
+                    <div id="niveles" class="list-group" id="list-tab" role="tablist">
+                        <!-- <a class="list-group-item list-group-item-action" id="list-1-list" href="#!">
                             <strong>
                                 Titulo nivel #1
                             </strong>
-                        </a>
-                        <a class="list-group-item list-group-item-action" id="list-2-list" data-bs-toggle="list" href="#list-2" role="tab" aria-controls="2">
-                            <strong>
-                                Titulo nivel #2
-                            </strong>
-                        </a>
-                        <a class="list-group-item list-group-item-action" id="list-3-list" data-bs-toggle="list" href="#list-3" role="tab" aria-controls="3">
-                            <strong>
-                                Titulo nivel #3
-                            </strong>
-                        </a>
-                        <a class="list-group-item list-group-item-action" id="list-4-list" data-bs-toggle="list" href="#list-4" role="tab" aria-controls="4">
-                            <strong>
-                                Titulo nivel #4
-                            </strong>
-                        </a>
+                        </a> -->
                     </div>
+                </div>
+                <div class="col-12 col-lg-8 col-xl-9">
+
+                    <?php
+                        if ($id_nivel_curso <= 0) {
+                    ?>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div id="image" class="mx-auto image-curso">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h1 id="title" class="h4 my-0"></h1>
+                            </div>
+                            <div class="col-12">
+                                <h2 id="subtitle" class="h5 my-0"></h2>
+                            </div>
+                            <div class="col-12">
+                                <p id="description" class="lead my-0"></p>
+                            </div>
+                        </div>
+
+
+                    <?php
+                        } else {
+                    ?>
+
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <span id="titlenivel" class="me-2"></span>
+                            </div>
+                            <div class="col-12">
+                                <div class="ratio ratio-16x9">
+                                    <video id="videonivel" controls>
+                                        <!-- <source src="/res/examples/curso.mp4" type="video/mp4"> -->
+                                    </video>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <strong class="">Recursos multimedia</strong>
+                            </div>
+                            <div class="col-12">
+                                <ul id="ulNivelArchivos" class="list-group list-group-flush">
+                                </ul>
+                            </div>
+                        </div>
+
+                    <?php
+                        }
+                    ?>
+
                 </div>
             </div>
         </div>

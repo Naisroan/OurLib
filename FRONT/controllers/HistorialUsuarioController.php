@@ -14,7 +14,7 @@
         }
 
         case "create": {
-            echo create(json_decode($data));
+            echo create($data);
             break;
         }
 
@@ -28,23 +28,13 @@
             break;
         }
 
-        case "getAllReporte": {
-            echo getAllReporte();
-            break;
-        }
-
-        case "getGanancia": {
-            echo getGanancia();
-            break;
-        }
-
-        case "getByNombre": {
-            echo "";
+        case "getReporte": {
+            echo getReporte();
             break;
         }
 
         case "exists": {
-            echo exists(json_decode($data));
+            echo exists($data);
             break;
         }
         case "update": {
@@ -60,19 +50,23 @@
 
     exit();
 
-    function create($nodo) {
+    function create($id_nivel_curso) {
 
         $usuarioLogeado = getLoggedUser();
 
         if ($usuarioLogeado == null || $usuarioLogeado == "" || $usuarioLogeado == "{}") {
             header('HTTP/1.0 500 Internal Server Error');
-            die("Debe crear una cuenta o iniciar sesión para comprar un curso");
+            die("Debe tener la sesión iniciado para crear el historial");
         }
 
         $usuarioLogeado = json_decode($usuarioLogeado);
 
-        $sp = new SP("sp_venta_create");
-        $result = $sp->insertOrUpdate($nodo->id_curso, $nodo->id_nivel_curso, $usuarioLogeado->id_usuario, $nodo->forma_pago);
+        if (exists($id_nivel_curso)) {
+            return true;
+        }
+
+        $sp = new SP("sp_historial_usuario_create");
+        $result = $sp->insertOrUpdate($usuarioLogeado->id_usuario, $id_nivel_curso);
 
         if(!$sp->isSuccess()) {
             
@@ -82,20 +76,20 @@
 
         return $result;
     }
-
-    function exists($nodo) {
+    
+    function exists($id_nivel_curso) {
 
         $usuarioLogeado = getLoggedUser();
 
         if ($usuarioLogeado == null || $usuarioLogeado == "" || $usuarioLogeado == "{}") {
             header('HTTP/1.0 500 Internal Server Error');
-            die("Debe crear una cuenta o iniciar sesión para comprar un curso");
+            die("Debe tener la sesión iniciado para verificar el historial");
         }
 
         $usuarioLogeado = json_decode($usuarioLogeado);
 
-        $sp = new SP("sp_venta_existe");
-        $result = $sp->select($usuarioLogeado->id_usuario, $nodo->id_curso, $nodo->id_nivel_curso);
+        $sp = new SP("sp_historial_usuario_existe");
+        $result = $sp->select($usuarioLogeado->id_usuario, $id_nivel_curso);
 
         if(!$sp->isSuccess()) {
             
@@ -104,27 +98,6 @@
         }
 
         return $result[0][0];
-    }
-
-    function get($id) {
-
-        $sp = new SP("sp_categoria_select");
-        $result = $sp->select($id);
-
-        if(!$sp->isSuccess()) {
-            
-            header('HTTP/1.0 500 Internal Server Error');
-            die($sp->errorMessage);
-        }
-
-        if (count($result) <= 0) {
-            return null;
-        }
-
-        $nodo = Curso::parse($result[0]);
-        $json = json_encode($nodo);
-
-        return $json;
     }
 
     function getAll() {
@@ -138,7 +111,7 @@
 
         $usuarioLogeado = json_decode($usuarioLogeado);
 
-        $sp = new SP("sp_venta_selectall");
+        $sp = new SP("sp_historial_usuario_selectall");
         $result = $sp->select($usuarioLogeado->id_usuario);
 
         if(!$sp->isSuccess()) {
@@ -155,7 +128,7 @@
 
         foreach ($result as &$key) {
 
-            $nodo = Venta::parse($key);
+            $nodo = HistorialUsuario::parse($key);
             $list[] = $nodo;
         }
 
@@ -164,7 +137,7 @@
         return $json;
     }
 
-    function getAllReporte() {
+    function getReporte() {
 
         $usuarioLogeado = getLoggedUser();
 
@@ -175,7 +148,7 @@
 
         $usuarioLogeado = json_decode($usuarioLogeado);
 
-        $sp = new SP("sp_venta_reporte");
+        $sp = new SP("sp_historial_usuario_reporte");
         $result = $sp->select($usuarioLogeado->id_usuario);
 
         if(!$sp->isSuccess()) {
@@ -192,39 +165,12 @@
 
         foreach ($result as &$key) {
 
-            $nodo = VentaReporte::parse($key);
+            $nodo = HistorialUsuarioReporte::parse($key);
             $list[] = $nodo;
         }
 
         $json = json_encode($list);
 
         return $json;
-    }
-
-    function getGanancia() {
-
-        $usuarioLogeado = getLoggedUser();
-
-        if ($usuarioLogeado == null || $usuarioLogeado == "" || $usuarioLogeado == "{}") {
-            header('HTTP/1.0 500 Internal Server Error');
-            die("Debe tener la sesión iniciado para crear el historial");
-        }
-
-        $usuarioLogeado = json_decode($usuarioLogeado);
-
-        $sp = new SP("sp_venta_ganancia");
-        $result = $sp->select($usuarioLogeado->id_usuario);
-
-        if(!$sp->isSuccess()) {
-            
-            header('HTTP/1.0 500 Internal Server Error');
-            die($sp->errorMessage);
-        }
-
-        if (count($result) <= 0) {
-            return null;
-        }
-
-        return $result[0][0];
     }
 ?>
