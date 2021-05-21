@@ -821,7 +821,8 @@ const validaCamposNivel = () => {
     let id_curso = $("input#txtId").val();
     let id_nivel_curso = $("input#txtIdNivelCurso").val();
     let titulo = $("input#txtTituloNivel").val();
-    let precio = $("input#txtPrecioNivel").val();
+    // let precio = $("input#txtPrecioNivel").val();
+    let precio = 0;
 
     if (isEmptyOrNull(id_curso) || parseInt(id_curso) <= 0) {
 
@@ -857,7 +858,7 @@ const validaCamposNivel = () => {
         id_nivel_curso: parseInt(id_nivel_curso),
         id_curso: parseInt(id_curso),
         orden: 0,
-        precio: precio,
+        precio: 0,
         titulo: titulo,
         descripcion: ""
     };

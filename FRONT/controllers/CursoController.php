@@ -382,7 +382,7 @@
     function getAllFiltro($nodo) {
 
         $sp = new SP("sp_curso_selectallFiltro");
-        $result = $sp->select($nodo->titulo, $nodo->id_categoria);
+        $result = $sp->select($nodo->titulo, $nodo->id_categoria, $nodo->autor);
 
         if(!$sp->isSuccess()) {
             

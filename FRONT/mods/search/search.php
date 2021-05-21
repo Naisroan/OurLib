@@ -50,6 +50,12 @@
                             </select>
                         </div>
                         <div class="col-12">
+                            <h5>                            
+                                Autor
+                            </h5>
+                            <input id="txtAutor" type="text" class="form-control form-control-lg" placeholder="Usuario del autor creador del curso..." />
+                        </div>
+                        <div class="col-12">
                             <button id="btnBuscar" class="btn btn-bisonteca" type="submit">
                                 <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                 <i class="fas fa-fw fa-search me-2"></i>

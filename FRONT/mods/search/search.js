@@ -4,6 +4,7 @@
     
 let frmBuscar = null;
 let txtTitulo = null;
+let txtAutor = null;
 let slCategoria = null;
 let btnBuscar = null;
 
@@ -16,6 +17,7 @@ $(() => {
     // obtenemos controles
     frmBuscar = $("#frmBuscar");
     txtTitulo = $("#txtTitulo");
+    txtAutor = $("#txtAutor");
     slCategoria = $("#slCategoria");
     btnBuscar = $("#btnBuscar");
 
@@ -56,11 +58,12 @@ const onFrmBuscarSubmit = () => {
 const validarBusqueda = () => {
 
     let titulo = txtTitulo.val();
+    let autor = txtAutor.val();
     let id_categoria = slCategoria.val();
 
-    if (isEmptyOrNull(titulo)) {
+    if (isEmptyOrNull(titulo) && isEmptyOrNull(autor)) {
 
-        message_warning("Ingrese el titulo del curso");
+        message_warning("Ingrese el titulo o autor del curso");
         return null;
     }
     
@@ -72,7 +75,8 @@ const validarBusqueda = () => {
 
     return {
         titulo: titulo,
-        id_categoria: id_categoria
+        id_categoria: id_categoria,
+        autor: autor
     };
 };
 

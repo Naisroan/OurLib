@@ -1699,7 +1699,8 @@ DELIMITER //
 CREATE PROCEDURE sp_curso_selectallFiltro -- CALL sp_curso_selectallFiltro('', )
 (
 	IN p_titulo				VARCHAR(100),
-    IN p_id_categoria		INT
+    IN p_id_categoria		INT,
+    IN p_nick_autor			VARCHAR(100)
 )
 BEGIN
 
@@ -1725,7 +1726,8 @@ BEGIN
 						ON v.id_curso = cc.id_curso
                         
 	WHERE				
-						v.titulo LIKE CONCAT('%', p_titulo, '%')
+						(v.titulo LIKE CONCAT('%', p_titulo, '%')
+                        OR v.nick_usuario LIKE CONCAT('%', p_nick_autor, '%'))
                         AND cc.id_categoria = p_id_categoria;
 		
 END //
