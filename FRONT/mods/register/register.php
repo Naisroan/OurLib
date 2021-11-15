@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -23,23 +23,22 @@
 
 <body>
 
-    <div class="wrapper">
+    <div class="wrapper no-site">
 
         <!-- menu -->
         <?php // require_once('../../templates/header_menu.php') ?>
 
         <!-- content -->
-        <h1 class="display-4 mt-4 text-center bisonteca">
-            <!-- <a href="/index.php">BISONTECA</a> -->
+        <h1 class="display-4 mt-4 text-center ourlib">
             <a href="/index.php">
-                <img src="/res/logos/bisonteca_blanco_trans.png" alt="" srcset="" width="320px" style="filter: invert(1);">
+                <img src="/res/logos/ourlib.png" alt="" srcset="" width="320px">
             </a>
         </h1>
 
         <div class="box">
             <div class="box-wrapper">
                 <div class="instrucciones py-5 text-center">
-                    <h2 class="text-bisonteca">Registrarse</h2>
+                    <h2 class="text-ourlib">Registrarse</h2>
                     <p class="lead mb-0">¡Ingresa tus datos!</p>
                 </div>
                 <form class="row g-3">
@@ -47,12 +46,12 @@
                         <label for="" class="label-form">Usuario</label>
                         <input id="txtUsuario" name="txtUsuario"  type="text" class="form-control form-control-lg">
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 d-none">
                         <label for="" class="label-form">Tipo de usuario</label>
                         <select name="txtTipo" id="slTipo" class="form-select form-select-lg">
                             <option value="0">Seleccione...</option>
                             <option value="1">Creador</option>
-                            <option value="2">Alumno</option>
+                            <option value="2" selected>Alumno</option>
                         </select>
                     </div>
                     <div class="col-12">
@@ -87,7 +86,7 @@
                         <input name="txtConfirmPassword" id="txtConfirmPassword" type="password" class="form-control form-control-lg">
                     </div>
                     <div class="col-12">
-                        <a id="btnRegistrar" href="#!" class="btn btn-lg btn-bisonteca w-100 mt-4" onclick="registrar();">
+                        <a id="btnRegistrar" href="#!" class="btn btn-lg btn-ourlib w-100 mt-4" onclick="registrar();">
                             <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
                             <i class="fas fa-fw fa-sign-in-alt me-2"></i>
                             <span class="text">Registrarse</span>
@@ -99,7 +98,7 @@
                     <div class="col-12 text-center">
                         ¿Ya tienes una cuenta? 
                         <strong>
-                            <a href="/mods/login/login.php" class="text-bisonteca">Haz click aqui para iniciar sesión</a>
+                            <a href="/mods/login/login.php" class="text-ourlib">Haz click aqui para iniciar sesión</a>
                         </strong>
                     </div>
                 </form>

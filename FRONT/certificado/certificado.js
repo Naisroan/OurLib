@@ -32,7 +32,7 @@ const fillCurso = (id_curso) => {
         // datos basicos
         $("#curso").text(nodo.titulo);
 
-        document.title = "Bisonteca © - Certificado- " + nodo.titulo;
+        document.title = "OurLib © - Certificado- " + nodo.titulo;
 
         fillUsuarioAutorCurso(nodo.id_usuario);
 

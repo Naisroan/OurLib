@@ -63,7 +63,7 @@ const fillHistorialReporte = () => {
                 <td>${value.porcentaje_completado}</td>
                 <td>${value.fecha_finalizacion}</td>
                 <td>
-                    ${value.fecha_finalizacion != 0 ? `<a href="#!" onclick="onBtnDescargarCertificado(${value.id_curso})"; class="btn btn-bisonteca">Generar</a>` : ""}
+                    ${value.fecha_finalizacion != 0 ? `<a href="#!" onclick="onBtnDescargarCertificado(${value.id_curso})"; class="btn btn-ourlib">Generar</a>` : ""}
                 </td>
             </tr>
             `;

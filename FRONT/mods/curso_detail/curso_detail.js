@@ -178,7 +178,7 @@ const validaCamposDatosBasicos = () => {
     let id = $("input#txtId").val();
     let titulo = $("input#txtTitulo").val();
     let subtitulo = $("input#txtSubTitulo").val();
-    let precio = $("input#txtPrecio").val();
+    let precio = '0'; // $("input#txtPrecio").val();
     let descripcion = $("textarea#txtDescripcion").val();
     
     if (isEmptyOrNull(titulo)) {
@@ -219,7 +219,10 @@ const validaCamposDatosBasicos = () => {
 
     return {
         id_curso: id,
+
+         // posteriormente se obtiene el dato de session en php
         id_usuario: 0,
+
         titulo: titulo,
         subtitulo: subtitulo,
         precio: precio,
@@ -251,7 +254,10 @@ const editCurso = (id_curso) => {
         $("textarea#txtDescripcion").val(nodo.descripcion);
 
         // imagen
-        $('#imgCurso').css('background-image', !isKk(nodo.tipo_imagen) ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` : "https://picsum.photos/600/280");
+        let image = !isKk(nodo.tipo_imagen) && nodo.imagen !== "" ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` 
+            : "url(https://picsum.photos/600/280)";
+
+        $('#imgCurso').css('background-image', image);
         
         // categorias
         fillCategorias();

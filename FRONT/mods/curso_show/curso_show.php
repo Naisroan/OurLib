@@ -2,7 +2,7 @@
 
     # curso_detail.php
 
-    define('TITLE', 'Curso');
+    define('TITLE', 'Contenido');
     define('FOLDER_NAME', 'curso_show');
     define('URL_CSS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".css");
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
@@ -24,13 +24,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -38,10 +38,10 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- menu -->
+    <?php require_once('../../templates/header_menu.php') ?>
 
-        <!-- menu -->
-        <?php require_once('../../templates/header_menu.php') ?>
+    <div class="wrapper">
 
         <!-- id -->
         <input id="txtId" type="text" value="0" class="d-none invisible">
@@ -54,7 +54,7 @@
                     <div class="row g-3">
                         <div class="col-12 titulo">
                             <h1 id="title" class=""></h1>
-                            <h2 id="subtitle" class="fs-4 text-bisonteca"></h2>
+                            <h2 id="subtitle" class="fs-4 text-ourlib"></h2>
                         </div>
                         <div class="col-12">
                             <div id="image" class="curso-image">
@@ -68,7 +68,7 @@
                             <a id="btnEnviarMensaje" href="#!">
                                 <span class="badge bg-info fw-normal">
                                     <i class="fas fa-fw fa-paper-plane me-1"></i>
-                                    <strong class="mr-2">Enviar mensaje</strong>
+                                    <strong class="">Enviar mensaje</strong>
                                 </span>
                             </a>
                         </div>
@@ -83,7 +83,7 @@
                             <h3>Niveles</h3>
                             <small class="text-muted">
                                 <!-- Si solo te interesa un nivel del curso, puedes adquirirlo individualmente -->
-                                Observa los niveles antes de comprar el curso
+                                Todos los niveles/fases del contenido
                             </small>
                         </div>
                         <div class="col-12">
@@ -147,7 +147,7 @@
                                 <form id="frmComentar" method="post" class="col-12 text-end votacion">
                                     <i id="thumbUp" class="fas fa-thumbs-up me-2" onclick="onThumbClickValoracion(this);"></i>
                                     <i id="thumbDown" class="fas fa-thumbs-down me-2" onclick="onThumbClickValoracion(this);"></i>
-                                    <button id="btnComentar" class="btn btn-bisonteca" type="submit">
+                                    <button id="btnComentar" class="btn btn-ourlib" type="submit">
                                         <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                         <i class="fas fa-fw fa-paper-plane me-2"></i>
                                         <span class="text">Comentar</span>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="col-12 col-lg-5 col-xl-4">
                     <div class="row g-3 precio">
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <h3 id="price">
                                 $ 0.0 MXN
                             </h3>
@@ -168,12 +168,13 @@
                             </small>
                         </div>
                         <div class="col-12">
-                            <hr class="text-bisonteca">
-                        </div>
+                            <hr class="text-ourlib">
+                        </div> -->
                         <div class="col-12">
                             <a href="#!" class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <i class="fas fa-shopping-cart fa-fw mr-2"></i>
-                                Comprar
+                                <!-- <i class="fas fa-shopping-cart fa-fw mr-2"></i> -->
+                                <i class="fas fa-heart fa-fw mr-2"></i>
+                                Inscribirse
                             </a>
                         </div>
                     </div>
@@ -187,7 +188,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="staticBackdropLabel">
-                            Comprar Curso/Nivel
+                            Inscribirse al contenido
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -195,8 +196,11 @@
                         <form id="frmPagar" method="post" class="w-100 mb-4">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <label for="" class="label-form text-bisonteca">Datos de pago</label>
-                                    <hr class="text-bisonteca my-0">
+                                    <h4 class="label-form text-white text-center">¿Esta de acuerdo en inscribirse al contenido visto?</h4>
+                                </div>
+                                <!-- <div class="col-12">
+                                    <label for="" class="label-form text-ourlib">Datos de pago</label>
+                                    <hr class="text-ourlib my-0">
                                 </div>
                                 <div class="col-12">
                                     <label for="" class="label-form">Método de pago</label>
@@ -245,12 +249,12 @@
                                 <div class="col-12 col-lg-5">
                                     <label for="" class="label-form">CVV</label>
                                     <input id="txtCvv" type="text" class="form-control">
-                                </div>
+                                </div> -->
                                 <div class="col-12">
-                                    <a href="#!" id="btnPagar" class="btn btn-bisonteca w-100" onclick="onBtnPagarClick();">
+                                    <a href="#!" id="btnPagar" class="btn btn-ourlib w-100" onclick="onBtnPagarClick();">
                                         <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
-                                        <i class="fas fa-fw fa-shopping-bag me-2"></i>
-                                        <span class="text">Checkout!</span>
+                                        <i class="fas fa-check me-2"></i>
+                                        <span class="text">Claro, continuar</span>
                                     </a>
                                 </div>
                             </div>
@@ -258,7 +262,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Volver</button>
-                        <!-- <button type="button" class="btn btn-bisonteca">Guardar</button> -->
+                        <!-- <button type="button" class="btn btn-ourlib">Guardar</button> -->
                     </div>
                 </div>
             </div>

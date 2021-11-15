@@ -81,9 +81,9 @@ const onFrmPagarSubmit = () => {
         return;
     }
 
-    if (!confirm("¿Seguro que desea realizar el pago?")) {
-        return;
-    }
+    // if (!confirm("¿Seguro que desea realizar el pago?")) {
+    //     return;
+    // }
 
     existsVenta(nodo).done((result) => {
 
@@ -185,7 +185,10 @@ const fillCurso = (id_curso) => {
         $("#votos_negativos").text(nodo.votos_negativos);
 
         // imagen
-        $('#image').css('background-image', !isKk(nodo.tipo_imagen) ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` : "url(https://picsum.photos/600/280)");
+        let image = !isKk(nodo.tipo_imagen) && nodo.imagen !== "" ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` 
+            : "url(https://picsum.photos/600/280)";
+
+        $('#image').css('background-image', image);
 
         // comentarios
         fillComentarios(nodo.id_curso);
@@ -262,11 +265,11 @@ const getAllNivelByCurso = (id_curso) => {
 
 const validaCamposPago = () => {
 
-    let method = $("select#slMetodoPago").val();
-    let cardid = $("input#ccn").val();
-    let month = $("select#txtTarjVencimiento").val();
-    let year = $("select#txtTarjAnio").val();
-    let cvv = $("input#txtCvv").val();
+    let method = '0'; //$("select#slMetodoPago").val();
+    let cardid = '0'; // $("input#ccn").val();
+    let month = '0'; // $("select#txtTarjVencimiento").val();
+    let year = '0'; // $("select#txtTarjAnio").val();
+    let cvv = '0'; // $("input#txtCvv").val();
     
     if (isEmptyOrNull(method)) {
 

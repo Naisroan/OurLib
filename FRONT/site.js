@@ -15,6 +15,7 @@ const AJAX_URL = "/code/AjaxRequests.php";
 const AJAX_URL_USER_CONTROLLER = "/controllers/UsuarioController.php";
 
 const AJAX_URL_USER_CONTROLLER_CREATE = "create";
+const AJAX_URL_USER_CONTROLLER_GET_ALL = "getAll";
 const AJAX_URL_USER_CONTROLLER_GET_BYID = "getById";
 const AJAX_URL_USER_CONTROLLER_GET_BYNICK = "getByNick";
 const AJAX_URL_USER_CONTROLLER_GET_BYEMAIL = "getByEmail";
@@ -26,6 +27,7 @@ const AJAX_URL_USER_CONTROLLER_UPDATE_IMAGE = "updateImage";
 const AJAX_URL_USER_CONTROLLER_REFRESH_LOGGED_USER = "refreshLoggedUser";
 const AJAX_URL_USER_CONTROLLER_UPDATE_NOMBRE = "updateNombre";
 const AJAX_URL_USER_CONTROLLER_UPDATE_PASSWORD = "updatePassword";
+const AJAX_URL_USER_CONTROLLER_UPDATE_IDROL = "updateIdRol";
 
 // CursoController
 
@@ -104,11 +106,19 @@ const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_CREATE = "create";
 const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_GETREPORTE = "getReporte";
 
 // constantes REGEX
-
 const REGEX_PASSWORD = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}])([A-Za-z\\d!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}]|[^ ]){8,50}$';
+
+var IS_MOBILE = false;
+var MENU_HEADER = null;
+var MENU_BTN = null;
+const MOBILE_WIDTH = 992;
 
 // load
 $(() => {
+
+    IS_MOBILE = $(document).width() <= MOBILE_WIDTH;
+    MENU_HEADER = $('#header_menu');
+    MENU_BTN = $('#btnMenu');
 
     // configuramos los mensajes de tipo toast
     toastr.options = {
@@ -134,6 +144,35 @@ $(() => {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
+
+    // if (MENU_HEADER) {
+    //     if (IS_MOBILE) {
+    //         MENU_HEADER.removeClass('open');
+    //     }
+    // }
+
+    if (MENU_BTN) {
+        MENU_BTN.on('click', () => {
+            let btn = $(this);
+            if (!MENU_HEADER || !btn)
+                return;
+            MENU_HEADER.toggleClass('open');
+            MENU_BTN.toggleClass('menu-show');
+        });
+    }
+
+    $(window).resize(function() {
+        IS_MOBILE = $(document).width() <= MOBILE_WIDTH;
+        if (MENU_HEADER && IS_MOBILE) {
+            MENU_HEADER.removeClass('open');
+        } else {
+            if (MENU_BTN) {
+                MENU_BTN.removeClass('menu-show');
+            }
+        }
+    });
+
+    ocultarLoader();
 });
 
 // mensajes con sweetalert2: https://sweetalert2.github.io/
@@ -198,7 +237,8 @@ const isEmptyOrNull = (val) => val === undefined || val === null || val === "";
 
 const isEmail = (val) => {
     
-    let mailformat =/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/;
+    // let mailformat =/^[a-zA-Z0-9.!#$%&'+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)$/;
+    let mailformat = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return val.match(mailformat);
 
 };
@@ -257,3 +297,31 @@ function getPathFile(fileUpload, indexFile = 0) {
 
     return "";
 }
+
+// funciones generales
+const ocultarLoader = (ocultar = true, msToDo = 1500) => {
+
+    setTimeout(() => {
+      
+        let loader = $('#slCargando');
+        let dom = $('html');
+
+        if (ocultar) {
+
+            if (loader && !loader.hasClass('d-none'))
+                loader.addClass('d-none');
+
+            if (dom && dom.hasClass('overflow-hidden'))
+                dom.removeClass('overflow-hidden');
+
+        } else {
+
+            if (loader && loader.hasClass('d-none'))
+                loader.removeClass('d-none');
+
+            if (dom && !dom.hasClass('overflow-hidden'))
+               dom.addClass('overflow-hidden');
+        }
+
+  }, msToDo);
+};

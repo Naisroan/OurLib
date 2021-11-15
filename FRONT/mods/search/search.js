@@ -164,7 +164,7 @@ const crearElementoCurso = (nodo) => {
                 <p class="card-text">
                     ${nodo.descripcion}
                 </p>
-                <a href="/mods/curso_show/curso_show.php?id=${nodo.id_curso}" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                <a href="/mods/curso_show/curso_show.php?id=${nodo.id_curso}" class="btn btn-sm btn-ourlib w-100 justify-content-center">
                     <i class="fas fa-info fs-5 me-2"></i>
                     <span class="fw-normal fs-5">Mas información</span>
                 </a>

@@ -26,6 +26,8 @@
 
         public string $tipo_imagen;
 
+        public int $id_rol_especial;
+
         public static function parseArrayToList($array) {
 
             $list = array();
@@ -53,6 +55,7 @@
             $nodo->fecha_alta =(string)$row[9];
             $nodo->fecha_mod = (string)$row[10];
             $nodo->tipo_imagen = (string)$row[11];
+            $nodo->id_rol_especial = isset($row[12]) ? (int)$row[12] : 0;
 
             return $nodo;
         }

@@ -1,5 +1,5 @@
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    background-color: var(--bisonteca) !important;
+    background-color: var(--ourlib) !important;
 }
 
 .btn-action {
@@ -16,8 +16,8 @@
 }
 
 .btn-action.edit:hover {
-    background-color: var(--bisonteca) !important;
-    border-color: var(--bisonteca) !important;
+    background-color: var(--ourlib) !important;
+    border-color: var(--ourlib) !important;
 }
 
 .btn-action.delete:hover {

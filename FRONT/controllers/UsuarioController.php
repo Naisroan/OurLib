@@ -89,6 +89,12 @@
             echo updatePassword(json_decode($data));
             break;
         }
+
+        case 'updateIdRol': {
+
+            echo updateIdRol(json_decode($data));
+            break;
+        }
     }
 
     exit();
@@ -106,6 +112,7 @@
 
         return json_encode(Usuario::parseArrayToList($result));
     }
+
 
     function getById($id) {
 
@@ -289,6 +296,20 @@
 
         $sp = new SP("sp_usuario_updatepassword");
         $result = $sp->insertOrUpdate($usuarioLogeado->id_usuario, $nodo->new);
+
+        if(!$sp->isSuccess()) {
+            
+            header('HTTP/1.0 500 Internal Server Error');
+            die($sp->errorMessage);
+        }
+
+        return true;
+    }
+
+    function updateIdRol($nodo) {
+
+        $sp = new SP("sp_usuario_updateIdRol");
+        $result = $sp->insertOrUpdate($nodo->id_usuario, $nodo->id_rol);
 
         if(!$sp->isSuccess()) {
             

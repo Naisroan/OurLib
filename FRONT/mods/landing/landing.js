@@ -3,7 +3,7 @@ $(() => {
     fillCursosByUsuarioLogeado();
     fillCursosAdquiridosByUsuarioLogeado();
     fillCursosRecientes();
-    fillCursosMasVendidos();
+    // fillCursosMasVendidos();
     fillCursosPopulares();
 });
 
@@ -214,7 +214,7 @@ const crearElementoCursoSubido = (nodo) => {
                 <p class="card-text">
                     ${nodo.descripcion}
                 </p>
-                <a href="/mods/curso_detail/curso_detail.php?id=${nodo.id_curso}" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                <a href="/mods/curso_detail/curso_detail.php?id=${nodo.id_curso}" class="btn btn-sm btn-ourlib w-100 justify-content-center">
                     <i class="fas fa-edit fs-5 me-2"></i>
                     <span class="fw-normal fs-5">Editar</span>
                 </a>
@@ -251,7 +251,7 @@ const crearElementoCursoAdquirido = (nodo) => {
                 <p class="card-text">
                     ${nodo.descripcion}
                 </p>
-                <a href="/mods/curso_learning/curso_learning.php?id=${nodo.id_curso}" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                <a href="/mods/curso_learning/curso_learning.php?id=${nodo.id_curso}" class="btn btn-sm btn-ourlib w-100 justify-content-center">
                     <i class="fas fa-info fs-5 me-2"></i>
                     <span class="fw-normal fs-5">Aprender</span>
                 </a>
@@ -288,7 +288,7 @@ const crearElementoCurso = (nodo) => {
                 <p class="card-text">
                     ${nodo.descripcion}
                 </p>
-                <a href="/mods/curso_show/curso_show.php?id=${nodo.id_curso}" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                <a href="/mods/curso_show/curso_show.php?id=${nodo.id_curso}" class="btn btn-sm btn-ourlib w-100 justify-content-center">
                     <i class="fas fa-info fs-5 me-2"></i>
                     <span class="fw-normal fs-5">Mas información</span>
                 </a>

@@ -24,13 +24,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -38,10 +38,10 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- menu -->
+    <?php require_once('../../templates/header_menu.php') ?>
 
-        <!-- menu -->
-        <?php require_once('../../templates/header_menu.php') ?>
+    <div class="wrapper">
 
         <!-- id -->
         <input id="txtIdRol" type="text" value="<?php echo $usuarioLogeado->id_rol ?>" class="d-none invisible">

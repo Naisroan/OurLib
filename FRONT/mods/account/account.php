@@ -23,13 +23,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -65,11 +65,46 @@
                                 <input id="profile_image" class="form-control" type="file" id="formFile">
                             </div>
                             <div class="col-12">
-                                <button id="btnGuardarImagen" type="submit" class="btn btn-bisonteca">
+                                <button id="btnGuardarImagen" type="submit" class="btn btn-ourlib">
                                     <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
                                     <i class="fas fa-save me-2"></i>
                                     <span class="text">Guardar</span>
                                 </button>
+                            </div>
+                            <div class="col-12">
+                                <hr>
+                            </div>
+                        </form>
+                        <form action="" class="row g-3 mb-3">
+                            <div class="col-12">
+                                <label for="" class="label-form">
+                                    Nombre/Organización/Departamento
+                                </label>
+                                <input id="txtNombre" type="text" class="form-control" placeholder="Ingrese..."
+                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->nombre : "" ?>'>
+                            </div>
+                            <div class="col-12 d-none">
+                                <label for="" class="label-form">
+                                    Apellido Paterno
+                                </label>
+                                <input id="txtApPaterno" type="text" class="form-control" placeholder="Apellido Paterno"
+                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->ap_paterno : "" ?>'>
+                            </div>
+                            <div class="col-12 d-none">
+                                <label for="" class="label-form">
+                                    Apellido Materno
+                                </label>
+                                <input id="txtApMaterno" type="text" class="form-control" placeholder="Apellido Materno"
+                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->ap_materno : "" ?>'>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-12">
+                                    <a id="btnGuardarNombre" href="#!" class="btn btn-ourlib" onclick="cambiarNombre();">
+                                        <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
+                                        <i class="fas fa-save me-2"></i>
+                                        <span class="text">Guardar</span>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col-12">
                                 <hr>
@@ -112,42 +147,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="col-12">
-                                    <a id="btnGuardarPassword" href="#!" class="btn btn-bisonteca" onclick="cambiarPassword();">
-                                        <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
-                                        <i class="fas fa-save me-2"></i>
-                                        <span class="text">Guardar</span>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <hr>
-                            </div>
-                        </form>
-                        <form action="" class="row g-3 mb-3">
-                            <div class="col-12">
-                                <label for="" class="label-form">
-                                    Nombre(s)
-                                </label>
-                                <input id="txtNombre" type="text" class="form-control" placeholder="Nombre(s)"
-                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->nombre : "" ?>'>
-                            </div>
-                            <div class="col-12">
-                                <label for="" class="label-form">
-                                    Apellido Paterno
-                                </label>
-                                <input id="txtApPaterno" type="text" class="form-control" placeholder="Apellido Paterno"
-                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->ap_paterno : "" ?>'>
-                            </div>
-                            <div class="col-12">
-                                <label for="" class="label-form">
-                                    Apellido Materno
-                                </label>
-                                <input id="txtApMaterno" type="text" class="form-control" placeholder="Apellido Materno"
-                                    value='<?php echo isset($usuarioLogeado) ? $usuarioLogeado->ap_materno : "" ?>'>
-                            </div>
-                            <div class="col-12">
-                                <div class="col-12">
-                                    <a id="btnGuardarNombre" href="#!" class="btn btn-bisonteca" onclick="cambiarNombre();">
+                                    <a id="btnGuardarPassword" href="#!" class="btn btn-ourlib" onclick="cambiarPassword();">
                                         <span class="spinner-grow spinner-grow visually-hidden me-2" role="status" aria-hidden="true"></span>
                                         <i class="fas fa-save me-2"></i>
                                         <span class="text">Guardar</span>

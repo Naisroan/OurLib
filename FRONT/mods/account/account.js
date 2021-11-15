@@ -141,8 +141,8 @@ const cambiarPassword = () => {
 const cambiarNombre = () => {
 
     let nombre = $("input#txtNombre").val();
-    let appaterno = $("input#txtApPaterno").val();
-    let apmaterno = $("input#txtApMaterno").val();
+    let appaterno = '';
+    let apmaterno = '';
     
     if (isEmptyOrNull(nombre)) {
 
@@ -150,11 +150,11 @@ const cambiarNombre = () => {
         return;
     }
 
-    if (isEmptyOrNull(appaterno)) {
+    // if (isEmptyOrNull(appaterno)) {
 
-        message_warning("Ingresa tu apellido paterno");
-        return;
-    }
+    //     message_warning("Ingresa tu apellido paterno");
+    //     return;
+    // }
 
     // if (isEmptyOrNull(apmaterno)) {
 

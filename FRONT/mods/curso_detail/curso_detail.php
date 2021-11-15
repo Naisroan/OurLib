@@ -2,7 +2,7 @@
 
     # curso_detail.php
 
-    define('TITLE', 'Detalle de Curso');
+    define('TITLE', 'Detalle de contenido');
     define('FOLDER_NAME', 'curso_detail');
     define('URL_CSS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".css");
     define('URL_JS', '/mods/' . FOLDER_NAME . '/' . FOLDER_NAME . ".js");
@@ -23,13 +23,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -37,10 +37,10 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- menu -->
+    <?php require_once('../../templates/header_menu.php') ?>
 
-        <!-- menu -->
-        <?php require_once('../../templates/header_menu.php') ?>
+    <div class="wrapper">
 
         <!-- id -->
         <input id="txtId" type="text" value="-1" class="d-none invisible">
@@ -49,13 +49,13 @@
         <div class="container my-5">
             <div class="row">
                 <div class="col-12 mb-3">
-                    <h1 id="title" class="h3">Agregar Curso</h1>
+                    <h1 id="title" class="h3">Agregar Contenido</h1>
                     <p class="lead">Ingrese los datos solicitados</p>
                 </div>
                 <div class="col-12 col-lg-4 col-xl-3">
                     <div class="row g-3 mb-5">
                         <div class="col-12">
-                            <small class="text-bisonteca">Pasos</small>
+                            <small class="text-ourlib">Pasos</small>
                             <hr class="my-0">
                         </div>
                         <div class="col-12">
@@ -84,30 +84,38 @@
                             <form id="frmGuardarDatosBasicos" action="" method="post" class="w-100">
                                 <div class="row g-3">
                                     <div class="col-12">
-                                        <small class="text-bisonteca">Información general</small>
+                                        <small class="text-ourlib">Información general</small>
                                         <hr class="my-0">
                                     </div>
                                     <div class="col-12 col-lg-12">
                                         <label for="" class="label-form">Título</label>
-                                        <input id="txtTitulo" name="txtTitulo" type="text" class="form-control" placeholder="Ingrese el título del curso">
+                                        <input id="txtTitulo" name="txtTitulo" type="text" class="form-control" placeholder="Ingrese el título del contenido">
                                     </div>
                                     <div class="col-12 col-lg-12">
                                         <label for="" class="label-form">Subtítulo</label>
-                                        <input id="txtSubTitulo" name="txtSubTitulo" type="text" class="form-control" placeholder="Ingrese el subtítulo del curso">
+                                        <input id="txtSubTitulo" name="txtSubTitulo" type="text" class="form-control" placeholder="Ingrese el subtítulo del contenido">
                                     </div>
-                                    <div class="col-12 col-lg-12">
+                                    <div class="col-12 col-lg-12 d-none">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="chkEsVenta">
+                                            <label class="form-check-label" for="chkEsVenta">
+                                                Disponible a venta
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div id="pnlPrecio" class="col-12 col-lg-12 d-none">
                                         <label for="" class="label-form">Precio</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="lblPrecio">$</span>
-                                            <input id="txtPrecio" type="text" class="form-control" placeholder="Precio del curso" aria-label="Precio" aria-describedby="lblPrecio">
+                                            <input id="txtPrecio" type="text" class="form-control" placeholder="0.00" aria-label="Precio" aria-describedby="lblPrecio">
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-12">
                                         <label for="" class="label-form">Descripción</label>
-                                        <textarea name="txtDescripcion" id="txtDescripcion" cols="1" rows="5" class="form-control" placeholder="Ingrese la descripción del curso"></textarea>
+                                        <textarea name="txtDescripcion" id="txtDescripcion" cols="1" rows="5" class="form-control" placeholder="Ingrese la descripción del contenido"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button id="btnGuardarDatosBasicos" class="btn btn-bisonteca" type="submit">
+                                        <button id="btnGuardarDatosBasicos" class="btn btn-ourlib" type="submit">
                                             <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                             <i class="fas fa-fw fa-save me-2"></i>
                                             <span class="text">Guardar</span>
@@ -120,7 +128,7 @@
                             <form id="frmGuardarImagen" action="" method="post" class="w-100" enctype="multipart/form-data">
                                 <div class="row g-3">
                                     <div class="col-12">
-                                        <small class="text-bisonteca">Imagen principal</small>
+                                        <small class="text-ourlib">Imagen principal</small>
                                         <hr class="my-0">
                                     </div>
                                     <div class="col-12">
@@ -137,7 +145,7 @@
                                         <input class="form-control" type="file" id="fuGuardarImagen">
                                     </div>
                                     <div class="col-12">
-                                        <button id="btnGuardarImagen" type="submit" class="btn btn-bisonteca">
+                                        <button id="btnGuardarImagen" type="submit" class="btn btn-ourlib">
                                             <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                             <i class="fas fa-save me-2"></i>
                                             <span class="text">Guardar</span>
@@ -150,7 +158,7 @@
                             <form id="frmGuardarCategoria" method="post" class="w-100 mb-4">
                                 <div class="row g-3">
                                     <div class="col-12">
-                                        <small class="text-bisonteca">Categorías del curso</small>
+                                        <small class="text-ourlib">Categorías del contenido</small>
                                         <hr class="my-0">
                                     </div>
                                     <div class="col-12 col-lg-12">
@@ -161,7 +169,7 @@
                                                 <!-- <option value="Programación"></option>
                                                 <option value="Arte"></option> -->
                                             </datalist>
-                                            <button id="btnGuardarCategoria" type="submit" class="btn btn-bisonteca">
+                                            <button id="btnGuardarCategoria" type="submit" class="btn btn-ourlib">
                                                 <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                                 <i class="fas fa-save me-2"></i>
                                                 <span class="text">Guardar</span>
@@ -214,8 +222,8 @@
                                             <form id="frmGuardarNivel" method="post" class="w-100 mb-4">
                                                 <div class="row g-3">
                                                     <div class="col-12">
-                                                        <label for="" class="label-form text-bisonteca">Información básica</label>
-                                                        <hr class="text-bisonteca my-0">
+                                                        <label for="" class="label-form text-ourlib">Información básica</label>
+                                                        <hr class="text-ourlib my-0">
                                                     </div>
                                                     <div class="col-12 col-lg-12">
                                                         <label for="" class="label-form">Título del Nivel</label>
@@ -229,7 +237,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
-                                                        <button id="btnGuardarNivel" class="btn btn-bisonteca" type="submit">
+                                                        <button id="btnGuardarNivel" class="btn btn-ourlib" type="submit">
                                                             <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                                             <i class="fas fa-fw fa-save me-2"></i>
                                                             <span class="text">Guardar</span>
@@ -240,14 +248,14 @@
                                             <form id="frmGuardarArchivo" method="post" class="w-100 mb-4" enctype="multipart/form-data">
                                                 <div class="row g-3">
                                                     <div class="col-12">
-                                                        <label for="" class="label-form text-bisonteca">Contenido</label>
-                                                        <hr class="text-bisonteca my-0">
+                                                        <label for="" class="label-form text-ourlib">Contenido</label>
+                                                        <hr class="text-ourlib my-0">
                                                     </div>
                                                     <div class="col-12 col-lg-12">
                                                         <label for="fuGuardarArchivo" class="form-label">Seleccione el archivo</label>
                                                         <div class="input-group">
                                                             <input class="form-control" type="file" id="fuGuardarArchivo">
-                                                            <button id="btnGuardarArchivo" class="btn btn-bisonteca" type="submit">
+                                                            <button id="btnGuardarArchivo" class="btn btn-ourlib" type="submit">
                                                                 <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                                                 <i class="fas fa-fw fa-upload me-2"></i>
                                                                 <span class="text">Subir</span>
@@ -287,7 +295,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
-                                            <!-- <button type="button" class="btn btn-bisonteca">Guardar</button> -->
+                                            <!-- <button type="button" class="btn btn-ourlib">Guardar</button> -->
                                         </div>
                                     </div>
                                 </div>
@@ -296,11 +304,11 @@
                                 <div id="niveles" class="">
                                     <div class="row g-3">
                                         <div class="col-12">
-                                            <small class="text-bisonteca">Niveles del curso</small>
+                                            <small class="text-ourlib">Niveles del contenido</small>
                                             <hr class="my-0">
                                         </div>
                                         <div class="col-12">
-                                            <a href="#!" class="btn btn-bisonteca" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="onBtnAgregarNivelClick();">
+                                            <a href="#!" class="btn btn-ourlib" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="onBtnAgregarNivelClick();">
                                                 <i class="fas fa-plus fa-fw me-2"></i>Agregar nivel
                                             </a>
                                         </div>

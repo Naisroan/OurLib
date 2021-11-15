@@ -1,0 +1,7 @@
+table thead th {
+    background-color: transparent !important;
+}
+
+table thead tr th:first-child {
+    width: 136px;
+}

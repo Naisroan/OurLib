@@ -74,10 +74,13 @@ const fillCurso = (id_curso) => {
         $("#subtitle").text(nodo.subtitulo);
         $("#description").text(nodo.descripcion);
 
-        document.title = "Bisonteca © - " + nodo.titulo;
+        document.title = "OurLib © - " + nodo.titulo;
 
         // imagen
-        $('#image').css('background-image', !isKk(nodo.tipo_imagen) ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` : "url(https://picsum.photos/600/280)");
+        let image = !isKk(nodo.tipo_imagen) && nodo.imagen !== "" ? `url(data:${nodo.tipo_imagen};base64,${nodo.imagen})` 
+            : "url(https://picsum.photos/600/280)";
+
+        $('#image').css('background-image', image);
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);

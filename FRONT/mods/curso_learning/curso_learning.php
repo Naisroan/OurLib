@@ -32,13 +32,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -46,31 +46,18 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- menu -->
+    <?php require_once('../../templates/header_menu.php') ?>
 
-        <!-- menu -->
-        <?php require_once('../../templates/header_menu.php') ?>
+    <div class="wrapper">
 
         <!-- id -->
         <input id="txtId" type="text" value="0" class="d-none invisible">
         <input id="txtIdNivelCurso" type="text" value="0" class="d-none invisible">
 
         <!-- content -->
-        <div class="container">
+        <div class="container-fluid">
             <div class="row my-3">
-                <div class="col-12 col-lg-4 col-xl-3">
-                    <div class="mb-3">
-                        <span class="me-2">Seleccione un nivel...</span>
-                        <!-- <span class="badge bg-primary">90% de progreso</span> -->
-                    </div>
-                    <div id="niveles" class="list-group" id="list-tab" role="tablist">
-                        <!-- <a class="list-group-item list-group-item-action" id="list-1-list" href="#!">
-                            <strong>
-                                Titulo nivel #1
-                            </strong>
-                        </a> -->
-                    </div>
-                </div>
                 <div class="col-12 col-lg-8 col-xl-9">
 
                     <?php
@@ -122,6 +109,19 @@
                         }
                     ?>
 
+                </div>
+                <div class="col-12 col-lg-4 col-xl-3">
+                    <div class="mb-3">
+                        <span class="me-2">Niveles del contenido</span>
+                        <!-- <span class="badge bg-primary">90% de progreso</span> -->
+                    </div>
+                    <div id="niveles" class="list-group" id="list-tab" role="tablist">
+                        <!-- <a class="list-group-item list-group-item-action" id="list-1-list" href="#!">
+                            <strong>
+                                Titulo nivel #1
+                            </strong>
+                        </a> -->
+                    </div>
                 </div>
             </div>
         </div>

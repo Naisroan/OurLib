@@ -1,8 +1,8 @@
 /*
 
 :root {
-    --bisonteca: #9863D5;
-    --bisonteca-hover: #5c318d;
+    --ourlib: #9863D5;
+    --ourlib-hover: #5c318d;
     --bg-menu: black;
     --bg-button: #9863D5;
     --bg-button-hover: #5e3e83;
@@ -20,20 +20,22 @@
 */
 
 :root {
-    --bisonteca: #9863D5;
-    --bisonteca-hover: #5c318d;
-    --bg-menu: #9863D5;
-    --bg-button: #9863D5;
-    --bg-button-hover: #5e3e83;
+    --ourlib: #682ec5;
+    --ourlib-hover: #5c318d;
+    --ourlib-secondary: #bc2ec5;
+    --ourlib-links: #0dfdf7;
+    --bg-menu: #000000;
+    --bg-button: #682ec5;
+    --bg-button-hover: #8a58c3;
     --text-menu: rgb(221, 221, 221);
     --text-menu-hover: white;
     --text-button: white;
     --text-button-hover: white;
     --text-logo: white;
-    --text-logo-hover: #9863D5;
+    --text-logo-hover: #682ec5;
     --text-valoration: #797979;
-    --text-valoration-hover: #9863D5;
-    --bg-message: #9863d514;
+    --text-valoration-hover: #682ec5;
+    --bg-message: #682ec514;
 }
 
 /*
@@ -49,20 +51,99 @@ textarea {
     font-family: 'Titillium Web', sans-serif !important;
 }
 
-.bg-bisonteca {
-    background-color: var(--bisonteca) !important;
+.bg-ourlib {
+    background-color: var(--ourlib) !important;
 }
 
-.text-bisonteca {
-    color: var(--bisonteca) !important;
+.text-ourlib {
+    color: var(--ourlib) !important;
+}
+
+html {
+    background-color: rgb(26, 26, 26);
+    color: white;
+}
+
+body {
+    background-color: inherit !important;
+    color: inherit !important;
+}
+
+.btn-ourlib-gradient {
+    background-image: radial-gradient(circle at 47% 14%, rgba(205, 205, 205,0.04) 0%, rgba(205, 205, 205,0.04) 43%,transparent 43%, transparent 100%),radial-gradient(circle at 35% 12%, rgba(215, 215, 215,0.04) 0%, rgba(215, 215, 215,0.04) 4%,transparent 4%, transparent 100%),radial-gradient(circle at 1% 35%, rgba(24, 24, 24,0.04) 0%, rgba(24, 24, 24,0.04) 37%,transparent 37%, transparent 100%),radial-gradient(circle at 21% 1%, rgba(0, 0, 0,0.04) 0%, rgba(0, 0, 0,0.04) 26%,transparent 26%, transparent 100%),radial-gradient(circle at 23% 82%, rgba(249, 249, 249,0.04) 0%, rgba(249, 249, 249,0.04) 60%,transparent 60%, transparent 100%),radial-gradient(circle at 11% 54%, rgba(251, 251, 251,0.04) 0%, rgba(251, 251, 251,0.04) 23%,transparent 23%, transparent 100%),radial-gradient(circle at 69% 68%, rgba(234, 234, 234,0.04) 0%, rgba(234, 234, 234,0.04) 10%,transparent 10%, transparent 100%),linear-gradient(90deg, rgb(228, 46, 222),rgb(63, 61, 215));
+    transition-duration: 0.4;
+}
+
+.btn-ourlib-gradient:hover {
+    /* filter: invert(1); */
+    background-image: radial-gradient(circle at top right, rgb(36, 9, 119) 0%, rgb(36, 9, 119) 48%,rgb(72, 7, 149) 48%, rgb(72, 7, 149) 53%,rgb(109, 5, 178) 53%, rgb(109, 5, 178) 56%,rgb(145, 2, 208) 56%, rgb(145, 2, 208) 69%,rgb(181, 0, 237) 69%, rgb(181, 0, 237) 100%);
 }
 
 /*
     REGLAS DE MODIFICACIONES A BOOTSTRAP
 */
 
+a {
+    color: var(--ourlib-links);
+}
+
 .btn {
     border-radius: 3px !important;
+}
+
+.text-muted {
+    color: rgb(207, 207, 207) !important;
+}
+
+.card {
+    background-color: #333333 !important;
+    border: none;
+    overflow: hidden;
+}
+
+.form-control,
+.form-select {
+    background-color: #3c3c3c;
+    border: none;
+    color: whitesmoke;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #4c4c4c;
+    border: none;
+    box-shadow: none;
+    color: white;
+}
+
+.input-group .input-group-text {
+    background-color: var(--ourlib-secondary);
+    border: none;
+    color: white;
+}
+
+.nav-link {
+    color: whitesmoke;
+}
+
+.btn-close,
+.modal-content {
+    background-color: rgb(31, 31, 31);
+}
+
+.list-group-item {
+    background-color: #333;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #333;
+    opacity: 1;
+}
+
+.list-group-item-action {
+    width: 100%;
+    color: #ffffff;
+    text-align: inherit;
 }
 
 /*
@@ -70,34 +151,100 @@ textarea {
 */
 
 #header_menu {
-    position: sticky;
-    position: -webkit-sticky;
+    left: 0px !important;
+    position: fixed;
     top: 0;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+    width: 260px;
     z-index: 10;
 }
 
+#header_menu.open {
+    left: 0px !important;
+}
+
+body .wrapper:not(.no-site) {
+    margin-left: 260px;
+    overflow: hidden;
+}
+
+#btnMenu {
+    display: none;
+    left: 10px;
+    top: 10px;
+    position: fixed;
+}
+
+.btn-menu {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.3s;
+    opacity: 0.6;
+    outline: none;
+}
+
+.btn-menu.menu-show {
+    left: 270px !important;
+}
+
+.btn-menu:hover {
+    opacity: 1;
+    color: white;
+}
+
+.btn-menu:focus {
+    border: none;
+    box-shadow: none;
+}
+
+@media (max-width: 992px) {
+
+  #header_menu {
+      left: -260px !important;
+  }
+
+  body .wrapper:not(.no-site) {
+      margin-left: 0px !important;
+  }
+
+  #btnMenu {
+      display: inline-block !important;
+  }
+}
+
+#header_menu,
+#header_menu nav {
+    height: 100%;
+}
+
+#header_menu nav {
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 25%);
+}
+
 .bg-menu {
-    background-color: var(--bg-menu);
+    /* background-color: var(--bg-menu); */
+    background-image: radial-gradient(circle at 15% 55%, hsla(164,0%,78%,0.03) 0%, hsla(164,0%,78%,0.03) 15%,transparent 15%, transparent 100%),radial-gradient(circle at 89% 23%, hsla(164,0%,78%,0.03) 0%, hsla(164,0%,78%,0.03) 60%,transparent 60%, transparent 100%),radial-gradient(circle at 58% 94%, hsla(164,0%,78%,0.03) 0%, hsla(164,0%,78%,0.03) 48%,transparent 48%, transparent 100%),radial-gradient(circle at 54% 93%, hsla(164,0%,78%,0.03) 0%, hsla(164,0%,78%,0.03) 42%,transparent 42%, transparent 100%),radial-gradient(circle at 53% 32%, hsla(164,0%,78%,0.03) 0%, hsla(164,0%,78%,0.03) 24%,transparent 24%, transparent 100%),linear-gradient(90deg, rgb(0,0,0),rgb(0,0,0));
 }
 
 .text-menu {
     color: var(--text-menu);
 }
 
-.btn-bisonteca {
+.btn-ourlib {
     background-color: var(--bg-button);
     color: var(--text-button);
 }
 
-.btn-bisonteca:hover {
+.btn-ourlib:hover {
     background-color: var(--bg-button-hover);
     color: var(--text-button-hover);
 }
 
 #nav_items ul {
-    align-items: center;
+    /* align-items: center;
     display: flex;
-    flex-direction: row;
+    flex-direction: row; */
 }
 
 #nav_logo .link-logo {
@@ -113,24 +260,43 @@ textarea {
 
 #nav_logo .link-logo img {
     display: block;
-    /* filter: drop-shadow(2px 2px 2px black); */
+    filter: invert(0);
     width: 105px;
     margin-bottom: 1px;
+    transition-duration: 0.2s;
 }
 
 #nav_logo .link-logo img:hover {
     /* -webkit-mask: linear-gradient(transparent, black); */
+    filter: invert(1);
 }
 
 #nav_items ul li {
 }
 
 #nav_items ul li a {
+    align-items: center;
+    border-radius: 8px;
     color: var(--text-menu);
+    display: flex;
+    flex: 1 auto;
     font-weight: 600;
     text-decoration: none;
-    transition-duration: 0.1s;
-    padding: 0 1rem;
+    transition-duration: 0.2s;
+    padding: 0.6rem 1rem;
+}
+
+#nav_items ul li:not(:nth-last-child(2)) a:not(.link-cuenta) {
+    margin-bottom: 1rem;
+}
+
+#nav_items ul li a:hover:not(.link-cuenta) {
+    background-color: var(--ourlib-hover);
+    color: white;
+}
+
+.link-cuenta {
+    padding: 0 1rem !important;
 }
 
 #nav_items ul li button {
@@ -162,4 +328,65 @@ textarea {
 
 .link-cuenta strong {
     line-height: 3;
+}
+
+/*
+     LOADER
+*/
+
+.screen-loader {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.screen-loader-wrapper {
+    height: 100%;
+}
+
+.screen-loader .screen-loader-wrapper {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.lds-ripple {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-ripple div {
+    position: absolute;
+    border: 4px solid #fff;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+    0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+    }
 }

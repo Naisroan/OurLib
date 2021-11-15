@@ -9,13 +9,13 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="es-mx">
+<html lang="es-mx" class="overflow-hidden">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bisonteca © - <?php echo TITLE ?></title>
+    <title>OurLib © - <?php echo TITLE ?></title>
     <?php require_once('../../templates/styles_site.php'); ?>
     <link rel="stylesheet" href="<?php echo URL_CSS ?>">
     <link rel='shortcut icon' type='image/x-icon' href='/favicon.ico' />
@@ -23,10 +23,10 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- menu -->
+    <?php require_once('../../templates/header_menu.php') ?>
 
-        <!-- menu -->
-        <?php require_once('../../templates/header_menu.php') ?>
+    <div class="wrapper">
 
         <!-- content -->
         <div class="container my-5">
@@ -56,7 +56,7 @@
                             <input id="txtAutor" type="text" class="form-control form-control-lg" placeholder="Usuario del autor creador del curso..." />
                         </div>
                         <div class="col-12">
-                            <button id="btnBuscar" class="btn btn-bisonteca" type="submit">
+                            <button id="btnBuscar" class="btn btn-ourlib" type="submit">
                                 <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
                                 <i class="fas fa-fw fa-search me-2"></i>
                                 <span class="text">Buscar</span>
@@ -85,7 +85,7 @@
                                         </small>
                                     </h5>
                                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-bisonteca w-100 justify-content-center">
+                                    <a href="/mods/curso_show/curso_show.php?id=0" class="btn btn-sm btn-ourlib w-100 justify-content-center">
                                         <i class="fas fa-info fs-5 me-2"></i>
                                         <span class="fw-normal fs-5">Ver más</span>
                                     </a>
