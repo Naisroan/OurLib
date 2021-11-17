@@ -52,25 +52,29 @@
                     <h1 id="title" class="h3">Agregar Contenido</h1>
                     <p class="lead">Ingrese los datos solicitados</p>
                 </div>
-                <div class="col-12 col-lg-4 col-xl-3">
-                    <div class="row g-3 mb-5">
-                        <div class="col-12">
+                <div class="col-12"> <!-- col-12 col-lg-4 col-xl-3 -->
+                    <div class="row g-3 mb-3">
+                        <!-- <div class="col-12">
                             <small class="text-ourlib">Pasos</small>
                             <hr class="my-0">
-                        </div>
+                        </div> -->
                         <div class="col-12">
                             <div class="d-flex flex-fill align-items-stretch">
-                                <div class="nav flex-column nav-pills flex-fill" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <div class="nav flex-row nav-pills flex-fill" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
                                     <button id="btnTabDatosBasicos" class="nav-link text-center text-lg-start active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                      <i class="fa fa-info-circle me-2"></i>
                                         Datos básicos
                                     </button>
                                     <button id="btnTabImagen" class="invisible nav-link text-center text-lg-start" id="v-pills-image-tab" data-bs-toggle="pill" data-bs-target="#v-pills-image" type="button" role="tab" aria-controls="v-pills-image" aria-selected="false">
+                                      <i class="fas fa-image me-2"></i>
                                         Imagen
                                     </buttona>
                                     <button id="btnTabCategorias" class="invisible nav-link text-center text-lg-start" id="v-pills-cat-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cat" type="button" role="tab" aria-controls="v-pills-cat" aria-selected="false">
+                                        <i class="fas fa-stream me-2"></i>
                                         Categorías
                                     </buttona>
                                     <button id="btnTabNiveles" class="invisible nav-link text-center text-lg-start" id="v-pills-levels-tab" data-bs-toggle="pill" data-bs-target="#v-pills-levels" type="button" role="tab" aria-controls="v-pills-levels" aria-selected="false">
+                                      <i class="fas fa-layer-group me-2"></i>
                                         Niveles
                                     </buttona>
                                 </div>
@@ -78,7 +82,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-8 col-xl-9">
+                <div class="col-12"> <!-- col-12 col-lg-8 col-xl-9 -->
                     <div class="tab-content" id="v-pills-tabContent">
                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                             <form id="frmGuardarDatosBasicos" action="" method="post" class="w-100">
@@ -103,12 +107,13 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div id="pnlPrecio" class="col-12 col-lg-12 d-none">
+                                    <div id="pnlPrecio" class="col-12 col-lg-12">
                                         <label for="" class="label-form">Precio</label>
                                         <div class="input-group">
                                             <span class="input-group-text" id="lblPrecio">$</span>
-                                            <input id="txtPrecio" type="text" class="form-control" placeholder="0.00" aria-label="Precio" aria-describedby="lblPrecio">
+                                            <input id="txtPrecio" type="text" class="form-control" placeholder="0.00" aria-label="Precio" aria-describedby="lblPrecio" value="0">
                                         </div>
+                                        <small class="text-muted">Si es 0, dará a entender que el curso será gratis</small>
                                     </div>
                                     <div class="col-12 col-lg-12">
                                         <label for="" class="label-form">Descripción</label>

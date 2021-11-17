@@ -81,9 +81,9 @@ const onFrmPagarSubmit = () => {
         return;
     }
 
-    // if (!confirm("¿Seguro que desea realizar el pago?")) {
-    //     return;
-    // }
+    if (!confirm("¿Seguro que desea realizar el pago?")) {
+        return;
+    }
 
     existsVenta(nodo).done((result) => {
 
@@ -265,11 +265,11 @@ const getAllNivelByCurso = (id_curso) => {
 
 const validaCamposPago = () => {
 
-    let method = '0'; //$("select#slMetodoPago").val();
-    let cardid = '0'; // $("input#ccn").val();
-    let month = '0'; // $("select#txtTarjVencimiento").val();
-    let year = '0'; // $("select#txtTarjAnio").val();
-    let cvv = '0'; // $("input#txtCvv").val();
+    let method = $("select#slMetodoPago").val();
+    let cardid = $("input#ccn").val();
+    let month = $("select#txtTarjVencimiento").val();
+    let year = $("select#txtTarjAnio").val();
+    let cvv = $("input#txtCvv").val();
     
     if (isEmptyOrNull(method)) {
 

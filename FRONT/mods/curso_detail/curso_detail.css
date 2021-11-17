@@ -1,5 +1,15 @@
+.nav-pills .nav-link {
+    border-bottom: 2px transparent !important;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    background-color: var(--ourlib) !important;
+    background-color: black !important;
+    border-bottom: 2px var(--ourlib-secondary) !important;
+    color: var(--ourlib-secondary) !important;
+}
+
+.nav-pills .nav-link:hover {
+    color: var(--ourlib-secondary) !important;
 }
 
 .btn-action {

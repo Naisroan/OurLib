@@ -159,7 +159,7 @@
                 </div>
                 <div class="col-12 col-lg-5 col-xl-4">
                     <div class="row g-3 precio">
-                        <!-- <div class="col-12">
+                        <div class="col-12">
                             <h3 id="price">
                                 $ 0.0 MXN
                             </h3>
@@ -169,12 +169,12 @@
                         </div>
                         <div class="col-12">
                             <hr class="text-ourlib">
-                        </div> -->
+                        </div>
                         <div class="col-12">
                             <a href="#!" class="btn btn-primary btn-lg w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <!-- <i class="fas fa-shopping-cart fa-fw mr-2"></i> -->
-                                <i class="fas fa-heart fa-fw mr-2"></i>
-                                Inscribirse
+                                <i class="fas fa-shopping-cart fa-fw mr-2"></i>
+                                <!-- <i class="fas fa-heart fa-fw mr-2"></i> -->
+                                Adquirir
                             </a>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                                 <div class="col-12">
                                     <h4 class="label-form text-white text-center">¿Esta de acuerdo en inscribirse al contenido visto?</h4>
                                 </div>
-                                <!-- <div class="col-12">
+                                <div class="col-12">
                                     <label for="" class="label-form text-ourlib">Datos de pago</label>
                                     <hr class="text-ourlib my-0">
                                 </div>
@@ -249,7 +249,7 @@
                                 <div class="col-12 col-lg-5">
                                     <label for="" class="label-form">CVV</label>
                                     <input id="txtCvv" type="text" class="form-control">
-                                </div> -->
+                                </div>
                                 <div class="col-12">
                                     <a href="#!" id="btnPagar" class="btn btn-ourlib w-100" onclick="onBtnPagarClick();">
                                         <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
