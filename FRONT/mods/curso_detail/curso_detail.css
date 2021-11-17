@@ -35,6 +35,11 @@
     border-color: var(--bs-red) !important;
 }
 
+.btn-action.clipboard:hover {
+    background-color: black !important;
+    border-color: black !important;
+}
+
 div.image {
     background-position: center center;
     background-size: cover;

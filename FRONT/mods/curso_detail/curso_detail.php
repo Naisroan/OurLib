@@ -77,6 +77,10 @@
                                       <i class="fas fa-layer-group me-2"></i>
                                         Niveles
                                     </buttona>
+                                    <button id="btnTabFolios" class="invisible nav-link text-center text-lg-start" id="v-pills-folios-tab" data-bs-toggle="pill" data-bs-target="#v-pills-folios" type="button" role="tab" aria-controls="v-pills-folios" aria-selected="false">
+                                      <i class="fas fa-ticket-alt me-2"></i>
+                                        Folios
+                                    </buttona>
                                 </div>
                             </div>
                         </div>
@@ -305,6 +309,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="mb-5">
                                 <div id="niveles" class="">
                                     <div class="row g-3">
@@ -360,6 +365,98 @@
                                     </div>
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-folios" role="tabpanel" aria-labelledby="v-pills-folios-tab">
+
+                            <!-- id nivel -->
+                            <input id="txtIdFolioPase" type="text" value="-1" class="d-none invisible">
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="mdlFolios" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="mdlFoliosLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 id="titleFolio" class="modal-title" id="mdlFoliosLabel">
+                                                Agregar Folio
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="frmGuardarFolio" method="post" class="w-100 mb-4">
+                                                <div class="row g-3">
+                                                    <div class="col-12">
+                                                        <label for="" class="label-form text-ourlib">Información del folio</label>
+                                                        <hr class="text-ourlib my-0">
+                                                    </div>
+                                                    <div class="col-12 col-lg-12">
+                                                        <label for="" class="label-form">Folio</label>
+                                                        <input id="txtFolio" name="txtTitulo" type="text" class="form-control" placeholder="Al guardar se generará automaticamente" readonly>
+                                                    </div>
+                                                    <div class="col-12 col-lg-12">
+                                                        <label for="" class="label-form">Vigencia</label>
+                                                        <input id="txtFechaVigencia" name="txtFechaVigencia" type="date" class="form-control" placeholder="">
+                                                    </div>
+                                                    <div class="col-12 col-lg-12">
+                                                        <label for="" class="label-form">Activo</label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="" id="chkFolioActivo">
+                                                            <label class="form-check-label" for="chkFolioActivo">
+                                                                Folio disponible
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button id="btnGuardarFolio" class="btn btn-ourlib" type="submit">
+                                                            <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>
+                                                            <i class="fas fa-fw fa-save me-2"></i>
+                                                            <span class="text">Guardar</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                                            <!-- <button type="button" class="btn btn-ourlib">Guardar</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-5">
+                                <div id="folios" class="">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <small class="text-ourlib">Folios</small>
+                                            <hr class="my-0">
+                                        </div>
+                                        <div class="col-12">
+                                            <a href="#!" class="btn btn-ourlib" data-bs-toggle="modal" data-bs-target="#mdlFolios" onclick="onBtnAgregarFolioClick();">
+                                                <i class="fas fa-plus fa-fw me-2"></i>Agregar folio
+                                            </a>
+                                        </div>
+                                        <div id="folioscurso" class="row g-3 p-0 m-0">
+                                            <div class="col-12 col-lg-6">
+                                                <div class="card nivel w-100">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">#FOLIO</h5>
+                                                        <div class="text-end">
+                                                            <a href="#" class="btn btn-secondary btn-action edit" data-bs-toggle="modal" data-bs-target="#mdlFolios">
+                                                                <i class="fas fa-edit fa-fw"></i>
+                                                            </a>
+                                                            <a href="#" class="btn btn-secondary btn-action delete">
+                                                                <i class="fas fa-trash fa-fw"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

@@ -105,6 +105,16 @@ const AJAX_URL_HISTORIALUSUARIO_CONTROLLER = "/controllers/HistorialUsuarioContr
 const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_CREATE = "create";
 const AJAX_URL_HISTORIALUSUARIO_CONTROLLER_GETREPORTE = "getReporte";
 
+// FolioPaseController
+const AJAX_URL_FOLIOPASE_CONTROLLER = "/controllers/FolioPaseController.php";
+
+const AJAX_URL_FOLIOPASE_CONTROLLER_CREATE = "create";
+const AJAX_URL_FOLIOPASE_CONTROLLER_UPDATE = "update";
+const AJAX_URL_FOLIOPASE_CONTROLLER_GET_BYID = "get";
+const AJAX_URL_FOLIOPASE_CONTROLLER_GET_BYFOLIO = "getByFolio";
+const AJAX_URL_FOLIOPASE_GETALL = "getAll";
+const AJAX_URL_FOLIOPASE_CONTROLLER_DELETE = "delete";
+
 // constantes REGEX
 const REGEX_PASSWORD = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}])([A-Za-z\\d!¡"#$%&\\/=’?\\-¡¿:;,.\\[\\]_+*{}]|[^ ]){8,50}$';
 

@@ -4,6 +4,7 @@
 
 let frmPagar = null;
 let btnPagar = null;
+let slMetodoPago = null;
 
 let frmComentar = null;
 let btnComentar = null;
@@ -17,6 +18,7 @@ $(() => {
     // obtenemos controles
     frmPagar = $("form#frmPagar");
     btnPagar = $("#btnPagar");
+    slMetodoPago = $("select#slMetodoPago");
     
     frmComentar = $("form#frmComentar");
     btnComentar = $("button#btnComentar");
@@ -30,6 +32,28 @@ $(() => {
     frmComentar.on('submit', (e) => {
         e.preventDefault();
         onFrmComentarSubmit();
+    });
+
+    slMetodoPago.on('change', (e) => {
+        let value = slMetodoPago.val();
+        let pnlTarjeta = $('#pnlTarjeta');
+        let pnlFolio = $('#pnlFolio');
+        pnlTarjeta.addClass('d-none');
+        pnlFolio.addClass('d-none');
+        switch (value) {
+            default:
+              {
+                  break;
+              }
+              case "1": {
+                  pnlTarjeta.removeClass('d-none');
+                  break;
+              }
+              case "2": {
+                  pnlFolio.removeClass('d-none');
+                  break;
+              }
+        }
     });
 
     // buscamos parametros en la url
@@ -81,7 +105,8 @@ const onFrmPagarSubmit = () => {
         return;
     }
 
-    if (!confirm("¿Seguro que desea realizar el pago?")) {
+    if (!confirm("¿Seguro que desea continuar?")) {
+        switchButtonSpinner(btnPagar);
         return;
     }
 
@@ -100,28 +125,93 @@ const onFrmPagarSubmit = () => {
             switchButtonSpinner(btnPagar);
             return;
         }
-        
-        crearVenta(nodo).done((result) => {
-        
-            if (result === undefined || result === "") {
+
+        if (nodo.forma_pago == "2") {
+
+            getFolioByFolio(nodo.folio).done((result) => {
+
+                if (result === undefined || result === "") {
+                    toastr_warning("No se ha encontrado el folio proporcionado");
+                    switchButtonSpinner(btnPagar);
+                    return;
+                }
+
+                let folio = JSON.parse(result);
+
+                if (nodo.id_curso != folio.id_curso) {
+                    toastr_warning("El folio proporcionado no corresponde con el curso");
+                    switchButtonSpinner(btnPagar);
+                    return;
+                }
+
+                if (!folio.activo) {
+                    toastr_warning("El folio proporcionado se encuentra inactivo");
+                    switchButtonSpinner(btnPagar);
+                    return;
+                }
+
+                let strFechaHoy = getTodayDate();
+                let fechaHoy = Date.parse(strFechaHoy);
+                let fechaVigencia = Date.parse(folio.fecha_vigencia);
+
+                if (fechaHoy > fechaVigencia) {
+                    toastr_warning("El folio ya a vencido");
+                    switchButtonSpinner(btnPagar);
+                    return;
+                }
+
+                crearVenta(nodo).done((result) => {
+                
+                    if (result === undefined || result === "") {
+                        switchButtonSpinner(btnPagar);
+                        return;
+                    }
+                    
+                    toastr_success("Se ha realizado la compra con éxito");
+                    toastr_info("Redirigiendo al curso...");
+
+                    setTimeout(() => {
+
+                        window.location = "/mods/curso_learning/curso_learning.php?id=" + result;
+                        
+                    }, 1000);
+                })
+                .fail((jqXHR) => {
+                    toastr_error(jqXHR.responseText);
+                    switchButtonSpinner(btnPagar);
+                    return;
+                });
+            })
+            .fail((jqXHR) => {
+                toastr_error(jqXHR.responseText);
                 switchButtonSpinner(btnPagar);
                 return;
-            }
+            });
+
+        } else {
+        
+            crearVenta(nodo).done((result) => {
             
-            toastr_success("Se ha realizado la compra con éxito");
-            toastr_info("Redirigiendo al curso...");
-
-            setTimeout(() => {
-
-                window.location = "/mods/curso_learning/curso_learning.php?id=" + result;
+                if (result === undefined || result === "") {
+                    switchButtonSpinner(btnPagar);
+                    return;
+                }
                 
-            }, 1000);
-        })
-        .fail((jqXHR) => {
-            toastr_error(jqXHR.responseText);
-            switchButtonSpinner(btnPagar);
-            return;
-        });
+                toastr_success("Se ha realizado la compra con éxito");
+                toastr_info("Redirigiendo al curso...");
+
+                setTimeout(() => {
+
+                    window.location = "/mods/curso_learning/curso_learning.php?id=" + result;
+                    
+                }, 1000);
+            })
+            .fail((jqXHR) => {
+                toastr_error(jqXHR.responseText);
+                switchButtonSpinner(btnPagar);
+                return;
+            });
+        }
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);
@@ -153,6 +243,15 @@ const existsVenta = (nodo) => {
     return $.ajax({ 
         url: AJAX_URL_VENTA_CONTROLLER,
         data: { action: AJAX_URL_VENTA_CONTROLLER_EXISTS, nodo: JSON.stringify(nodo) },
+        type: 'post'
+    });
+};
+
+const getFolioByFolio = (folio) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_CONTROLLER_GET_BYFOLIO, nodo: folio },
         type: 'post'
     });
 };
@@ -270,47 +369,61 @@ const validaCamposPago = () => {
     let month = $("select#txtTarjVencimiento").val();
     let year = $("select#txtTarjAnio").val();
     let cvv = $("input#txtCvv").val();
+    let folio = $("input#folio").val();
     
     if (isEmptyOrNull(method)) {
 
         message_warning("Seleccione el método de pago");
         return null;
     }
-    
-    if (isEmptyOrNull(cardid)) {
 
-        message_warning("Ingrese el número de tarjeta");
-        return null;
-    }
-    
-    if (isEmptyOrNull(month)) {
+    // tarjeta
+    if (method == "1") {
 
-        message_warning("Seleccione el mes de vencimiento de su tarjeta");
-        return null;
-    }
-    
-    if (isEmptyOrNull(year)) {
+        if (isEmptyOrNull(cardid)) {
 
-        message_warning("Seleccione el año de vencimiento de su tarjeta");
-        return null;
-    }
-    
-    if (isEmptyOrNull(cvv)) {
+            message_warning("Ingrese el número de tarjeta");
+            return null;
+        }
+        
+        if (isEmptyOrNull(month)) {
 
-        message_warning("Ingrese el código de seguridad de su tarjeta");
-        return null;
-    }
+            message_warning("Seleccione el mes de vencimiento de su tarjeta");
+            return null;
+        }
+        
+        if (isEmptyOrNull(year)) {
 
-    if(isNaN(cardid)){
+            message_warning("Seleccione el año de vencimiento de su tarjeta");
+            return null;
+        }
+        
+        if (isEmptyOrNull(cvv)) {
 
-        message_warning("El número de tarjeta debe ser númerico");
-        return null;
-    }
+            message_warning("Ingrese el código de seguridad de su tarjeta");
+            return null;
+        }
 
-    if(isNaN(cvv)){
+        if(isNaN(cardid)){
 
-        message_warning("El código de seguridad de su tarjeta debe ser númerico");
-        return null;
+            message_warning("El número de tarjeta debe ser númerico");
+            return null;
+        }
+
+        if(isNaN(cvv)){
+
+            message_warning("El código de seguridad de su tarjeta debe ser númerico");
+            return null;
+        }
+
+    } else {
+
+        // folio
+        if (isEmptyOrNull(folio)) {
+
+            message_warning("Ingrese el número de folio");
+            return null;
+        }
     }
 
     return {
@@ -322,7 +435,8 @@ const validaCamposPago = () => {
         forma_pago: method,
         fecha_finalizacion: "",
         fecha_alta: "",
-        fecha_mod: ""
+        fecha_mod: "",
+        folio: folio
     };
 };
 
@@ -504,4 +618,12 @@ const getAllComentarioByCurso = (id_curso) => {
         data: { action: AJAX_URL_COMENTARIO_CONTROLLER_GETALL_BYCURSO, nodo: id_curso },
         type: 'post'
     });
+};
+
+const getTodayDate = () => {
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; 
+    var yyyy = today.getFullYear();
+    return yyyy + '-' + mm + '-'+ dd;
 };

@@ -14,6 +14,7 @@
     require_once ('../model/Mensaje.php');
     require_once ('../model/HistorialUsuario.php');
     require_once ('../model/Venta.php');
+    require_once ('../model/FolioPase.php');
 
     // constantes
     define("AUTH_NAME", "auth_user");

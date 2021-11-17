@@ -196,60 +196,76 @@
                         <form id="frmPagar" method="post" class="w-100 mb-4">
                             <div class="row g-3">
                                 <div class="col-12">
-                                    <h4 class="label-form text-white text-center">¿Esta de acuerdo en inscribirse al contenido visto?</h4>
+                                    <h4 class="label-form text-white text-center">¿Esta de acuerdo en inscribirse al contenido seleccionado?</h4>
                                 </div>
                                 <div class="col-12">
                                     <label for="" class="label-form text-ourlib">Datos de pago</label>
                                     <hr class="text-ourlib my-0">
                                 </div>
+
                                 <div class="col-12">
                                     <label for="" class="label-form">Método de pago</label>
                                     <select id="slMetodoPago" class="form-select">
                                         <option value='1'>Tarjeta</option>
-                                        <option value='2'>PayPal</option>
+                                        <option value='2'>Folio</option>
                                     </select> 
                                 </div>
-                                <div class="col-12">
-                                    <label for="" class="label-form">Número de tarjeta</label>
-                                    <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" class="form-control">
-                                </div>
-                                <div class="col-12 col-lg-7">
-                                    <label for="" class="label-form">Vencimiento</label>
-                                    <div class="input-group mb-3">
-                                        <select class="form-select" id="txtTarjVencimiento">
-                                            <option value=''>Mes</option>
-                                            <option value='01'>Enero</option>
-                                            <option value='02'>Febrero</option>
-                                            <option value='03'>Marzo</option>
-                                            <option value='04'>Abril</option>
-                                            <option value='05'>Mayo</option>
-                                            <option value='06'>Junio</option>
-                                            <option value='07'>Julio</option>
-                                            <option value='08'>Agosto</option>
-                                            <option value='09'>Septiembre</option>
-                                            <option value='10'>Octubre</option>
-                                            <option value='11'>Noviembre</option>
-                                            <option value='12'>Diciembre</option>
-                                        </select> 
-                                        <select name="expireYY" class="form-select" id="txtTarjAnio" aria-describedby="basic-addon1">
-                                            <option value=''>Año</option>
-                                            <option value='21'>2021</option>
-                                            <option value='22'>2022</option>
-                                            <option value='23'>2023</option>
-                                            <option value='24'>2024</option>
-                                            <option value='25'>2025</option>
-                                            <option value='26'>2026</option>
-                                            <option value='27'>2027</option>
-                                            <option value='28'>2028</option>
-                                            <option value='29'>2029</option>
-                                            <option value='30'>2030</option>
-                                        </select>
+
+                                <div id="pnlTarjeta" class="col-12">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="" class="label-form">Número de tarjeta</label>
+                                            <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" class="form-control">
+                                        </div>
+                                        <div class="col-12 col-lg-7">
+                                            <label for="" class="label-form">Vencimiento</label>
+                                            <div class="input-group mb-3">
+                                                <select class="form-select" id="txtTarjVencimiento">
+                                                    <option value=''>Mes</option>
+                                                    <option value='01'>Enero</option>
+                                                    <option value='02'>Febrero</option>
+                                                    <option value='03'>Marzo</option>
+                                                    <option value='04'>Abril</option>
+                                                    <option value='05'>Mayo</option>
+                                                    <option value='06'>Junio</option>
+                                                    <option value='07'>Julio</option>
+                                                    <option value='08'>Agosto</option>
+                                                    <option value='09'>Septiembre</option>
+                                                    <option value='10'>Octubre</option>
+                                                    <option value='11'>Noviembre</option>
+                                                    <option value='12'>Diciembre</option>
+                                                </select> 
+                                                <select name="expireYY" class="form-select" id="txtTarjAnio" aria-describedby="basic-addon1">
+                                                    <option value=''>Año</option>
+                                                    <option value='21'>2021</option>
+                                                    <option value='22'>2022</option>
+                                                    <option value='23'>2023</option>
+                                                    <option value='24'>2024</option>
+                                                    <option value='25'>2025</option>
+                                                    <option value='26'>2026</option>
+                                                    <option value='27'>2027</option>
+                                                    <option value='28'>2028</option>
+                                                    <option value='29'>2029</option>
+                                                    <option value='30'>2030</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-5">
+                                            <label for="" class="label-form">CVV</label>
+                                            <input id="txtCvv" type="text" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-5">
-                                    <label for="" class="label-form">CVV</label>
-                                    <input id="txtCvv" type="text" class="form-control">
+
+                                <div id="pnlFolio" class="col-12 d-none">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label for="" class="label-form"># de Folio</label>
+                                            <input id="folio" type="text" autocomplete="" maxlength="49" placeholder="XXXXXXXXX" class="form-control">
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="col-12">
                                     <a href="#!" id="btnPagar" class="btn btn-ourlib w-100" onclick="onBtnPagarClick();">
                                         <span class="spinner-grow spinner-grow visually-hidden" role="status" aria-hidden="true"></span>

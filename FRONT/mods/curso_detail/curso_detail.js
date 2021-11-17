@@ -16,6 +16,9 @@ let frmGuardarArchivo = null;
 let fuGuardarArchivo = null;
 let btnGuardarArchivo = null;
 
+let frmGuardarFolio = null;
+let btnGuardarFolio = null;
+
 // load
 $(() => {
 
@@ -36,6 +39,9 @@ $(() => {
     frmGuardarArchivo = $("form#frmGuardarArchivo");
     btnGuardarArchivo = $("button#btnGuardarArchivo");
     fuGuardarArchivo = $("#fuGuardarArchivo");
+
+    frmGuardarFolio = $("form#frmGuardarFolio");
+    btnGuardarFolio = $("button#btnGuardarFolio");
 
     // buscamos parametros en la url
     const params = new URLSearchParams(window.location.search);
@@ -76,6 +82,12 @@ $(() => {
         e.preventDefault();
         onFrmGuardarArchivoSubmit();
     });
+
+    frmGuardarFolio.on('submit', (e) => {
+        e.preventDefault();
+        onFrmGuardarFolioSubmit();
+    });
+
 
     // asignamos evento para cambio de imagen
     fuGuardarImagen.on('change', (e) => {
@@ -266,10 +278,14 @@ const editCurso = (id_curso) => {
         // niveles
         fillNivelCurso(id_curso);
 
+        // folios
+        fillFolios(id_curso);
+
         // tabs
         $('#btnTabImagen').removeClass('invisible');
         $('#btnTabCategorias').removeClass('invisible');
         $('#btnTabNiveles').removeClass('invisible');
+        $('#btnTabFolios').removeClass('invisible');
     })
     .fail((jqXHR) => {
         toastr_error(jqXHR.responseText);
@@ -893,9 +909,9 @@ const fillNivelCurso = (id_curso) => {
                 <div class="card nivel w-100">
                     <div class="card-body">
                         <h5 class="card-title">${value.titulo}</h5>
-                        <p class="card-text d-none">
+                        <!-- <p class="card-text d-none">
                             Costo <strong>$ ${value.precio} MXN</strong>
-                        </p>
+                        </p> -->
                         <div class="text-end">
                             <a href="#" class="btn btn-secondary btn-action edit" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                             onclick="onBtnEditNivelCursoClick(${value.id_nivel_curso});">
@@ -1157,6 +1173,260 @@ const deleteArchivoNivel = (id_multimedia_nivel) => {
     return $.ajax({ 
         url: AJAX_URL_CURSO_CONTROLLER,
         data: { action: AJAX_URL_ARCHIVONIVEL_CONTROLLER_DELETE, nodo: id_multimedia_nivel },
+        type: 'post'
+    });
+};
+
+// --------------------------------------------------
+// FOLIOS
+// --------------------------------------------------
+
+const onFrmGuardarFolioSubmit = () => {
+
+  switchButtonSpinner(btnGuardarFolio);
+
+  let nodo = validaCamposFolio();
+
+  if (nodo == null) {
+      switchButtonSpinner(btnGuardarFolio);
+      return;
+  }
+
+  // nuevo folio
+  if (nodo.id_foliopase <= 0) {
+
+      crearFolio(nodo).done((result) => {
+  
+          if (result === undefined || result === "") {
+              switchButtonSpinner(btnGuardarFolio);
+              return;
+          }
+  
+          editFolio(result);
+          
+          toastr_success("Se ha registrado el folio");
+          switchButtonSpinner(btnGuardarFolio);
+      })
+      .fail((jqXHR) => {
+          toastr_error(jqXHR.responseText);
+          switchButtonSpinner(btnGuardarFolio);
+          return;
+      });
+  }
+  // editar folio
+  else {
+      
+      updateFolio(nodo).done((result) => {
+  
+          if (result === undefined || result === "") {
+              switchButtonSpinner(btnGuardarFolio);
+              return;
+          }
+  
+          editFolio(result);
+          
+          toastr_success("Se ha actualizado el folio");
+          switchButtonSpinner(btnGuardarFolio);
+      })
+      .fail((jqXHR) => {
+          toastr_error(jqXHR.responseText);
+          switchButtonSpinner(btnGuardarFolio);
+          return;
+      });
+  }
+};
+
+const onBtnAgregarFolioClick = () => {
+
+  $("#titleFolio").text("Agregar folio");
+  $("input#txtIdFolioPase").val("-1");
+  $("input#txtFolio").val("");
+  $("input#txtFechaVigencia").val("");
+  $('#chkFolioActivo').prop('checked', true);
+};
+
+const onBtnEditFolioClick = (id_foliopase) => {
+
+    editFolio(id_foliopase);
+};
+
+const onBtnDeleteFolioClick = (id_foliopase) => {
+
+  deleteFolio(id_foliopase).done((result) => {
+
+      if (isEmptyOrNull(result)) {
+          return;
+      }
+
+      fillFolios($("input#txtId").val());
+
+      toastr_success("Folio retirado");
+  })
+  .fail((jqXHR) => {
+      toastr_error(jqXHR.responseText);
+      return;
+  });
+};
+
+const fillFolios = (id_curso) => {
+
+    let container = $("#folioscurso");
+    container.html("");
+
+    // niveles por curso
+    getAllFoliosByCurso(id_curso).done((result) => {
+
+        // console.log(result);
+        if (isEmptyOrNull(result)) {
+
+            container.html("");
+            return;
+        }
+
+        let rows = JSON.parse(result);
+    
+        rows.forEach((value, idx) => {
+        
+            let element = `
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="card nivel w-100">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                          ${value.folio}
+                          <button class="ms-2 btn btn-secondary btn-action clipboard" onclick="copyFolio('${value.folio}')">
+                              <i class="fas fa-clipboard fa-fw"></i>
+                          </button>
+                        </h5>
+                        <p class="card-text">
+                            Vigencia <strong>${value.fecha_vigencia}</strong>
+                        </p>
+                        <div class="text-end">
+                            <a href="#" class="btn btn-secondary btn-action edit" data-bs-toggle="modal" data-bs-target="#mdlFolios"
+                            onclick="onBtnEditFolioClick(${value.id_foliopase});">
+                                <i class="fas fa-edit fa-fw"></i>
+                            </a>
+                            <a href="#" class="btn btn-secondary btn-action delete"
+                                onclick="onBtnDeleteFolioClick(${value.id_foliopase});">
+                                <i class="fas fa-trash fa-fw"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+    
+            container.append(element);
+        });
+    })
+    .fail((jqXHR) => {
+        toastr_error(jqXHR.responseText);
+        return;
+    });
+};
+
+const validaCamposFolio = () => {
+
+    let id_curso = $("input#txtId").val();
+    let id_foliopase = $("input#txtIdFolioPase").val();
+    let fecha_vigencia = $("input#txtFechaVigencia").val();
+    let activo = $("input#chkFolioActivo").is(":checked");
+
+    if (isEmptyOrNull(id_curso) || parseInt(id_curso) <= 0) {
+
+        message_warning("Seleccione o cree un curso para agregar un folio");
+        return;
+    }
+
+    if (isEmptyOrNull(fecha_vigencia)) {
+
+        message_warning("Seleccione la fecha de vigencia");
+        return;
+    }
+
+    return {
+      id_foliopase: parseInt(id_foliopase),
+        id_curso: parseInt(id_curso),
+        fecha_vigencia: fecha_vigencia,
+        activo: activo
+    };
+};
+
+const copyFolio = (folio) => {
+
+    navigator.clipboard.writeText(folio);
+    toastr_success(`El folio #${folio} ha sido copiado`);
+};
+
+const editFolio = (id_foliopase, fetchFolios = true) => {
+
+    // obtenemos el folio por su id
+    getFolio(id_foliopase).done((result) => {
+
+        if (result === undefined || result === "") {
+            return;
+        }
+
+        // se parsea
+        let nodo = JSON.parse(result);
+
+        // folio
+        $("#titleFolio").text("Editar folio - " + nodo.folio);
+        $("input#txtIdFolioPase").val(nodo.id_foliopase);
+        $("input#txtFolio").val(nodo.folio);
+        $("input#txtFechaVigencia").val(nodo.fecha_vigencia);
+        $("#chkFolioActivo").prop('checked', nodo.activo);
+
+        if (fetchFolios) {
+            fillFolios(nodo.id_curso);
+        }
+    })
+    .fail((jqXHR) => {
+        toastr_error(jqXHR.responseText);
+        return;
+    });
+};
+
+const getFolio = (id_foliopase) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_CONTROLLER_GET_BYID, nodo: id_foliopase },
+        type: 'post'
+    });
+};
+
+const crearFolio = (nodo) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_CONTROLLER_CREATE, nodo: JSON.stringify(nodo) },
+        type: 'post'
+    });
+};
+
+const updateFolio = (nodo) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_CONTROLLER_UPDATE, nodo: JSON.stringify(nodo) },
+        type: 'post'
+    });
+};
+
+const getAllFoliosByCurso = (id_curso) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_GETALL, nodo: id_curso },
+        type: 'post'
+    });
+};
+
+const deleteFolio = (id_foliopase) => {
+
+    return $.ajax({ 
+        url: AJAX_URL_FOLIOPASE_CONTROLLER,
+        data: { action: AJAX_URL_FOLIOPASE_CONTROLLER_DELETE, nodo: id_foliopase },
         type: 'post'
     });
 };
